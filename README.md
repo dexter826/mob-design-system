@@ -9,9 +9,13 @@
 [![Version](https://img.shields.io/badge/version-1.6.0-black.svg)](package.json)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
-<p>A dark, square UI system for engineering consoles, built around dense data, operational states, and one disciplined green signal.</p>
+<p>A dark, square design system for engineering consoles and data-dense interfaces.</p>
 
 </div>
+
+M.O.B Signal is a framework-neutral web design system for products that need clear hierarchy,
+operational states, and dense information display. It provides design tokens, shared component
+styles, overlays, local fonts, brand assets, and optional browser utilities.
 
 ## Design Showcase
 
@@ -25,88 +29,112 @@
 
 ## Features
 
-- JSON tokens that compile to CSS variables for color, typography, shape, and spacing.
-- Component stylesheets for buttons, inputs, controls, cards, and modal dialogs.
+- Design tokens for color, typography, spacing, shape, layout, and semantic states.
+- Shared CSS styles for buttons, inputs, controls, cards, tables, navigation, and feedback.
+- Overlay styles for dialogs, tooltips, popovers, and other layered UI.
+- Tailwind CSS v4 theme export with semantic colors, font families, and the 4px spacing scale.
 - Three bundled variable fonts covering Latin and Vietnamese text.
-- Standalone tab script with WAI-ARIA keyboard navigation.
-- Local test suite for token consistency, WCAG contrast ratios, and browser regressions.
-- React service console running against local sample data.
+- Logo, icon, and other brand assets for product interfaces.
+- Framework-neutral tab utility with WAI-ARIA keyboard navigation.
 
 ## Installation
 
-Prerequisites: Node.js 24 LTS and npm.
+Install the package through the package registry or package source configured for your application:
 
 ```bash
-git clone https://github.com/dexter826/mob-design-system.git
-cd mob-design-system
-npm ci
-npm run build
-npm start
+npm install mob-signal
 ```
-
-Install as an AI agent skill:
-
-```bash
-npx skills add dexter826/mob-design-system
-```
-
-The local development server serves previews at `http://127.0.0.1:4173/`.
 
 ## Usage
 
-Load the stylesheets in this order:
+### CSS
 
-```html
-<link rel="stylesheet" href="colors_and_type.css">
-<link rel="stylesheet" href="components.css">
-<link rel="stylesheet" href="overlays.css">
-<script src="assets/components.js" defer></script>
+Import the foundation styles first, followed by component and overlay styles:
+
+```css
+@import "mob-signal";
+@import "mob-signal/components.css";
+@import "mob-signal/overlays.css";
 ```
 
-Edit tokens in `tokens.measured.json`, then run `npm run build` to update the CSS variables, compatibility tokens, and logo assets.
+The foundation provides design tokens and typography. Component styles provide shared recipes for
+controls, navigation, cards, tables, and other interface patterns. Overlay styles provide dialogs,
+tooltips, popovers, and related layered UI.
 
 ### Tailwind CSS v4
 
-Import `tailwind.css` into your application stylesheet:
+Import the M.O.B Signal theme after Tailwind:
 
 ```css
 @import "tailwindcss";
 @import "mob-signal/tailwind.css";
 ```
 
-This exports all canonical semantic colors (`bg-primary`, `text-foreground`, `bg-surface`, `border-border`), font families (`font-sans`, `font-display`, `font-mono`), 4px spacing scale, and resets all radius utilities (`--radius-*`) to `0px`.
+This exports semantic colors, font families, the 4px spacing scale, and the system's zero-radius
+rule through Tailwind utilities.
 
-## API
+### Tabs
 
-### `MobSignal.initTabs(root)`
+The optional tab utility provides keyboard navigation and ARIA state management for tablists:
 
-Initializes tablist elements within the document or a given DOM node.
+```html
+<script src="mob-signal/assets/components.js" defer></script>
+```
+
+```html
+<div role="tablist" aria-label="Sections">
+  <button id="overview-tab" role="tab" aria-controls="overview-panel" aria-selected="true">
+    Overview
+  </button>
+</div>
+
+<section id="overview-panel" role="tabpanel" aria-labelledby="overview-tab">
+  ...
+</section>
+```
+
+### API
+
+#### `MobSignal.initTabs(root)`
+
+Initializes tablist elements within the document or a given container.
 
 **Parameters:**
+
 - `root` (`Document | HTMLElement`, optional): Target container. Defaults to `document`.
 
-**Behavior:**
-Binds arrow and navigation keys to elements with `role="tab"`, links panels via `aria-controls`, and handles `aria-selected` attributes.
+The utility links tabs and panels through `aria-controls` and `aria-labelledby`, manages
+`aria-selected` state, and supports arrow, Home, and End keyboard navigation.
 
-## Verification
+## Design tokens
 
-```bash
-npm run check:tokens   # Validate canonical tokens and local asset paths
-npm run contrast       # Verify WCAG AA and AAA color luminance ratios
-npm test               # Run native Node.js unit and regression tests
-npm run test:browser   # Run Playwright browser integration checks
-```
+Use semantic token names rather than hardcoded values. M.O.B Signal includes tokens for:
+
+- Color and semantic states
+- Typography and local font families
+- Spacing and layout
+- Square geometry and borders
+- Elevation, overlays, and motion
+- Focus, interaction, and accessibility states
+
+The system is dark-only and uses a 4px spacing scale with square geometry.
+
+## Accessibility
+
+Use visible focus states, semantic HTML, keyboard-operable controls, and non-color indicators for
+status and selection. Apply the documented semantic roles and contrast requirements when composing
+new interface patterns.
 
 ## Reference
 
 | Path | Purpose |
 | :--- | :--- |
-| `tokens.measured.json` | Token source values and measurements |
-| `colors_and_type.css` | Generated token custom properties |
-| `tailwind.css` | Generated Tailwind CSS v4 `@theme` design tokens |
+| [`BRAND.md`](BRAND.md) | Visual language, token roles, component behavior, accessibility, and asset usage |
+| [`tokens.measured.json`](tokens.measured.json) | Token source values and measurements |
+| `colors_and_type.css` | Foundation design-token custom properties |
 | `components.css` | Shared component styles |
-| `overlays.css` | Modal dialog, tooltip, and popover styles |
-| `assets/components.js` | Framework-neutral tab navigation script |
-| `fonts/` | Local variable fonts, manifest, and licenses |
-| `logos/` | Vector SVG sources and raster PNG exports |
-| `ui_kits/app/` | React service console demo |
+| `overlays.css` | Dialog, tooltip, and popover styles |
+| `tailwind.css` | Tailwind CSS v4 design tokens |
+| `assets/components.js` | Framework-neutral tab navigation utility |
+| [`fonts/`](fonts/) | Bundled fonts, manifest, and licenses |
+| [`logos/`](logos/) | Vector and raster brand assets |
