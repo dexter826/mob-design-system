@@ -13,6 +13,28 @@
 
 </div>
 
+## Design Showcase
+
+| Buttons & Actions | Form Controls |
+| :---: | :---: |
+| ![Buttons](preview/sections/01-buttons.png) | ![Form Controls](preview/sections/02-form-controls.png) |
+| **Cards & Pricing** | **Color Palette** |
+| ![Cards & Pricing](preview/sections/06-marketing-blocks.png) | ![Color Palette](preview/sections/09-color.png) |
+
+<details>
+<summary><b>View all 10 component sections</b></summary>
+<br>
+
+| Navigation | Content Cards |
+| :---: | :---: |
+| ![Navigation](preview/sections/03-navigation.png) | ![Cards](preview/sections/04-cards.png) |
+| **Data Display & Tables** | **Alerts & Progress** |
+| ![Data Display](preview/sections/05-data-display.png) | ![Alerts & Progress](preview/sections/08-alerts-progress.png) |
+| **Tags & Badges** | **Type Scale** |
+| ![Tags](preview/sections/07-tags.png) | ![Type Scale](preview/sections/10-type-scale.png) |
+
+</details>
+
 ## Features
 
 - JSON tokens that compile to CSS variables for color, typography, shape, and spacing.
