@@ -34,6 +34,12 @@ npm run build
 npm start
 ```
 
+Install as an AI agent skill:
+
+```bash
+npx skills add dexter826/mob-design-system
+```
+
 The local development server serves previews at `http://127.0.0.1:4173/`.
 
 ## Usage

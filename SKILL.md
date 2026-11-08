@@ -1,6 +1,6 @@
 ﻿---
 name: mob-signal
-description: Build web interfaces using the M.O.B Signal token contract and shared components.
+description: Build dark-mode web interfaces using M.O.B Signal design tokens, CSS variables, and shared components. Use when building dark UI layouts, applying M.O.B styling, or implementing token-driven interfaces.
 user-invocable: true
 ---
 
