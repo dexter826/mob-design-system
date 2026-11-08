@@ -27,7 +27,7 @@
 
 - JSON tokens that compile to CSS variables for color, typography, shape, and spacing.
 - Component stylesheets for buttons, inputs, controls, cards, and modal dialogs.
-- Three bundled variable fonts (Space Grotesk, Plus Jakarta Sans, JetBrains Mono) covering Latin and Vietnamese.
+- Three bundled variable fonts covering Latin and Vietnamese text.
 - Standalone tab script with WAI-ARIA keyboard navigation.
 - Local test suite for token consistency, WCAG contrast ratios, and browser regressions.
 - React service console running against local sample data.
@@ -37,7 +37,7 @@
 Prerequisites: Node.js 24 LTS and npm.
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/dexter826/mob-design-system.git
 cd mob-design-system
 npm ci
 npm run build
@@ -75,7 +75,7 @@ Initializes tablist elements within the document or a given DOM node.
 - `root` (`Document | HTMLElement`, optional): Target container. Defaults to `document`.
 
 **Behavior:**
-Binds keyboard navigation (`ArrowLeft`, `ArrowRight`, `Home`, `End`) to elements with `role="tab"`, links panels via `aria-controls`, and handles `aria-selected` attributes.
+Binds arrow and navigation keys to elements with `role="tab"`, links panels via `aria-controls`, and handles `aria-selected` attributes.
 
 ## Verification
 
