@@ -157,7 +157,8 @@
   color: var(--color-text);
 }
 .mob-icon-button:focus-visible {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 .mob-icon-button:active {

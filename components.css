@@ -741,6 +741,22 @@ fieldset:disabled .input-field {
     border-color var(--mob-signal-motion);
 }
 
+.switch__input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 40px;
+  min-height: var(--mob-signal-target-min, 24px);
+}
+
+@media (pointer: coarse) {
+  .switch__input::before {
+    min-height: var(--mob-signal-target-touch, 44px);
+  }
+}
+
 .switch__input::after {
   content: "";
   position: absolute;
@@ -1385,6 +1401,8 @@ fieldset:disabled .input-field {
 }
 
 .upload__field:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   border-color: var(--mob-signal-border-focus);
   box-shadow: 0 0 0 var(--mob-signal-border-width) var(--mob-signal-border-focus);
 }
