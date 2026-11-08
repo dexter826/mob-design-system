@@ -47,6 +47,8 @@
 }
 
 .btn:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -340,6 +342,8 @@
 .is-open > .date__field,
 [aria-expanded="true"].select__field,
 [aria-expanded="true"].date__field {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   border-color: var(--mob-signal-border-focus);
   box-shadow: 0 0 0 var(--mob-signal-border-width) var(--mob-signal-border-focus);
 }
@@ -428,6 +432,7 @@ fieldset:disabled .input-field {
 }
 
 .checkbox__input {
+  position: relative;
   flex: none;
   appearance: none;
   -webkit-appearance: none;
@@ -444,6 +449,23 @@ fieldset:disabled .input-field {
   transition:
     background-color var(--mob-signal-motion),
     border-color var(--mob-signal-motion);
+}
+
+.checkbox__input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: var(--mob-signal-target-min, 24px);
+  min-height: var(--mob-signal-target-min, 24px);
+}
+
+@media (pointer: coarse) {
+  .checkbox__input::before {
+    min-width: var(--mob-signal-target-touch, 44px);
+    min-height: var(--mob-signal-target-touch, 44px);
+  }
 }
 
 .checkbox__input::after {
@@ -464,6 +486,8 @@ fieldset:disabled .input-field {
 }
 
 .checkbox__input:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -582,6 +606,7 @@ fieldset:disabled .input-field {
 }
 
 .radio__input {
+  position: relative;
   flex: none;
   appearance: none;
   -webkit-appearance: none;
@@ -600,6 +625,23 @@ fieldset:disabled .input-field {
     border-color var(--mob-signal-motion);
 }
 
+.radio__input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: var(--mob-signal-target-min, 24px);
+  min-height: var(--mob-signal-target-min, 24px);
+}
+
+@media (pointer: coarse) {
+  .radio__input::before {
+    min-width: var(--mob-signal-target-touch, 44px);
+    min-height: var(--mob-signal-target-touch, 44px);
+  }
+}
+
 .radio__input::after {
   content: "";
   display: none;
@@ -615,6 +657,8 @@ fieldset:disabled .input-field {
 }
 
 .radio__input:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -697,6 +741,22 @@ fieldset:disabled .input-field {
     border-color var(--mob-signal-motion);
 }
 
+.switch__input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 40px;
+  min-height: var(--mob-signal-target-min, 24px);
+}
+
+@media (pointer: coarse) {
+  .switch__input::before {
+    min-height: var(--mob-signal-target-touch, 44px);
+  }
+}
+
 .switch__input::after {
   content: "";
   position: absolute;
@@ -714,6 +774,8 @@ fieldset:disabled .input-field {
 }
 
 .switch__input:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -844,10 +906,14 @@ fieldset:disabled .input-field {
 }
 
 .slider__input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
 .slider__input:focus-visible::-moz-range-thumb {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -971,6 +1037,8 @@ fieldset:disabled .input-field {
 }
 
 .select-menu__option:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1070,6 +1138,8 @@ fieldset:disabled .input-field {
 }
 
 .date-panel__nav:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1140,6 +1210,8 @@ fieldset:disabled .input-field {
 }
 
 .date-cell__source:focus-visible + .date-cell__face {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1329,6 +1401,8 @@ fieldset:disabled .input-field {
 }
 
 .upload__field:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   border-color: var(--mob-signal-border-focus);
   box-shadow: 0 0 0 var(--mob-signal-border-width) var(--mob-signal-border-focus);
 }
@@ -1402,6 +1476,8 @@ fieldset:disabled .input-field {
 }
 
 .upload__remove:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1460,6 +1536,8 @@ fieldset:disabled .input-field {
 }
 
 .app-tab:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1550,6 +1628,8 @@ fieldset:disabled .input-field {
 }
 
 .segmented__source:focus-visible + .segmented__face {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1624,6 +1704,8 @@ fieldset:disabled .input-field {
 }
 
 .accordion__summary:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1790,6 +1872,8 @@ progress.mob-progress:disabled {
 }
 
 .tooltip-trigger:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -1808,7 +1892,7 @@ progress.mob-progress:disabled {
 .badge-error { color: var(--color-text); }
 .badge-error .badge-dot { background: var(--color-error); }
 .input::placeholder, .input-field::placeholder, textarea::placeholder { color: var(--color-text-secondary); opacity: 1; }
-.input:focus, .input-field:focus, select:focus-visible, textarea:focus-visible { outline: none; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+.input:focus, .input-field:focus, select:focus-visible, textarea:focus-visible { outline: 2px solid transparent; outline-offset: 2px; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
 .btn-compact { padding: 4px 8px; min-height: var(--target-min); }
 .numeric { text-align: right; font-variant-numeric: tabular-nums; }
 .btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }

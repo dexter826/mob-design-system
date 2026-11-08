@@ -27,6 +27,7 @@ desktop.ini
 %SystemDrive%/
 *.tmp
 *.bak
+.humanlayer/
 
 # IDE & Editor caches
 .vscode/*

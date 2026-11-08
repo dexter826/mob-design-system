@@ -13,6 +13,15 @@ this file is the value recorded in `context/contrast-measured.md`.
 
 ## Unreleased
 
+### Added
+- Native Tailwind CSS v4 `@theme` design tokens in `tailwind.css` with 0px radius reset and 4px spacing scale.
+
+### Fixed
+- Preserve focus ring visibility in Windows High Contrast Mode (`forced-colors`) via transparent outline fallbacks on interactive elements.
+- Expand touch target area for 16px checkbox and radio inputs to meet 24px fine and 44px coarse pointer standards without breaking brand square geometry.
+- Replace `transition: all` anti-pattern with scoped property transitions across showcase kit and artifacts.
+- Convert fake `<a role="button">` links in component kit to native `<button type="button">`.
+
 ### Fixed
 - Generate canonical CSS and synchronize compatibility values from one token contract; fail on unknown compatibility colors.
 - Correct large-text thresholds, small metadata contrast, error copy and essential control boundaries.

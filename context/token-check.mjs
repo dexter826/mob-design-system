@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {renderTokens,tokens} from './token-model.mjs';
+import {renderTokens,renderTailwindTheme,tokens} from './token-model.mjs';
 const text=file=>fs.readFileSync(file,'utf8');
 const strip=s=>s.replace(/\/\*[\s\S]*?\*\//g,'').replace(/<!--[\s\S]*?-->/g,'');
 export function checkPackage(root=process.cwd()) {
  const failures=[];const check=(condition,message)=>{if(!condition)failures.push(message);};
  check(text(path.join(root,'colors_and_type.css'))===renderTokens(),'Generated CSS differs from canonical tokens; run npm run build.');
+ check(fs.existsSync(path.join(root,'tailwind.css'))&&text(path.join(root,'tailwind.css'))===renderTailwindTheme(),'Generated tailwind.css differs from canonical tokens; run npm run build.');
  for(const name of ['default','dark','compact']){
   const file=`system/tokens.${name}.json`,obj=JSON.parse(text(path.join(root,file)));
   for(const [key,value] of Object.entries({colorPrimary:tokens.color.primary.value,colorText:tokens.engineRoles.foreground.value,colorBgContainer:tokens.engineRoles.surface.value,borderRadius:0,borderRadiusSM:0,borderRadiusLG:0}))check(obj[key]===value,`${file}: ${key} differs from source (${obj[key]}).`);

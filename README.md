@@ -65,6 +65,17 @@ Load the stylesheets in this order:
 
 Edit tokens in `tokens.measured.json`, then run `npm run build` to update the CSS variables, compatibility tokens, and logo assets.
 
+### Tailwind CSS v4
+
+Import `tailwind.css` into your application stylesheet:
+
+```css
+@import "tailwindcss";
+@import "mob-signal/tailwind.css";
+```
+
+This exports all canonical semantic colors (`bg-primary`, `text-foreground`, `bg-surface`, `border-border`), font families (`font-sans`, `font-display`, `font-mono`), 4px spacing scale, and resets all radius utilities (`--radius-*`) to `0px`.
+
 ## API
 
 ### `MobSignal.initTabs(root)`
@@ -92,6 +103,7 @@ npm run test:browser   # Run Playwright browser integration checks
 | :--- | :--- |
 | `tokens.measured.json` | Token source values and measurements |
 | `colors_and_type.css` | Generated token custom properties |
+| `tailwind.css` | Generated Tailwind CSS v4 `@theme` design tokens |
 | `components.css` | Shared component styles |
 | `overlays.css` | Modal dialog, tooltip, and popover styles |
 | `assets/components.js` | Framework-neutral tab navigation script |

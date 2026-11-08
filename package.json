@@ -4,6 +4,12 @@
   "private": true,
   "type": "module",
   "description": "Reusable dark-mode web design system: local fonts, shared CSS, component behaviors and interactive examples.",
+  "exports": {
+    ".": "./colors_and_type.css",
+    "./components.css": "./components.css",
+    "./overlays.css": "./overlays.css",
+    "./tailwind.css": "./tailwind.css"
+  },
   "scripts": {
     "start": "node context/server.mjs",
     "preview": "node context/server.mjs",

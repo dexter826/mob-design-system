@@ -3,7 +3,7 @@ import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {build} from 'esbuild';
 import {Resvg} from '@resvg/resvg-js';
-import {renderTokens} from './token-model.mjs';
+import {renderTokens,renderTailwindTheme} from './token-model.mjs';
 import {tokens,resolveToken} from './token-model.mjs';
 
 function write(file,content){if(!fs.existsSync(file)||!fs.readFileSync(file).equals(Buffer.from(content)))fs.writeFileSync(file,content);}
@@ -15,6 +15,7 @@ write('brand.json',JSON.stringify(brand,null,2)+'\n');
 write('system/seed.json',JSON.stringify(brand.seed,null,2)+'\n');
 write('system/theme.json',JSON.stringify({token:brand.seed,algorithm:'dark'},null,2)+'\n');
 write('colors_and_type.css',renderTokens());
+write('tailwind.css',renderTailwindTheme());
 execFileSync(process.execPath,['context/engine-token-sync.mjs'],{stdio:'inherit'});
 execFileSync(process.execPath,['context/design-md-from-brand.mjs'],{stdio:'inherit'});
 await build({entryPoints:['ui_kits/app/main.jsx'],bundle:true,format:'iife',platform:'browser',target:['es2020'],minify:true,define:{'process.env.NODE_ENV':'"production"'},outfile:'ui_kits/app/console.js',legalComments:'external'});
