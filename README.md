@@ -1,13 +1,17 @@
-# M.O.B Signal
+<div align="center">
 
-![M.O.B Signal](logos/mob-logo/vectors/mob-lockup-dark.svg)
+<img src="logos/mob-logo/vectors/mob-lockup-dark.svg" alt="M.O.B Signal" width="420" />
+
+# M.O.B Signal
 
 [![Node.js](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org)
 [![React](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://react.dev)
 [![Version](https://img.shields.io/badge/version-1.5.0-black.svg)](package.json)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
-M.O.B Signal is a dark-mode web design system providing canonical token variables, shared component stylesheets, and local variable fonts with Vietnamese glyph coverage.
+<p>A reusable dark-mode web design system providing canonical token variables, shared component stylesheets, and local variable fonts with Vietnamese glyph coverage.</p>
+
+</div>
 
 ## Key Features
 
