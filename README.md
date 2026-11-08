@@ -39,11 +39,14 @@ styles, overlays, local fonts, brand assets, and optional browser utilities.
 
 ## Installation
 
-Install the package through the package registry or package source configured for your application:
+Install M.O.B Signal as a design-system skill:
 
 ```bash
-npm install mob-signal
+npx skills add dexter826/mob-design-system
 ```
+
+This makes the design tokens, component guidance, and usage rules available to supported AI
+coding tools when building interfaces.
 
 ## Usage
 
