@@ -9,18 +9,18 @@
 [![Version](https://img.shields.io/badge/version-1.5.0-black.svg)](package.json)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
-<p>A reusable dark-mode web design system providing canonical token variables, shared component stylesheets, and local variable fonts with Vietnamese glyph coverage.</p>
+<p>Dark-mode web design system with shared CSS tokens, UI component styles, and local variable fonts with Vietnamese glyph coverage.</p>
 
 </div>
 
-## Key Features
+## Features
 
-- Canonical JSON tokens generating color, typography, shape, and spacing CSS custom properties.
-- Shared component stylesheets for buttons, fields, controls, cards, and modal overlays.
-- Three bundled variable fonts (Space Grotesk, Plus Jakarta Sans, JetBrains Mono) with full Latin and Vietnamese coverage.
-- Standalone tab initialization helper with WAI-ARIA keyboard navigation support.
-- Local verification test suite for token integrity, WCAG contrast ratios, and browser regressions.
-- Interactive service console application demonstrating component composition with local sample data.
+- JSON tokens that compile to CSS variables for color, typography, shape, and spacing.
+- Component stylesheets for buttons, inputs, controls, cards, and modal dialogs.
+- Three bundled variable fonts (Space Grotesk, Plus Jakarta Sans, JetBrains Mono) covering Latin and Vietnamese.
+- Standalone tab script with WAI-ARIA keyboard navigation.
+- Local test suite for token consistency, WCAG contrast ratios, and browser regressions.
+- React service console running against local sample data.
 
 ## Installation
 
@@ -34,11 +34,11 @@ npm run build
 npm start
 ```
 
-The local development server serves module galleries and component previews at `http://127.0.0.1:4173/`.
+The local development server serves previews at `http://127.0.0.1:4173/`.
 
 ## Usage
 
-Import the stylesheets in the designated cascade sequence:
+Load the stylesheets in this order:
 
 ```html
 <link rel="stylesheet" href="colors_and_type.css">
@@ -47,38 +47,38 @@ Import the stylesheets in the designated cascade sequence:
 <script src="assets/components.js" defer></script>
 ```
 
-To modify design tokens, update values in `tokens.measured.json` and execute `npm run build`. The build pipeline regenerates CSS variables, compatibility tokens, and logo assets.
+Edit tokens in `tokens.measured.json`, then run `npm run build` to update the CSS variables, compatibility tokens, and logo assets.
 
-## API Reference
+## API
 
 ### `MobSignal.initTabs(root)`
 
-Initializes tablist elements within the document or a specified DOM node.
+Initializes tablist elements within the document or a given DOM node.
 
 **Parameters:**
-- `root` (`Document | HTMLElement`, optional): Target DOM container. Defaults to `document`.
+- `root` (`Document | HTMLElement`, optional): Target container. Defaults to `document`.
 
 **Behavior:**
-Binds keyboard navigation (`ArrowLeft`, `ArrowRight`, `Home`, `End`) to elements with `role="tab"`, associates panels through `aria-controls`, and manages `aria-selected` state.
+Binds keyboard navigation (`ArrowLeft`, `ArrowRight`, `Home`, `End`) to elements with `role="tab"`, links panels via `aria-controls`, and handles `aria-selected` attributes.
 
 ## Verification
 
 ```bash
-npm run check:tokens   # Validate canonical tokens and local asset references
-npm run contrast       # Verify WCAG AA and AAA luminance contrast ratios
-npm test               # Execute native Node.js unit and regression tests
+npm run check:tokens   # Validate canonical tokens and local asset paths
+npm run contrast       # Verify WCAG AA and AAA color luminance ratios
+npm test               # Run native Node.js unit and regression tests
 npm run test:browser   # Run Playwright browser integration checks
 ```
 
-## Project Structure
+## Reference
 
 | Path | Purpose |
 | :--- | :--- |
-| `tokens.measured.json` | Source of truth for token values and measurements |
-| `colors_and_type.css` | Generated token custom properties stylesheet |
-| `components.css` | Shared component recipes and layouts |
-| `overlays.css` | Modal dialog, tooltip, and popover styling |
+| `tokens.measured.json` | Token source values and measurements |
+| `colors_and_type.css` | Generated token custom properties |
+| `components.css` | Shared component styles |
+| `overlays.css` | Modal dialog, tooltip, and popover styles |
 | `assets/components.js` | Framework-neutral tab navigation script |
-| `fonts/` | Local variable fonts, manifest, and font licenses |
-| `logos/` | Source vector SVGs and exported raster PNG assets |
-| `ui_kits/app/` | Interactive React service console demo |
+| `fonts/` | Local variable fonts, manifest, and licenses |
+| `logos/` | Vector SVG sources and raster PNG exports |
+| `ui_kits/app/` | React service console demo |
