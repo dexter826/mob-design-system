@@ -221,6 +221,8 @@
 .toast-box :is(button, a):focus-visible,
 .pagination :is(button, a):focus-visible,
 .breadcrumbs a:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -228,7 +230,8 @@
    appear on the same element. */
 .overlay input:focus,
 .palette input:focus {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 var(--mob-signal-border-width) var(--color-primary);
 }
@@ -509,7 +512,8 @@ body[data-modal-open="true"] .overlay[data-layer="drawer"] .overlay-scrim {
 }
 
 .tooltip-anchor:focus-visible {
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
   box-shadow: var(--mob-signal-shadow-focus);
 }
 
@@ -864,7 +868,7 @@ body[data-modal-open="true"] .overlay[data-layer="drawer"] .overlay-scrim {
 }
 
 .breadcrumbs a:hover { color: var(--color-text); text-decoration: underline; }
-.breadcrumbs a:focus-visible { outline: none; box-shadow: var(--mob-signal-shadow-focus); }
+.breadcrumbs a:focus-visible { outline: 2px solid transparent; outline-offset: 2px; box-shadow: var(--mob-signal-shadow-focus); }
 .breadcrumbs [aria-current="page"] { color: var(--color-text); }
 .breadcrumbs svg {
   width: var(--mob-signal-icon-sm);

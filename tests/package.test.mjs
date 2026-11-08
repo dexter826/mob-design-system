@@ -32,6 +32,14 @@ test('logo raster exports preserve SVG geometry',()=>{
  assert.deepEqual([og.width,og.height],[1200,630]);
  assert.ok(exports.find(item=>item.file.endsWith('/mob-lockup-dark.png')).width > exports.find(item=>item.file.endsWith('/mob-lockup-dark.png')).height);
 });
+test('tailwind.css emits valid Tailwind v4 theme and 0px radius reset',()=>{
+ const css=fs.readFileSync('tailwind.css','utf8');
+ assert.ok(css.includes('@theme {'));
+ assert.ok(css.includes(`--color-primary: ${tokens.color.primary.value};`));
+ assert.ok(css.includes('--radius: 0px;'));
+ assert.ok(css.includes('--radius-*: initial;'));
+ assert.ok(css.includes('--spacing: 4px;'));
+});
 test('local server serves assets and rejects protected paths',async()=>{
  const server=createServer();server.listen(0,'127.0.0.1');await once(server,'listening');
  const url='http://127.0.0.1:'+server.address().port;
