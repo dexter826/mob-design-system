@@ -1,44 +1,40 @@
 # M.O.B Signal
 
-![M.O.B artwork](logos/mob-logo/vectors/mob-lockup-dark.svg)
+![M.O.B Signal](logos/mob-logo/vectors/mob-lockup-dark.svg)
 
-A reusable dark-mode web design system with shared CSS and browser behaviors.
-The package includes English documentation and English/Vietnamese UI examples.
+[![Node.js](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org)
+[![React](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://react.dev)
+[![Version](https://img.shields.io/badge/version-1.5.0-black.svg)](package.json)
+[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
-## Features
+M.O.B Signal is a dark-mode web design system providing canonical token variables, shared component stylesheets, and local variable fonts with Vietnamese glyph coverage.
 
-- Canonical JSON tokens generate color, typography, shape and spacing variables.
-- Shared controls, overlay recipes and keyboard-operated tabs.
-- Interactive service console with clearly labelled local sample data.
-- Three bundled variable fonts with Vietnamese glyph coverage and OFL notices.
-- Supplied logo vectors and generated full-frame PNG exports.
-- Targeted consistency, contrast and browser regression checks.
+## Key Features
+
+- Canonical JSON tokens generating color, typography, shape, and spacing CSS custom properties.
+- Shared component stylesheets for buttons, fields, controls, cards, and modal overlays.
+- Three bundled variable fonts (Space Grotesk, Plus Jakarta Sans, JetBrains Mono) with full Latin and Vietnamese coverage.
+- Standalone tab initialization helper with WAI-ARIA keyboard navigation support.
+- Local verification test suite for token integrity, WCAG contrast ratios, and browser regressions.
+- Interactive service console application demonstrating component composition with local sample data.
 
 ## Installation
 
-Install Node.js 22 or 24 LTS and npm. In the project folder, run:
+Prerequisites: Node.js 24 LTS and npm.
 
-```sh
+```bash
+git clone <repository-url>
+cd mob-design-system
 npm ci
 npm run build
 npm start
 ```
 
-Open http://127.0.0.1:4173/ in a browser. The same commands work on Windows.
-The server binds only to this computer. Stop it with Ctrl+C.
-
-Installation needs internet. After installation and build, viewing the gallery
-and console requires no CDN or internet connection. Keep the whole package
-for offline use; local fonts, console.js and its license sidecar are required.
-Use the local server rather than opening HTML with file://.
+The local development server serves module galleries and component previews at `http://127.0.0.1:4173/`.
 
 ## Usage
 
-Open index.html for the module gallery or ui_kits/app/index.html for the console.
-The console changes sample data only; it does not deploy real services.
-Demo settings persist in this browser. Do not enter secrets.
-
-Load the shared styles in this order:
+Import the stylesheets in the designated cascade sequence:
 
 ```html
 <link rel="stylesheet" href="colors_and_type.css">
@@ -47,51 +43,38 @@ Load the shared styles in this order:
 <script src="assets/components.js" defer></script>
 ```
 
-Use the existing classes instead of duplicating button, field, badge and focus
-recipes in each page. See BRAND.md section 4 for component ownership.
+To modify design tokens, update values in `tokens.measured.json` and execute `npm run build`. The build pipeline regenerates CSS variables, compatibility tokens, and logo assets.
 
-Edit token values in tokens.measured.json. Run npm run build to emit CSS,
-compatibility tokens, console code and logo PNGs. Do not edit those outputs.
-External generators can bypass this build: rebuild after external regeneration.
-The package cannot modify the host application's generator or global memory.
+## API Reference
 
-## Checks
+### `MobSignal.initTabs(root)`
 
-```sh
-npm run check:tokens
-npm test
-npm run test:browser
+Initializes tablist elements within the document or a specified DOM node.
+
+**Parameters:**
+- `root` (`Document | HTMLElement`, optional): Target DOM container. Defaults to `document`.
+
+**Behavior:**
+Binds keyboard navigation (`ArrowLeft`, `ArrowRight`, `Home`, `End`) to elements with `role="tab"`, associates panels through `aria-controls`, and manages `aria-selected` state.
+
+## Verification
+
+```bash
+npm run check:tokens   # Validate canonical tokens and local asset references
+npm run contrast       # Verify WCAG AA and AAA luminance contrast ratios
+npm test               # Execute native Node.js unit and regression tests
+npm run test:browser   # Run Playwright browser integration checks
 ```
 
-The browser checks use installed Microsoft Edge. Install Edge or install the
-Playwright Chromium browser with npx playwright install chromium beforehand.
-Checks fail with a nonzero exit code; missing browser setup is not a pass.
-Actual execution evidence and remaining limits are in context/verification.md.
-A passing check is scoped evidence, not complete WCAG certification.
-
-## Reference
+## Project Structure
 
 | Path | Purpose |
 | :--- | :--- |
-| BRAND.md / guide.md | Specification and identical guide copy |
-| DESIGN.md / brand.json | App-facing design-system description |
-| tokens.measured.json | Canonical token values and provenance |
-| colors_and_type.css | Generated token stylesheet |
-| components.css / overlays.css | Shared component recipes |
-| assets/components.js | Framework-neutral tab behavior |
-| ui_kits/app/ | Editable React console source and local bundle |
-| fonts/ | Local variable fonts, source hashes and font licenses |
-| logos/mob-logo/ | Preserved supplied logo originals |
-| logos/exports/ | Correctly proportioned generated PNGs |
-| context/contrast-measured.md | Current token-pair measurements |
-
-## API
-
-MobSignal.initTabs(root) initializes tablists within a document or element.
-Call it after dynamically inserting a tab group. Each tab needs role="tab";
-provide aria-controls pointing to its labelled panel for production content.
-If a panel is absent, the gallery helper creates explicitly labelled sample content.
-Arrows and Home/End select enabled tabs; Tab leaves the group for its panel.
-
-This private package is not a published framework library. Font and dependency
-license notices remain bundled; logo redistribution requires ownership clearance.
+| `tokens.measured.json` | Source of truth for token values and measurements |
+| `colors_and_type.css` | Generated token custom properties stylesheet |
+| `components.css` | Shared component recipes and layouts |
+| `overlays.css` | Modal dialog, tooltip, and popover styling |
+| `assets/components.js` | Framework-neutral tab navigation script |
+| `fonts/` | Local variable fonts, manifest, and font licenses |
+| `logos/` | Source vector SVGs and exported raster PNG assets |
+| `ui_kits/app/` | Interactive React service console demo |
