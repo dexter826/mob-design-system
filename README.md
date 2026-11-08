@@ -18,8 +18,10 @@
 | Buttons & Actions | Form Controls |
 | :---: | :---: |
 | ![Buttons](preview/sections/01-buttons.png) | ![Form Controls](preview/sections/02-form-controls.png) |
-| **Cards & Pricing** | **Color Palette** |
-| ![Cards & Pricing](preview/sections/03-cards.png) | ![Color Palette](preview/sections/04-colors.png) |
+| **Cards & Pricing** | **Navigation & Tabs** |
+| ![Cards & Pricing](preview/sections/03-cards.png) | ![Navigation](preview/sections/05-navigation.png) |
+| **Data Display & Tables** | **Color Palette** |
+| ![Data Display](preview/sections/06-data-display.png) | ![Color Palette](preview/sections/04-colors.png) |
 
 ## Features
 
