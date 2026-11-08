@@ -1,0 +1,13 @@
+<svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="M.O.B Brand Symbol"><title>M.O.B Brand Symbol</title>
+  
+  <!-- Left Pillar -->
+  <rect x="32" y="32" width="40" height="192" fill="#000000"/>
+  <!-- Right Pillar -->
+  <rect x="184" y="32" width="40" height="192" fill="#000000"/>
+  <!-- Chevron Crest (Letter M) -->
+  <polygon points="88,32 128,72 168,32 168,80 128,120 88,80" fill="#000000"/>
+  <!-- Core Cell (Letter O / Telemetry Node) -->
+  <rect x="104" y="136" width="48" height="48" fill="#000000"/>
+  <!-- Base Pedestal (Foundation / B Anchor) -->
+  <rect x="88" y="200" width="80" height="24" fill="#000000"/>
+</svg>

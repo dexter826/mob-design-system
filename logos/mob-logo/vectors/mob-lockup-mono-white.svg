@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 884 256" width="884" height="256" role="img" aria-label="M.O.B Lockup - Mono White">
+  <title>M.O.B Lockup - Mono White</title>
+  <g id="symbol">
+    <!-- Left Pillar -->
+  <rect x="32" y="32" width="40" height="192" fill="#ffffff"/>
+  <!-- Right Pillar -->
+  <rect x="184" y="32" width="40" height="192" fill="#ffffff"/>
+  <!-- Chevron Crest (Letter M) -->
+  <polygon points="88,32 128,72 168,32 168,80 128,120 88,80" fill="#ffffff"/>
+  <!-- Core Cell (Letter O / Telemetry Node) -->
+  <rect x="104" y="136" width="48" height="48" fill="#ffffff"/>
+  <!-- Base Pedestal (Foundation / B Anchor) -->
+  <rect x="88" y="200" width="80" height="24" fill="#ffffff"/>
+  </g>
+  <g id="wordmark" transform="translate(272, 48)" fill="#ffffff">
+    <path fill-rule="evenodd" d="M 0 0 H 36 L 84 48 L 132 0 H 168 V 160 H 132 V 48 L 84 96 L 36 48 V 160 H 0 Z"/>
+    <path d="M 184 132 H 212 V 160 H 184 Z"/>
+    <path fill-rule="evenodd" d="M 252 0 H 352 L 376 24 V 136 L 352 160 H 252 L 228 136 V 24 Z M 264 36 H 340 V 124 H 264 Z"/>
+    <path d="M 392 132 H 420 V 160 H 392 Z"/>
+    <path fill-rule="evenodd" d="M 436 0 H 556 L 580 24 V 60 L 564 76 L 580 92 V 136 L 556 160 H 436 Z M 472 32 H 544 V 60 H 472 Z M 472 100 H 544 V 128 H 472 Z"/>
+  </g>
+</svg>

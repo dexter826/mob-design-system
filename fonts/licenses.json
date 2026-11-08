@@ -1,0 +1,62 @@
+{
+  "format": "mob-signal-font-licenses/1",
+  "note": "The three faces localized in fonts/ are Google Fonts builds of upstream projects, each under the SIL Open Font License 1.1. The license text is stored verbatim beside this manifest; OFL requires the notice to travel with any redistributed or bundled copy, which is why it is here and not merely linked. Downloaded from the upstream repositories on 2026-11-08.",
+  "license": {
+    "spdx": "OFL-1.1",
+    "name": "SIL Open Font License, Version 1.1",
+    "faq": "http://scripts.sil.org/OFL",
+    "obligations": [
+      "Ship the license file with every copy of the font files; the bundle is not self-documenting without it.",
+      "Do not sell the Font Software by itself.",
+      "Do not use the Reserved Font Names in the name of a modified version.",
+      "Attribution is required in the notice, so keep the copyright line intact in each .OFL.txt."
+    ]
+  },
+  "families": [
+    {
+      "family": "Space Grotesk",
+      "licenseFile": "licenses/spacegrotesk.OFL.txt",
+      "copyright": "Copyright 2020 The Space Grotesk Project Authors",
+      "authors": "Florian Karsten",
+      "upstream": "https://github.com/floriankarsten/space-grotesk",
+      "servedBy": "google/fonts upstream variable TTF, converted to WOFF2 without subsetting",
+      "localized": [
+        "space-grotesk-variable.woff2"
+      ],
+      "variable": true,
+      "note": "One file serves every declared weight because the served face is a variable font.",
+      "roles": "Display: H1-H3, hero titles, large metric counters, app brand mark."
+    },
+    {
+      "family": "Plus Jakarta Sans",
+      "licenseFile": "licenses/plusjakartasans.OFL.txt",
+      "copyright": "Copyright 2020 The Plus Jakarta Sans Project Authors",
+      "authors": "Tokotype",
+      "upstream": "https://github.com/tokotype/PlusJakartaSans",
+      "servedBy": "google/fonts upstream variable TTF, converted to WOFF2 without subsetting",
+      "localized": [
+        "plus-jakarta-sans-variable.woff2"
+      ],
+      "variable": true,
+      "roles": "Body: paragraphs, field labels, buttons, navigation."
+    },
+    {
+      "family": "JetBrains Mono",
+      "licenseFile": "licenses/jetbrainsmono.OFL.txt",
+      "copyright": "Copyright 2020 The JetBrains Mono Project Authors",
+      "authors": "Philipp Nurullin, JetBrains",
+      "upstream": "https://github.com/JetBrains/JetBrainsMono",
+      "servedBy": "google/fonts upstream variable TTF, converted to WOFF2 without subsetting",
+      "localized": [
+        "jetbrains-mono-variable.woff2"
+      ],
+      "variable": true,
+      "roles": "Code, commit hashes, IP addresses, kbd chips, numeric tables."
+    }
+  ],
+  "caveats": [
+    "These are the license files of the upstream projects as published in the google/fonts repository. They were fetched, not transcribed; each states its own copyright line.",
+    "No icon font is bundled, and the package declares none: icons are inline SVG in assets/icons/icons.svg, so no additional font licence applies to them.",
+    "English and Vietnamese glyph coverage is checked. Other writing systems require separate coverage testing."
+  ]
+}

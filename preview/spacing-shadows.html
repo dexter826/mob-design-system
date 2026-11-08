@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shadow Elevation</title>
+  <style>
+
+    :root {
+      color-scheme: dark;
+      --bg: var(--color-background);
+      --surface: var(--color-surface);
+      --surface-subtle: var(--color-surface-subtle);
+      --surface-elevated: var(--color-surface-elevated);
+      --surface-hover: var(--color-surface-hover);
+      --fg: var(--color-text);
+      --fg-secondary: var(--color-text-secondary);
+      --muted: var(--color-text-muted);
+      --border: var(--color-border);
+      --border-strong: var(--color-border-strong);
+      --accent: var(--color-primary);
+      --accent-hover: var(--color-primary-hover);
+      --accent-active: var(--color-primary-active);
+      --accent-subtle: rgba(0, 204, 92, 0.1);
+      --on-accent: var(--color-text-on-primary);
+      --info: var(--color-info);
+      --warning: var(--color-warning);
+      --error: var(--color-error);
+      --radius: 0px;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+      --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
+      --motion: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      --font-display: 'Space Grotesk', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; border-radius: 0; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--font-body); font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum"; -webkit-font-smoothing: antialiased; }
+    main { width: min(920px, calc(100vw - 100px)); margin: 48px auto; }
+    h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
+    h1 { margin: 0 0 16px; font-size: 32px; line-height: 36px; }
+    h2 { margin: 32px 0 16px; font-size: 20px; line-height: 28px; }
+    h3 { font-size: 18px; line-height: 28px; }
+    p { margin: 0; max-width: 70ch; color: var(--fg-secondary); }
+    .lead { max-width: 70ch; font-size: 18px; line-height: 28px; }
+    .eyebrow { margin: 0 0 8px; color: var(--color-text-secondary); font-size: 12px; line-height: 16px; font-weight: 500; }
+    code { font-family: var(--font-mono); font-size: 12px; color: var(--fg-secondary); }
+    .note { max-width: 70ch; margin: 8px 0 0; color: var(--color-text-secondary); font-size: 12px; line-height: 16px; }
+    .component-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 32px 0; }
+    .component-grid > article { display: grid; gap: 8px; align-content: start; }
+    .stage { display: grid; place-content: center; min-height: 168px; padding: 24px; background: var(--surface-subtle); border: 1px solid var(--border); }
+    .sheet { display: grid; place-content: center; width: 128px; height: 88px; background: var(--surface); border: 1px solid var(--border); color: var(--fg-secondary); font-size: 12px; line-height: 16px; text-align: center; }
+    .sheet.sm { box-shadow: var(--shadow-sm); }
+    .sheet.md { box-shadow: var(--shadow-md); }
+    .sheet.lg { box-shadow: var(--shadow-lg); background: var(--surface-elevated); }
+    .component-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 24px 0; }
+
+button:focus-visible { box-shadow: var(--focus-ring); }
+
+button.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.section-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 32px 0; padding: 0; list-style: none; }
+    .section-list li, article { padding: 24px; background: var(--surface); border: 1px solid var(--border); }
+    .section-list li { display: grid; gap: 8px; align-content: start; box-shadow: var(--shadow-sm); }
+    .section-list strong { font-family: var(--font-display); font-size: 18px; line-height: 28px; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
+    .section-list span, article > span { max-width: 70ch; color: var(--fg-secondary); font-size: 14px; line-height: 20px; }
+    @media (max-width: 768px) { .component-grid, .section-list { grid-template-columns: 1fr; } }
+  </style>
+<link rel="icon" href="../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../colors_and_type.css">
+<link rel="stylesheet" href="../components.css">
+</head>
+<body><main>
+      <p class="eyebrow">Elevation</p>
+      <h1>Shadow elevation</h1>
+      <p class="lead">Three elevations and one focus treatment, all in black: sm 0 1px 2px rgba(0, 0, 0, 0.4), md 0 4px 6px -1px rgba(0, 0, 0, 0.5), lg 0 10px 15px -3px rgba(0, 0, 0, 0.6). Radius stays 0px on every sheet below.</p>
+      <h2>Elevation steps</h2>
+      <section class="component-grid">
+        <article>
+          <div class="stage"><div class="sheet sm">Card</div></div>
+          <h3>sm</h3>
+          <span>Subtle depth on inputs and small cards.</span>
+          <code>0 1px 2px rgba(0,0,0,.4)</code>
+        </article>
+        <article>
+          <div class="stage"><div class="sheet md">Card</div></div>
+          <h3>md</h3>
+          <span>Standard cards and floating action panels.</span>
+          <code>0 4px 6px -1px rgba(0,0,0,.5)</code>
+        </article>
+        <article>
+          <div class="stage"><div class="sheet lg">Modal</div></div>
+          <h3>lg</h3>
+          <span>Modals, popovers and dropdowns, on surface-elevated #202020.</span>
+          <code>0 10px 15px -3px rgba(0,0,0,.6)</code>
+        </article>
+      </section>
+      <p class="note">Each preview sheet sits on a surface-subtle #181818 stage so a black shadow has something to darken. The stage uses documented values only; nothing here is a neutral gray outside the ramp.</p>
+      <h2>Keyboard focus</h2>
+      <p>The focus treatment is not a shadow step. Every interactive element draws the same ring: 0 0 0 2px #0a0a0a, then 0 0 0 4px #00cc5c. Tab through the two buttons to see it.</p>
+      <div class="component-row">
+        <button class="primary btn btn-primary" type="button">Deploy new service</button>
+        <button class="secondary btn btn-secondary" type="button">Save changes</button>
+      </div>
+      <ul class="section-list">
+        <li><strong>Prohibited</strong><span>Colored shadows are not part of the system. No neon-green drop shadow, no glow or bloom on edges, no blurred gradient blob behind content. The only non-black shadow value in the source is the accent inside the focus ring, and that is a ring, not elevation. The rule is a use rule: #00cc5c at 100% chroma is saturation, not light, so the accent never carries text below 14px, is never a large background wash, and a glow is never used to imply the brightness.</span></li>
+        <li><strong>Two spellings</strong><span>design-tokens.json gives md and lg one layer each. design-system.css pairs them with a second black layer, 0 2px 4px -2px and 0 4px 6px -4px at the same alpha. Both are black-only, so the difference is depth, not color.</span></li>
+        <li><strong>Contrast does the work</strong><span>Most state changes skip shadows: hover steps the surface up one level and the border from #262626 to #383838, and the interactive card changes border-color only. Elevation is reserved for layers that genuinely float.</span></li>
+        <li><strong>Focus everywhere</strong><span>Buttons, inputs, links, table rows that take actions and any element reachable by Tab all show the identical ring, with no layout shift and no change to the element's own border except on inputs, which set border-color #00cc5c. The ring clears the 3:1 non-text floor everywhere it lands: 9.23:1 on the canvas, 8.73:1 on surface, 8.28:1 on the surface-subtle stage above.</span></li>
+      </ul>
+    </main></body>
+</html>

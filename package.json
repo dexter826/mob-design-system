@@ -1,0 +1,27 @@
+{
+  "name": "mob-signal",
+  "version": "1.5.0",
+  "private": true,
+  "type": "module",
+  "description": "Reusable dark-mode web design system: local fonts, shared CSS, component behaviors and interactive examples.",
+  "scripts": {
+    "start": "node context/server.mjs",
+    "preview": "node context/server.mjs",
+    "build": "node context/build.mjs",
+    "contrast": "node context/contrast.mjs",
+    "design-md": "node context/design-md-from-brand.mjs",
+    "sync:engine": "node context/build.mjs",
+    "check:tokens": "node context/token-check.mjs",
+    "test": "node --test tests/package.test.mjs",
+    "test:browser": "node tests/browser.mjs"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12",
+    "playwright": "1.56.1",
+    "@resvg/resvg-js": "2.6.2"
+  }
+}

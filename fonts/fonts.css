@@ -1,0 +1,4 @@
+/* Local variable fonts. Sources and hashes: manifest.json. Licenses: licenses/. */
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 300 700; font-display: swap; src: url("./space-grotesk-variable.woff2") format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 200 800; font-display: swap; src: url("./plus-jakarta-sans-variable.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 100 800; font-display: swap; src: url("./jetbrains-mono-variable.woff2") format("woff2"); }

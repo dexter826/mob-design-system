@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>M.O.B Signal — service console kit</title>
+  <link rel="stylesheet" href="../../colors_and_type.css" />
+  <link rel="stylesheet" href="../../assets/icons/icons.css" />
+  <style>
+    /* Class anatomy transcribed from historical design input (not bundled)
+       so the applied kit matches the source evidence rather than a generic scaffold.
+       Colors come from colors_and_type.css; nothing here hardcodes a brand value. */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--color-background);
+      color: var(--color-text);
+      font: 400 var(--mob-signal-text-base)/var(--mob-signal-line-base) var(--font-family);
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+      -webkit-font-smoothing: antialiased;
+    }
+    main { width: min(1200px, calc(100vw - 96px)); margin: var(--mob-signal-space-12) auto; }
+    .kit-head { margin-bottom: var(--mob-signal-space-6); }
+    .kit-eyebrow { color: var(--color-text-secondary); font-size: var(--mob-signal-text-xs); font-weight: 500; }
+    .kit-title { font-family: var(--font-display); font-size: var(--mob-signal-text-3xl); line-height: var(--mob-signal-line-3xl); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); }
+    .kit-lead { max-width: 70ch; color: var(--color-text-secondary); font-size: var(--mob-signal-text-base); margin-top: var(--mob-signal-space-2); }
+    .kit-foot { margin-top: var(--mob-signal-space-6); color: var(--color-text-secondary); font-size: var(--mob-signal-text-sm); }
+
+    .app-container { background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); }
+    .app-nav {
+      background: var(--color-surface-subtle);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--mob-signal-space-3) var(--mob-signal-space-6);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--mob-signal-space-3);
+    }
+    .app-brand { display: flex; align-items: center; gap: var(--mob-signal-space-3); font-family: var(--font-display); font-size: var(--mob-signal-text-base); font-weight: 700; color: var(--color-text); }
+    .app-brand-mark { width: 18px; height: 18px; background: var(--color-primary); }
+    .app-tabs { display: flex; gap: var(--mob-signal-space-1); }
+    .app-nav-actions { display: flex; align-items: center; gap: var(--mob-signal-space-3); }
+    .app-body { padding: var(--mob-signal-space-6); }
+
+    .console-nav-tab {
+      padding: 8px 12px; font: 500 var(--mob-signal-text-xs)/1 var(--font-family);
+      color: var(--color-text-secondary); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer;
+      transition: color var(--motion), background-color var(--motion), border-color var(--motion);
+    }
+    .console-nav-tab:hover { color: var(--color-text); background: rgba(255, 255, 255, 0.04); }
+    .console-nav-tab[aria-current="page"] { color: var(--color-text); border-bottom-color: var(--color-primary); }
+    .console-nav-tab:focus-visible { outline: none; box-shadow: var(--mob-signal-shadow-focus); }
+
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); margin-bottom: var(--mob-signal-space-6); }
+    .stat-cell { background: var(--color-surface); padding: var(--mob-signal-space-4); }
+    .stat-label { font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); margin-bottom: var(--mob-signal-space-1); }
+    .stat-number { font-family: var(--font-display); font-size: var(--mob-signal-text-2xl); line-height: var(--mob-signal-line-2xl); font-weight: 600; color: var(--color-text); font-variant-numeric: tabular-nums; }
+    .stat-trend { font-size: var(--mob-signal-text-xs); color: var(--color-success); margin-top: 4px; }
+    .stat-trend.secondary { color: var(--color-text-secondary); }
+    .stat-trend.warning { color: var(--color-warning); }
+
+    .panel-head { display: flex; justify-content: space-between; align-items: center; gap: var(--mob-signal-space-3); flex-wrap: wrap; margin-bottom: var(--mob-signal-space-3); }
+    .panel-title { font-weight: 600; font-size: var(--mob-signal-text-base); }
+    .panel-tools { display: flex; gap: var(--mob-signal-space-2); align-items: center; }
+
+    .audit-item { display: grid; grid-template-columns: 96px 200px 1fr auto; gap: var(--mob-signal-space-4); align-items: center; padding: var(--mob-signal-space-3) var(--mob-signal-space-4); border-bottom: 1px solid var(--color-border); font-size: var(--mob-signal-text-sm); }
+    .audit-item:last-child { border-bottom: none; }
+    .audit-item:hover { background: var(--mob-signal-row-hover); }
+    .audit-time { font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
+    .audit-actor { color: var(--color-text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .audit-action { color: var(--color-text-secondary); overflow: hidden; text-overflow: ellipsis; }
+
+    .console-toast { position: fixed; right: var(--mob-signal-space-6); bottom: var(--mob-signal-space-6); z-index: 10; display: flex; align-items: center; gap: var(--mob-signal-space-3); padding: var(--mob-signal-space-3) var(--mob-signal-space-4); background: var(--color-surface-elevated); border: 1px solid var(--color-border); box-shadow: var(--shadow-lg); font-size: var(--mob-signal-text-sm); color: var(--color-text); max-width: 360px; }
+    .toast-bar { width: 2px; align-self: stretch; background: var(--color-primary); flex: none; }
+
+    .card-box { background: var(--color-surface); border: 1px solid var(--color-border); padding: var(--mob-signal-space-6); }
+    .card-box-title { font-family: var(--font-display); font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); margin-bottom: var(--mob-signal-space-4); }
+
+    .ui-kit-loading { display: grid; min-height: 100vh; place-items: center; color: var(--color-text-secondary); }
+    @media (max-width: 1024px) { .stats-row { grid-template-columns: repeat(2, 1fr); } .audit-item { grid-template-columns: 1fr; gap: var(--mob-signal-space-1); } }
+    @media (max-width: 768px) { main { width: min(100vw - 48px, 1200px); margin: var(--mob-signal-space-6) auto; } .stats-row { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { * { transition-duration: 1ms !important; } }
+  </style>
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../components.css">
+<link rel="stylesheet" href="../../overlays.css">
+<link rel="stylesheet" href="console.css">
+</head>
+<body>
+  <div id="root"><div class="ui-kit-loading">Opening the local sample console...</div></div>
+  <script src="console.js" defer></script>
+</body>
+</html>

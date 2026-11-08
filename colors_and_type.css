@@ -1,0 +1,288 @@
+/* Generated from tokens.measured.json. Run npm run build. */
+@import url("./fonts/fonts.css");
+:root {
+  color-scheme: dark;
+  --mob-signal-primary: #00cc5c;
+  --mob-signal-primary-hover: #00e065;
+  --mob-signal-primary-active: #00b853;
+  --mob-signal-primary-subtle: rgba(0, 204, 92, 0.1);
+  --mob-signal-accent-secondary: #38bdf8;
+  --mob-signal-text-on-primary: #000000;
+  --mob-signal-background: #0a0a0a;
+  --mob-signal-surface: #121212;
+  --mob-signal-surface-subtle: #181818;
+  --mob-signal-surface-elevated: #202020;
+  --mob-signal-surface-hover: #222222;
+  --mob-signal-border: #262626;
+  --mob-signal-border-strong: #383838;
+  --mob-signal-border-focus: #00cc5c;
+  --mob-signal-foreground: #ededed;
+  --mob-signal-text-secondary: #a1a1a1;
+  --mob-signal-muted: #737373;
+  --mob-signal-success: #00cc5c;
+  --mob-signal-success-subtle: rgba(0, 204, 92, 0.1);
+  --mob-signal-warning: #f59e0b;
+  --mob-signal-error: #ef4444;
+  --mob-signal-info: #38bdf8;
+  --mob-signal-font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --mob-signal-font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --mob-signal-font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  --mob-signal-text-xs: 12px;
+  --mob-signal-line-xs: 16px;
+  --mob-signal-text-sm: 14px;
+  --mob-signal-line-sm: 20px;
+  --mob-signal-text-base: 16px;
+  --mob-signal-line-base: 24px;
+  --mob-signal-text-lg: 18px;
+  --mob-signal-line-lg: 28px;
+  --mob-signal-text-xl: 20px;
+  --mob-signal-line-xl: 28px;
+  --mob-signal-text-2xl: 24px;
+  --mob-signal-line-2xl: 32px;
+  --mob-signal-text-3xl: 32px;
+  --mob-signal-line-3xl: 36px;
+  --mob-signal-tracking-display: -0.02em;
+  --mob-signal-space-0: 0px;
+  --mob-signal-space-1: 4px;
+  --mob-signal-space-2: 8px;
+  --mob-signal-space-3: 12px;
+  --mob-signal-space-4: 16px;
+  --mob-signal-space-5: 20px;
+  --mob-signal-space-6: 24px;
+  --mob-signal-space-8: 32px;
+  --mob-signal-space-10: 40px;
+  --mob-signal-space-12: 48px;
+  --mob-signal-radius: 0px;
+  --mob-signal-radius-sm: 0px;
+  --mob-signal-radius-md: 0px;
+  --mob-signal-radius-lg: 0px;
+  --mob-signal-radius-full: 0px;
+  --mob-signal-border-width: 1px;
+  --mob-signal-border-width-thick: 2px;
+  --mob-signal-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --mob-signal-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5);
+  --mob-signal-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.6);
+  --mob-signal-shadow-focus: 0 0 0 2px var(--mob-signal-background), 0 0 0 4px var(--mob-signal-primary);
+  --mob-signal-control-height: 32px;
+  --mob-signal-control-height-sm: 28px;
+  --mob-signal-control-height-lg: 40px;
+  --mob-signal-motion: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  --mob-signal-pad-button: 8px 16px;
+  --mob-signal-pad-input: 4px 12px;
+  --mob-signal-pad-card: 24px;
+  --mob-signal-pad-cell: 12px 16px;
+  --mob-signal-row-hover: rgba(255, 255, 255, 0.02);
+  --mob-signal-icon-sm: 16px;
+  --mob-signal-icon-md: 20px;
+  --mob-signal-icon-lg: 24px;
+  --mob-signal-icon-stroke: 1.5px;
+  --mob-signal-icon-gap: 8px;
+  --mob-signal-breakpoint-sm: 640px;
+  --mob-signal-breakpoint-md: 768px;
+  --mob-signal-breakpoint-lg: 1024px;
+  --mob-signal-breakpoint-xl: 1280px;
+  --mob-signal-breakpoint-2xl: 1536px;
+  --mob-signal-container-app: 1200px;
+  --mob-signal-container-prose: 920px;
+  --mob-signal-columns: 12;
+  --mob-signal-grid-gap: 24px;
+  --mob-signal-gutter: 48px;
+  --mob-signal-gutter-md: 24px;
+  --mob-signal-gutter-sm: 16px;
+  --mob-signal-nav-height: 48px;
+  --mob-signal-sidebar: 240px;
+  --mob-signal-sidebar-wide: 280px;
+  --mob-signal-drawer: 360px;
+  --mob-signal-modal-sm: 480px;
+  --mob-signal-modal-md: 640px;
+  --mob-signal-modal-lg: 880px;
+  --mob-signal-popover-max: 320px;
+  --mob-signal-tooltip-max: 240px;
+  --mob-signal-z-raised: 1;
+  --mob-signal-z-sticky: 10;
+  --mob-signal-z-drawer: 40;
+  --mob-signal-z-dropdown: 50;
+  --mob-signal-z-modal: 100;
+  --mob-signal-z-popover: 110;
+  --mob-signal-z-toast: 120;
+  --mob-signal-z-palette: 130;
+  --mob-signal-motion-hover: var(--mob-signal-motion);
+  --mob-signal-motion-enter: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  --mob-signal-motion-exit: 0.08s cubic-bezier(0.7, 0, 0.84, 0);
+  --mob-signal-motion-progress: 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  --mob-signal-skeleton-fill: var(--mob-signal-surface-subtle);
+  --mob-signal-stagger: 0s;
+  --mob-signal-scrim: rgba(0, 0, 0, 0.6);
+  --mob-signal-target-visual: 32px;
+  --mob-signal-target-min: 24px;
+  --mob-signal-target-touch: 44px;
+  --mob-signal-status-dot: 6px;
+  --mob-signal-status-edge: 2px;
+  --mob-signal-chart-series-1: #38bdf8;
+  --mob-signal-chart-series-2: #a1a1a1;
+  --mob-signal-chart-series-3: #737373;
+  --mob-signal-chart-series-4: #ededed;
+  --mob-signal-chart-series-selected: #00cc5c;
+  --mob-signal-chart-line: 2px;
+  --mob-signal-chart-marker: 4px;
+  --mob-signal-chart-axis: #383838;
+  --mob-signal-chart-grid: #181818;
+  --mob-signal-chart-label: #a1a1a1;
+  --mob-signal-chart-area-fill: rgba(56, 189, 248, 0.12);
+  --mob-signal-chart-dash-2: 8px 4px;
+  --mob-signal-chart-dash-3: 4px 4px;
+  --mob-signal-sparkline-height: 24px;
+  --mob-signal-chart-y-ticks: 4;
+  --mob-signal-control-border: #737373;
+  --mob-signal-error-text: #ededed;
+  /* Public aliases. Values resolve to canonical tokens. */
+  --color-control-border: var(--mob-signal-control-border);
+  --color-error-text: var(--mob-signal-error-text);
+  --color-surface-hover: var(--mob-signal-surface-hover);
+  --color-border-focus: var(--mob-signal-border-focus);
+  --color-row-hover: var(--mob-signal-row-hover);
+  --color-background: var(--mob-signal-background);
+  --color-surface: var(--mob-signal-surface);
+  --color-surface-subtle: var(--mob-signal-surface-subtle);
+  --color-surface-elevated: var(--mob-signal-surface-elevated);
+  --color-background-soft: var(--mob-signal-surface-subtle);
+  --color-text: var(--mob-signal-foreground);
+  --color-text-1: var(--mob-signal-foreground);
+  --color-text-2: var(--mob-signal-text-secondary);
+  --color-text-secondary: var(--mob-signal-text-secondary);
+  --color-text-muted: var(--mob-signal-muted);
+  --color-text-on-primary: var(--mob-signal-text-on-primary);
+  --color-border: var(--mob-signal-border);
+  --color-border-strong: var(--mob-signal-border-strong);
+  --color-primary: var(--mob-signal-primary);
+  --color-primary-hover: var(--mob-signal-primary-hover);
+  --color-primary-active: var(--mob-signal-primary-active);
+  --color-primary-subtle: var(--mob-signal-primary-subtle);
+  --color-primary-soft: var(--mob-signal-primary-subtle);
+  --color-accent-secondary: var(--mob-signal-accent-secondary);
+  --color-success: var(--mob-signal-success);
+  --color-success-subtle: var(--mob-signal-success-subtle);
+  --color-warning: var(--mob-signal-warning);
+  --color-error: var(--mob-signal-error);
+  --color-info: var(--mob-signal-info);
+  --font-family: var(--mob-signal-font-sans);
+  --font-display: var(--mob-signal-font-display);
+  --code-font-family: var(--mob-signal-font-mono);
+  --radius: var(--mob-signal-radius);
+  --radius-control: var(--mob-signal-radius);
+  --radius-card: var(--mob-signal-radius);
+  --space-1: var(--mob-signal-space-1);
+  --space-2: var(--mob-signal-space-2);
+  --space-3: var(--mob-signal-space-3);
+  --space-4: var(--mob-signal-space-4);
+  --space-5: var(--mob-signal-space-5);
+  --space-6: var(--mob-signal-space-6);
+  --space-8: var(--mob-signal-space-8);
+  --space-10: var(--mob-signal-space-10);
+  --space-12: var(--mob-signal-space-12);
+  --shadow-sm: var(--mob-signal-shadow-sm);
+  --shadow-md: var(--mob-signal-shadow-md);
+  --shadow-lg: var(--mob-signal-shadow-lg);
+  --control-height: var(--mob-signal-control-height);
+  --motion: var(--mob-signal-motion);
+
+  /* Aliases for the added groups */
+  --color-text-disabled: var(--mob-signal-muted);
+  --color-status-operational: var(--mob-signal-success);
+  --color-status-degraded: var(--mob-signal-warning);
+  --color-status-failed: var(--mob-signal-error);
+  --color-status-pending: var(--mob-signal-text-secondary);
+  --icon-size-sm: var(--mob-signal-icon-sm);
+  --icon-size-md: var(--mob-signal-icon-md);
+  --icon-size-lg: var(--mob-signal-icon-lg);
+  --icon-stroke: var(--mob-signal-icon-stroke);
+  --container-app: var(--mob-signal-container-app);
+  --container-prose: var(--mob-signal-container-prose);
+  --grid-gap: var(--mob-signal-grid-gap);
+  --gutter: var(--mob-signal-gutter);
+  --nav-height: var(--mob-signal-nav-height);
+  --sidebar-width: var(--mob-signal-sidebar);
+  --drawer-width: var(--mob-signal-drawer);
+  --z-sticky: var(--mob-signal-z-sticky);
+  --z-dropdown: var(--mob-signal-z-dropdown);
+  --z-drawer: var(--mob-signal-z-drawer);
+  --z-modal: var(--mob-signal-z-modal);
+  --z-popover: var(--mob-signal-z-popover);
+  --z-toast: var(--mob-signal-z-toast);
+  --z-palette: var(--mob-signal-z-palette);
+  --motion-enter: var(--mob-signal-motion-enter);
+  --motion-exit: var(--mob-signal-motion-exit);
+  --motion-progress: var(--mob-signal-motion-progress);
+  --target-min: var(--mob-signal-target-min);
+  --target-touch: var(--mob-signal-target-touch);
+  --chart-series-1: var(--mob-signal-chart-series-1);
+  --chart-series-2: var(--mob-signal-chart-series-2);
+  --chart-series-3: var(--mob-signal-chart-series-3);
+  --chart-series-4: var(--mob-signal-chart-series-4);
+  --chart-series-selected: var(--mob-signal-chart-series-selected);
+  --chart-axis: var(--mob-signal-chart-axis);
+  --chart-grid: var(--mob-signal-chart-grid);
+  --chart-label: var(--mob-signal-chart-label);
+  --chart-line: var(--mob-signal-chart-line);
+  --chart-marker: var(--mob-signal-chart-marker);
+  --chart-area-fill: var(--mob-signal-chart-area-fill);
+  --chart-dash-2: var(--mob-signal-chart-dash-2);
+  --chart-dash-3: var(--mob-signal-chart-dash-3);
+  --sparkline-height: var(--mob-signal-sparkline-height);
+  --columns: var(--mob-signal-columns);
+  --gutter-md: var(--mob-signal-gutter-md);
+  --gutter-sm: var(--mob-signal-gutter-sm);
+  --sidebar-wide: var(--mob-signal-sidebar-wide);
+  --modal-sm: var(--mob-signal-modal-sm);
+  --modal-md: var(--mob-signal-modal-md);
+  --modal-lg: var(--mob-signal-modal-lg);
+  --popover-max: var(--mob-signal-popover-max);
+  --tooltip-max: var(--mob-signal-tooltip-max);
+  --breakpoint-sm: var(--mob-signal-breakpoint-sm);
+  --breakpoint-md: var(--mob-signal-breakpoint-md);
+  --breakpoint-lg: var(--mob-signal-breakpoint-lg);
+  --breakpoint-xl: var(--mob-signal-breakpoint-xl);
+  --breakpoint-2xl: var(--mob-signal-breakpoint-2xl);
+  --z-raised: var(--mob-signal-z-raised);
+  --surface-hover: var(--mob-signal-surface-hover);
+  --shadow-focus: var(--mob-signal-shadow-focus);
+  --motion-hover: var(--mob-signal-motion-hover);
+  --scrim: var(--mob-signal-scrim);
+  --stagger: var(--mob-signal-stagger);
+}
+
+/* Theme policy: this system publishes no light theme. A light OS preference must not
+   re-map any value above; the only light surfaces in the package are engine viewer
+   chrome (`brand.html`, `system/kit.html`), which are not brand deliverables.
+   See BRAND.md 1 "Dark-only declaration". */
+@media (prefers-color-scheme: light) {
+  :root { color-scheme: dark; }
+  body:not([data-od-light-chrome]) {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+}
+
+/* Reduced motion: the fades above collapse, the determinate progress bar becomes a
+   static value, and a skeleton stays a flat block. No layout change either way. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --mob-signal-motion: 0.01ms;
+    --mob-signal-motion-hover: 0.01ms;
+    --mob-signal-motion-enter: 0.01ms;
+    --mob-signal-motion-exit: 0.01ms;
+    --mob-signal-motion-progress: 0.01ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.od-design-system-preview {
+  color: var(--color-text);
+  background: var(--color-background);
+  font-family: var(--font-family);
+}

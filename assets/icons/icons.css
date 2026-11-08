@@ -1,0 +1,250 @@
+/* ============================================================================
+   M.O.B Signal — icon family
+   ----------------------------------------------------------------------------
+   AUTHORED BRAND WORK. The source archive (historical design input (not bundled))
+   ships one decorative <svg> and no icon system, so this family is authored to the
+   measured brand rules rather than transcribed. Token values come from
+   ../colors_and_type.css; nothing here declares a colour literal, a radius or a
+   duration that the contract has not already registered.
+
+   FAMILY RULES — every glyph in assets/icons/icons.svg obeys these:
+   1. Grid 24x24, viewBox "0 0 24 24". Live area 20x20 with 2px padding on all four
+      sides, so every centreline coordinate sits between 2 and 22.
+   2. Stroke 1.5px, measured at the 24px box. The stroke scales with the box, so the
+      same path resolves to 1px at 16 and 1.25px at 20 — the optical weight of the
+      live area stays constant instead of the absolute line width.
+   3. Geometry is orthogonal (0 deg, 90 deg) or a true 45 deg diagonal only. Rounded
+      joins, arcs, circular blobs and bezier curves are banned: a clock is a square
+      with two hands, a globe is a gridded square, a gear is a hub with eight teeth.
+   4. stroke-linecap: butt. stroke-linejoin: miter. Open paths stop at the coordinate;
+      nothing is capped, extended or rounded to soften a corner.
+   5. No fills. The single exception is a solid square marker (a 2x2 or 3x3 rect in the
+      sprite carrying fill="currentColor" stroke="none") used for status dots, keyholes,
+      quota units, git nodes, list marks and the three-square "more" marks.
+   6. Centrelines sit on whole units or half units. Never an arbitrary decimal. The 0.75
+      half-stroke plus the 2px padding keeps the ink inside the viewBox, and the half-unit
+      grid means the 1.5px band straddles the pixel grid symmetrically at the 2x render
+      target instead of landing a fraction of a device pixel off centre.
+   7. Colour is always currentColor. The sprite has no baked accent: an icon takes the
+      colour of the text, control or status row it sits in. One accent means the accent
+      marks the action, the selection, the focus and the healthy state only.
+   8. No icon animation. No morph, no draw-in, no stroke-dashoffset trick, no transform.
+      The only allowed transition anywhere in this sheet is the contract's 0.12s on
+      background-color, border-color and colour, and it belongs to the control, not the glyph.
+   9. Three sizes only — 16, 20, 24. An icon is never scaled by a width/height attribute,
+      a font-size, a transform or a fourth step in between.
+
+   USAGE
+   <svg class="mob-icon mob-icon--20" aria-hidden="true">
+     <use href="icons.svg#i-check"></use>
+   </svg>
+   ========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   Base
+   The default box is the 20px control/nav step. `flex: none` stops a glyph
+   stretching inside a flex row; `outline: none` (focus: none) is deliberate —
+   an icon is never a focus target, its control owns the ring. The ring is
+   therefore re-declared on .mob-icon-button:focus-visible, never suppressed
+   on a control that contains an icon.
+   ------------------------------------------------------------------------- */
+.mob-icon {
+  display: block;
+  flex: none;
+  width: var(--icon-size-md, var(--mob-signal-icon-md));
+  height: var(--icon-size-md, var(--mob-signal-icon-md));
+  fill: none;
+  stroke: currentColor;
+  /* 1.5px default comes straight off the token. --icon-stroke is the public alias
+     for the same value; the size steps below take the alias first and the long
+     name as the fallback, so either sheet alone still resolves. */
+  stroke-width: var(--mob-signal-icon-stroke);
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  outline: none;
+  shape-rendering: auto; /* crispEdges would shatter the 45 deg diagonals */
+}
+
+/* ---------------------------------------------------------------------------
+   Size steps — three, mapped to the icon tokens, each with a fixed job
+   ------------------------------------------------------------------------- */
+
+/* 16px — inline work. Inside a 14px label, inside a badge, in a table cell,
+   in a nav row, before mono metadata. Pair it with .mob-icon-pair--16 so the
+   line box stays the label's, not the icon's. */
+.mob-icon--16 {
+  width: var(--icon-size-sm, var(--mob-signal-icon-sm));
+  height: var(--icon-size-sm, var(--mob-signal-icon-sm));
+}
+
+/* 20px — the default. Buttons, inputs (leading/trailing affordance), icon
+   buttons, sidebar and tab navigation, toasts, dropdown rows. */
+.mob-icon--20 {
+  width: var(--icon-size-md, var(--mob-signal-icon-md));
+  height: var(--icon-size-md, var(--mob-signal-icon-md));
+}
+
+/* 24px — the loud step. Empty state, drop target, hero metric marker, a status
+   read at a distance. 24 is also the WCAG 2.2.2 minimum target, so an empty-state
+   glyph is the only place an icon may outsize its own line. */
+.mob-icon--24 {
+  width: var(--icon-size-lg, var(--mob-signal-icon-lg));
+  height: var(--icon-size-lg, var(--mob-signal-icon-lg));
+}
+
+/* ---------------------------------------------------------------------------
+   Icon + label pairing
+   One gap, always 8px from --mob-signal-icon-gap. The pair aligns on the
+   20px line: the icon box is centred against the label's line box, the label is
+   never re-baselined and the icon never sits on the text baseline. Sentence case,
+   verb-first labels; the icon repeats the label, it does not replace it.
+   ------------------------------------------------------------------------- */
+.mob-icon-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mob-signal-icon-gap);
+  min-height: var(--icon-size-md, var(--mob-signal-icon-md));
+  line-height: var(--icon-size-md, var(--mob-signal-icon-md));
+}
+
+/* 16px inline pairing — the line box belongs to the 14px label (20px), the glyph
+   is stepped down to 16 so it does not swell the row. */
+.mob-icon-pair--16 {
+  min-height: var(--mob-signal-line-sm);
+  line-height: var(--mob-signal-line-sm);
+}
+
+/* Tabular cells: the glyph is a block on the cell's centre line, never inline on
+   a baseline, so the numbers beside it keep their tabular-nums column alignment. */
+.mob-icon-pair--cell {
+  display: flex;
+  align-items: center;
+  gap: var(--mob-signal-icon-gap);
+}
+
+/* ---------------------------------------------------------------------------
+   The three cases that need an accessible name instead of aria-hidden
+   Default rule: an icon beside its own visible text is decoration for a screen
+   reader and carries aria-hidden="true" (and focusable="false"). It stops being
+   decoration in exactly three situations, and each of those is a class here so
+   the review surface and the kit can be checked against the same list.
+   ------------------------------------------------------------------------- */
+
+/* 1. Standalone icon button — no visible label, so the button MUST carry
+      aria-label ("Close", "Refresh", "Row actions"). Visual height stays the
+      brand's 32px control; the pointer box is --target-min (24px) and 44px on
+      coarse pointers, per the contract's target tokens. The ring is the
+      contract's focus shadow: no layout shift, no accent fill. */
+.mob-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: var(--mob-signal-control-height);
+  min-width: var(--mob-signal-control-height);
+  padding: 0 var(--mob-signal-space-2);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-subtle);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color var(--mob-signal-motion),
+              border-color var(--mob-signal-motion),
+              color var(--mob-signal-motion);
+}
+.mob-icon-button:hover {
+  background: var(--mob-signal-surface-hover);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+.mob-icon-button:focus-visible {
+  outline: none;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+.mob-icon-button:active {
+  background: var(--mob-signal-surface-elevated);
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+.mob-icon-button[aria-pressed="true"],
+.mob-icon-button[aria-expanded="true"] {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.mob-icon-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+@media (pointer: coarse) {
+  .mob-icon-button {
+    min-height: var(--mob-signal-target-touch);
+    min-width: var(--mob-signal-target-touch);
+  }
+}
+@media (hover: none) and (pointer: coarse) {
+  .mob-icon-button:hover {
+    background: var(--color-surface-subtle);
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+  }
+}
+
+/* 2. Status icon — the glyph is read aloud as part of the status, so the row
+      carries the word next to it and the icon keeps aria-hidden="true" only when
+      the word is in the same accessible name. Rule: hue + shape + word, always.
+      Colour comes from the semantic tokens below, never from a literal and never
+      from the icon alone. */
+.mob-icon-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mob-signal-icon-gap);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+}
+
+/* 3. Selected / active marker — a check or a filled square that means "this row
+      is chosen". The state lives on the control (aria-selected / aria-current /
+      aria-checked), the glyph is labelled by that state and is not repeated as
+      text; where the marker is the only signal, name the control instead. */
+.mob-icon-marker-selected {
+  color: var(--color-primary); /* the accent marks the selection, nothing else */
+}
+
+/* ---------------------------------------------------------------------------
+   Status colour helpers
+   Colour only, through the registered semantic tokens. No size, no stroke, no
+   literal, no background wash. The matching word is a content requirement, not
+   a styling one — see the map in preview/icons.html.
+   ------------------------------------------------------------------------- */
+.mob-icon--status-operational { color: var(--mob-signal-success); }
+.mob-icon--status-degraded     { color: var(--mob-signal-warning); }
+.mob-icon--status-failed       { color: var(--mob-signal-error); }
+.mob-icon--status-pending      { color: var(--mob-signal-text-secondary); }
+/* Paused resolves to the same neutral hue as Pending on purpose: the palette
+   registers no sixth status colour, so the shape and the word carry the
+   difference. --muted below stays reserved for a control that is not live. */
+.mob-icon--status-paused       { color: var(--mob-signal-text-secondary); }
+.mob-icon--status-neutral      { color: var(--mob-signal-muted); }
+.mob-icon--status-info         { color: var(--mob-signal-info); }
+
+/* Destructive affordance: the error hue on the glyph is inherited by the icon and
+   is not an accent use, so the one-accent rule is not broken by a delete action. */
+.mob-icon--destructive { color: var(--mob-signal-error); }
+
+/* Disabled: the glyph dims with its control. Never lighten text past --muted. */
+.mob-icon--disabled { color: var(--mob-signal-muted); }
+
+/* Inverted surfaces (a primary button's black-on-accent label): the icon inherits
+   the label colour, so nothing is set here beyond the note. Do not add a rule
+   that hardcodes the on-accent ink — set the control's colour and let currentColor
+   carry it. --color-text-on-primary already resolves to that value. */
+
+/* ---------------------------------------------------------------------------
+   Reduced motion — the family has no motion, but the controls that host it do.
+   The contract collapses 0.12s globally; this sheet adds nothing to animate.
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .mob-icon-button {
+    transition-duration: 0.01ms;
+  }
+}

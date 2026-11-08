@@ -1,0 +1,44 @@
+[
+  {
+    "file": "logos/exports/mob-lockup-dark.png",
+    "source": "logos/mob-logo/vectors/mob-lockup-dark.svg",
+    "width": 1200,
+    "height": 348,
+    "transformation": "SVG rasterization; full frame; no geometry changes"
+  },
+  {
+    "file": "logos/exports/mob-lockup-light.png",
+    "source": "logos/mob-logo/vectors/mob-lockup-light.svg",
+    "width": 1200,
+    "height": 348,
+    "transformation": "SVG rasterization; full frame; no geometry changes"
+  },
+  {
+    "file": "logos/exports/mob-lockup-stacked.png",
+    "source": "logos/mob-logo/vectors/mob-lockup-stacked.svg",
+    "width": 1200,
+    "height": 954,
+    "transformation": "SVG rasterization; full frame; no geometry changes"
+  },
+  {
+    "file": "logos/exports/mob-symbol.png",
+    "source": "logos/mob-logo/vectors/mob-symbol.svg",
+    "width": 1200,
+    "height": 1200,
+    "transformation": "SVG rasterization; full frame; no geometry changes"
+  },
+  {
+    "file": "logos/exports/mob-wordmark.png",
+    "source": "logos/mob-logo/vectors/mob-wordmark.svg",
+    "width": 1200,
+    "height": 373,
+    "transformation": "SVG rasterization; full frame; no geometry changes"
+  },
+  {
+    "file": "logos/exports/og-cover.png",
+    "source": "logos/mob-logo/vectors/og-cover.svg",
+    "width": 1200,
+    "height": 630,
+    "transformation": "SVG rasterization; full frame; no geometry changes"
+  }
+]

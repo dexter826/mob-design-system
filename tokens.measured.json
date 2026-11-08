@@ -1,0 +1,705 @@
+{
+  "format": "mob-signal-tokens-measured/1",
+  "name": "M.O.B Signal",
+  "packageVersion": "1.5.0",
+  "sourceVersion": "4.0.0",
+  "generated": "2026-11-08",
+  "purpose": "Canonical design tokens. Run npm run build to update CSS, compatibility tokens and local previews.",
+  "provenanceVocabulary": {
+    "measured": "Recorded from a file in the archive. The brand value.",
+    "authored": "Absent from the archive. Written to close a gap the archive left open; reversible, and labelled wherever it appears.",
+    "corrected": "An archive value replaced on measurement. The measured value is live and the original is retained as a recorded value."
+  },
+  "source": {
+    "archive": "design-system-neon-tech.rar",
+    "archiveSha256": "8d9e46cb6d28432e8b6808417b0770b227f81a2f425d9a1601993f06a25c50d1",
+    "archiveBytes": 15891,
+    "files": [
+      {
+        "path": "design-tokens.json",
+        "sha256": "cefcd0bc344e2ebf39ef8627421aad4688c95085df534eeff6b121dea32087c7",
+        "bytes": 7394
+      },
+      {
+        "path": "design-system.css",
+        "sha256": "09b9455b576dd65a1f795749d2e3b664f0492a3d745df01c104670fb02a40665",
+        "bytes": 8625
+      },
+      {
+        "path": "design-system.md",
+        "sha256": "a7ce64e64e037e96d8942128548b667143a4dbabfc077b5b39d6d13a036be1ab",
+        "bytes": 7191
+      },
+      {
+        "path": "design-system-preview.html",
+        "sha256": "9d154f0d7501e0a6ebaeab158950517769f3202c0282d8f2f7d052173e454048",
+        "bytes": 32242
+      }
+    ],
+    "containsNoFonts": true,
+    "containsNoLogo": true,
+    "containsNoIcons": true,
+    "containsNoCharts": true,
+    "bundled": false,
+    "note": "Historical source metadata only; original and extracted inputs are not part of this package."
+  },
+  "engineRoles": {
+    "background": {
+      "value": "#0a0a0a",
+      "provenance": "measured",
+      "source": "--color-background"
+    },
+    "surface": {
+      "value": "#121212",
+      "provenance": "measured",
+      "source": "--color-surface"
+    },
+    "foreground": {
+      "value": "#ededed",
+      "provenance": "measured",
+      "source": "--color-text-primary"
+    },
+    "muted": {
+      "value": "#737373",
+      "provenance": "measured",
+      "source": "--color-text-muted",
+      "usage": "Disabled text, decoration, or large text only: at least 24 CSS px regular or 18.667 CSS px bold, with measured contrast of at least 3:1. Use text-secondary for small copy and placeholders."
+    },
+    "border": {
+      "value": "#262626",
+      "provenance": "measured",
+      "source": "--color-border"
+    },
+    "accent": {
+      "value": "#00cc5c",
+      "provenance": "corrected",
+      "source": "--color-primary",
+      "archiveValue": "#10e569",
+      "aliasOf": "primary"
+    },
+    "accent-secondary": {
+      "value": "#38bdf8",
+      "provenance": "measured",
+      "source": "--color-info",
+      "aliasOf": "info"
+    }
+  },
+  "color": {
+    "primary": {
+      "value": "#00cc5c",
+      "provenance": "corrected",
+      "archiveValue": "#10e569",
+      "oklch": "0.738 0.206 150"
+    },
+    "primary-hover": {
+      "value": "#00e065",
+      "provenance": "corrected",
+      "archiveValue": "#2bf07e",
+      "oklch": "0.792 0.221 148"
+    },
+    "primary-active": {
+      "value": "#00b853",
+      "provenance": "corrected",
+      "archiveValue": "#0cd05d",
+      "oklch": "0.684 0.190 149"
+    },
+    "primary-subtle": {
+      "value": "rgba(0, 204, 92, 0.1)",
+      "provenance": "corrected"
+    },
+    "text-on-primary": {
+      "value": "#000000",
+      "provenance": "measured",
+      "contrast": "9.79:1 AAA on the accent; 11.85:1 on hover, 7.98:1 on active. #ededed on the accent measures 1.83:1 and is illegal at any size; white ink would need a fill below 0.157 luminance, which no neon green reaches. #000000 is the only legal label colour on an accent fill."
+    },
+    "surface-subtle": {
+      "value": "#181818",
+      "provenance": "measured"
+    },
+    "surface-elevated": {
+      "value": "#202020",
+      "provenance": "measured"
+    },
+    "surface-hover": {
+      "value": "#222222",
+      "provenance": "measured"
+    },
+    "border-strong": {
+      "value": "#383838",
+      "provenance": "measured"
+    },
+    "border-focus": {
+      "value": "#00cc5c",
+      "provenance": "corrected",
+      "aliasOf": "primary"
+    },
+    "text-secondary": {
+      "value": "#a1a1a1",
+      "provenance": "measured",
+      "contrast": "7.66:1 AAA (the archive quoted 6.8:1)"
+    },
+    "success": {
+      "value": "#00cc5c",
+      "provenance": "corrected",
+      "archiveValue": "#10e569",
+      "aliasOf": "primary"
+    },
+    "success-subtle": {
+      "value": "rgba(0, 204, 92, 0.1)",
+      "provenance": "corrected",
+      "aliasOf": "primary-subtle"
+    },
+    "warning": {
+      "value": "#f59e0b",
+      "provenance": "measured"
+    },
+    "error": {
+      "value": "#ef4444",
+      "provenance": "measured"
+    },
+    "info": {
+      "value": "#38bdf8",
+      "provenance": "measured"
+    },
+    "row-hover": {
+      "value": "rgba(255, 255, 255, 0.02)",
+      "provenance": "measured"
+    },
+    "control-border": {
+      "value": "#737373",
+      "provenance": "authored",
+      "note": "Essential control boundary; decorative separators use border."
+    },
+    "error-text": {
+      "value": "#ededed",
+      "provenance": "authored",
+      "note": "Readable error copy; pair with the error marker and explicit message."
+    }
+  },
+  "typography": {
+    "display": {
+      "family": "Space Grotesk",
+      "weights": [
+        500,
+        600,
+        700
+      ],
+      "provenance": "measured"
+    },
+    "body": {
+      "family": "Plus Jakarta Sans",
+      "weights": [
+        400,
+        500,
+        600,
+        700
+      ],
+      "provenance": "measured"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "weights": [
+        400,
+        500,
+        600
+      ],
+      "provenance": "measured"
+    },
+    "trackingDisplay": {
+      "value": "-0.02em",
+      "provenance": "measured"
+    },
+    "fontFeatureSettings": {
+      "value": "\"cv02\", \"cv03\", \"cv04\", \"cv11\", \"tnum\"",
+      "provenance": "measured"
+    },
+    "scale": {
+      "xs": {
+        "size": "12px",
+        "lineHeight": "16px",
+        "provenance": "measured"
+      },
+      "sm": {
+        "size": "14px",
+        "lineHeight": "20px",
+        "provenance": "measured"
+      },
+      "base": {
+        "size": "16px",
+        "lineHeight": "24px",
+        "provenance": "measured"
+      },
+      "lg": {
+        "size": "18px",
+        "lineHeight": "28px",
+        "provenance": "measured"
+      },
+      "xl": {
+        "size": "20px",
+        "lineHeight": "28px",
+        "provenance": "measured"
+      },
+      "2xl": {
+        "size": "24px",
+        "lineHeight": "32px",
+        "provenance": "measured"
+      },
+      "3xl": {
+        "size": "32px",
+        "lineHeight": "36px",
+        "provenance": "measured"
+      }
+    }
+  },
+  "shape": {
+    "radius": {
+      "value": "0px",
+      "provenance": "measured",
+      "note": "design-system.css enforces border-radius: 0 !important in the universal reset."
+    },
+    "borderWidth": {
+      "value": "1px",
+      "provenance": "measured"
+    },
+    "borderWidthThick": {
+      "value": "2px",
+      "provenance": "measured"
+    }
+  },
+  "space": {
+    "baseUnit": "4px",
+    "scale": [
+      "4px",
+      "8px",
+      "12px",
+      "16px",
+      "20px",
+      "24px",
+      "32px",
+      "40px",
+      "48px"
+    ],
+    "provenance": "measured"
+  },
+  "elevation": {
+    "sm": {
+      "value": "0 1px 2px rgba(0, 0, 0, 0.4)",
+      "provenance": "measured"
+    },
+    "md": {
+      "value": "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.5)",
+      "provenance": "measured",
+      "note": "The archive markdown lists one layer; the CSS carries two, and the CSS is the rendered form."
+    },
+    "lg": {
+      "value": "0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.6)",
+      "provenance": "measured"
+    },
+    "focus": {
+      "value": "0 0 0 2px #0a0a0a, 0 0 0 4px #00cc5c",
+      "provenance": "corrected",
+      "archiveValue": "0 0 0 2px #0a0a0a, 0 0 0 4px #10e569"
+    },
+    "focusField": {
+      "value": "0 0 0 2px #0a0a0a, 0 0 0 4px #00cc5c",
+      "provenance": "corrected"
+    }
+  },
+  "sizing": {
+    "controlHeight": {
+      "value": "32px",
+      "provenance": "measured",
+      "note": "8px pad + 14px line + 8px pad + 2px border"
+    },
+    "controlHeightSm": {
+      "value": "28px",
+      "provenance": "authored"
+    },
+    "controlHeightLg": {
+      "value": "40px",
+      "provenance": "authored"
+    },
+    "targetMin": {
+      "value": "24px",
+      "provenance": "authored",
+      "note": "WCAG 2.5.8 AA: 24 by 24 CSS px, subject to its exceptions."
+    },
+    "targetTouch": {
+      "value": "44px",
+      "provenance": "authored",
+      "note": "44 by 44 CSS px coarse-pointer controls; layout grows to prevent overlapping targets."
+    }
+  },
+  "motion": {
+    "hover": {
+      "value": "0.12s cubic-bezier(0.16, 1, 0.3, 1)",
+      "properties": [
+        "background-color",
+        "border-color",
+        "color"
+      ],
+      "provenance": "measured"
+    },
+    "overlayEnter": {
+      "value": "0.12s cubic-bezier(0.16, 1, 0.3, 1)",
+      "properties": [
+        "opacity"
+      ],
+      "provenance": "authored",
+      "note": "Departs from the archive ban on entrance choreography, minimally: opacity only, no transform, no scale."
+    },
+    "overlayExit": {
+      "value": "0.08s cubic-bezier(0.7, 0, 0.84, 0)",
+      "properties": [
+        "opacity"
+      ],
+      "provenance": "authored",
+      "note": "67% of entrance."
+    },
+    "progress": {
+      "value": "0.24s cubic-bezier(0.16, 1, 0.3, 1)",
+      "properties": [
+        "width"
+      ],
+      "provenance": "authored"
+    },
+    "stagger": {
+      "value": "0s",
+      "provenance": "authored",
+      "note": "None. The archive bans entrance choreography; recorded as a departure from the motion baseline."
+    },
+    "reducedMotion": {
+      "value": "0.01ms on every duration",
+      "provenance": "authored"
+    }
+  },
+  "grid": {
+    "breakpoints": {
+      "value": [
+        "640px",
+        "768px",
+        "1024px",
+        "1280px",
+        "1536px"
+      ],
+      "provenance": "authored"
+    },
+    "containerApp": {
+      "value": "1200px",
+      "provenance": "measured",
+      "source": "design-system-preview.html page width"
+    },
+    "containerProse": {
+      "value": "920px",
+      "provenance": "authored",
+      "source": "index.html measure"
+    },
+    "columns": {
+      "value": 12,
+      "provenance": "authored"
+    },
+    "gap": {
+      "value": "24px",
+      "provenance": "authored"
+    },
+    "gutter": {
+      "value": [
+        "48px",
+        "24px",
+        "16px"
+      ],
+      "provenance": "authored"
+    },
+    "navHeight": {
+      "value": "48px",
+      "provenance": "measured",
+      "source": "12px pad + 24px line + 12px pad"
+    },
+    "sidebar": {
+      "value": "240px",
+      "provenance": "authored"
+    },
+    "drawer": {
+      "value": "360px",
+      "provenance": "authored"
+    },
+    "modal": {
+      "value": {
+        "sm": "480px",
+        "md": "640px",
+        "lg": "880px"
+      },
+      "provenance": "authored"
+    },
+    "zIndex": {
+      "value": {
+        "raised": 1,
+        "sticky": 10,
+        "drawer": 40,
+        "dropdown": 50,
+        "modal": 100,
+        "popover": 110,
+        "toast": 120,
+        "palette": 130
+      },
+      "provenance": "authored"
+    }
+  },
+  "icons": {
+    "grid": {
+      "value": "24x24",
+      "provenance": "authored",
+      "note": "The archive ships one decorative svg and no icon system."
+    },
+    "sizes": {
+      "value": [
+        "16px",
+        "20px",
+        "24px"
+      ],
+      "provenance": "authored"
+    },
+    "stroke": {
+      "value": "1.5px",
+      "provenance": "authored"
+    },
+    "caps": {
+      "value": "butt",
+      "provenance": "authored"
+    },
+    "joins": {
+      "value": "miter",
+      "provenance": "authored"
+    },
+    "fill": {
+      "value": "none",
+      "provenance": "authored"
+    },
+    "color": {
+      "value": "currentColor",
+      "provenance": "authored"
+    }
+  },
+  "charts": {
+    "series": {
+      "value": [
+        "#38bdf8",
+        "#a1a1a1",
+        "#737373",
+        "#ededed"
+      ],
+      "provenance": "authored",
+      "note": "The accent is excluded from ordinary series; it marks the selected series or a threshold crossing only."
+    },
+    "seriesSelected": {
+      "value": "#00cc5c",
+      "provenance": "corrected"
+    },
+    "line": {
+      "value": "2px",
+      "provenance": "authored"
+    },
+    "marker": {
+      "value": "4px square",
+      "provenance": "authored"
+    },
+    "axis": {
+      "value": "#383838",
+      "provenance": "authored"
+    },
+    "grid": {
+      "value": "#181818",
+      "provenance": "authored"
+    },
+    "label": {
+      "value": "#a1a1a1",
+      "provenance": "authored"
+    },
+    "areaFill": {
+      "value": "rgba(56, 189, 248, 0.12)",
+      "provenance": "authored"
+    },
+    "sparklineHeight": {
+      "value": "24px",
+      "provenance": "authored"
+    },
+    "yTicks": {
+      "value": 4,
+      "provenance": "authored"
+    }
+  },
+  "statusMap": {
+    "provenance": "authored",
+    "note": "Communicate status with a visible word and a marker or icon. Never rely on hue alone.",
+    "Operational": {
+      "color": "success (alias of primary)",
+      "hex": "#00cc5c",
+      "shape": "6px solid square",
+      "icon": "check"
+    },
+    "Degraded": {
+      "color": "warning",
+      "hex": "#f59e0b",
+      "shape": "6px solid square",
+      "icon": "alert"
+    },
+    "Failed": {
+      "color": "error",
+      "hex": "#ef4444",
+      "shape": "6px solid square",
+      "icon": "close"
+    },
+    "Pending": {
+      "color": "text-secondary",
+      "hex": "#a1a1a1",
+      "shape": "6px outline square",
+      "icon": "clock"
+    },
+    "Paused": {
+      "color": "text-secondary",
+      "hex": "#a1a1a1",
+      "shape": "6px outline square",
+      "icon": "pause"
+    }
+  },
+  "contrast": {
+    "report": "context/contrast-measured.md",
+    "generator": "node context/contrast.mjs",
+    "provenance": "measured"
+  },
+  "css": {
+    "--mob-signal-primary": "{color.primary}",
+    "--mob-signal-primary-hover": "{color.primary-hover}",
+    "--mob-signal-primary-active": "{color.primary-active}",
+    "--mob-signal-primary-subtle": "{color.primary-subtle}",
+    "--mob-signal-accent-secondary": "{engineRoles.accent-secondary}",
+    "--mob-signal-text-on-primary": "{color.text-on-primary}",
+    "--mob-signal-background": "{engineRoles.background}",
+    "--mob-signal-surface": "{engineRoles.surface}",
+    "--mob-signal-surface-subtle": "{color.surface-subtle}",
+    "--mob-signal-surface-elevated": "{color.surface-elevated}",
+    "--mob-signal-surface-hover": "{color.surface-hover}",
+    "--mob-signal-border": "{engineRoles.border}",
+    "--mob-signal-border-strong": "{color.border-strong}",
+    "--mob-signal-border-focus": "{color.border-focus}",
+    "--mob-signal-foreground": "{engineRoles.foreground}",
+    "--mob-signal-text-secondary": "{color.text-secondary}",
+    "--mob-signal-muted": "{engineRoles.muted}",
+    "--mob-signal-success": "{color.success}",
+    "--mob-signal-success-subtle": "{color.success-subtle}",
+    "--mob-signal-warning": "{color.warning}",
+    "--mob-signal-error": "{color.error}",
+    "--mob-signal-info": "{color.info}",
+    "--mob-signal-font-display": "'Space Grotesk', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",
+    "--mob-signal-font-sans": "'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",
+    "--mob-signal-font-mono": "'JetBrains Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace",
+    "--mob-signal-text-xs": "{typography.scale.xs.size}",
+    "--mob-signal-line-xs": "{typography.scale.xs.lineHeight}",
+    "--mob-signal-text-sm": "{typography.scale.sm.size}",
+    "--mob-signal-line-sm": "{typography.scale.sm.lineHeight}",
+    "--mob-signal-text-base": "{typography.scale.base.size}",
+    "--mob-signal-line-base": "{typography.scale.base.lineHeight}",
+    "--mob-signal-text-lg": "{typography.scale.lg.size}",
+    "--mob-signal-line-lg": "{typography.scale.lg.lineHeight}",
+    "--mob-signal-text-xl": "{typography.scale.xl.size}",
+    "--mob-signal-line-xl": "{typography.scale.xl.lineHeight}",
+    "--mob-signal-text-2xl": "{typography.scale.2xl.size}",
+    "--mob-signal-line-2xl": "{typography.scale.2xl.lineHeight}",
+    "--mob-signal-text-3xl": "{typography.scale.3xl.size}",
+    "--mob-signal-line-3xl": "{typography.scale.3xl.lineHeight}",
+    "--mob-signal-tracking-display": "{typography.trackingDisplay}",
+    "--mob-signal-space-0": "0px",
+    "--mob-signal-space-1": "4px",
+    "--mob-signal-space-2": "8px",
+    "--mob-signal-space-3": "12px",
+    "--mob-signal-space-4": "16px",
+    "--mob-signal-space-5": "20px",
+    "--mob-signal-space-6": "24px",
+    "--mob-signal-space-8": "32px",
+    "--mob-signal-space-10": "40px",
+    "--mob-signal-space-12": "48px",
+    "--mob-signal-radius": "{shape.radius}",
+    "--mob-signal-radius-sm": "{shape.radius}",
+    "--mob-signal-radius-md": "{shape.radius}",
+    "--mob-signal-radius-lg": "{shape.radius}",
+    "--mob-signal-radius-full": "{shape.radius}",
+    "--mob-signal-border-width": "{shape.borderWidth}",
+    "--mob-signal-border-width-thick": "{shape.borderWidthThick}",
+    "--mob-signal-shadow-sm": "{elevation.sm}",
+    "--mob-signal-shadow-md": "{elevation.md}",
+    "--mob-signal-shadow-lg": "{elevation.lg}",
+    "--mob-signal-shadow-focus": "0 0 0 2px var(--mob-signal-background), 0 0 0 4px var(--mob-signal-primary)",
+    "--mob-signal-control-height": "{sizing.controlHeight}",
+    "--mob-signal-control-height-sm": "{sizing.controlHeightSm}",
+    "--mob-signal-control-height-lg": "{sizing.controlHeightLg}",
+    "--mob-signal-motion": "0.12s cubic-bezier(0.16, 1, 0.3, 1)",
+    "--mob-signal-pad-button": "8px 16px",
+    "--mob-signal-pad-input": "4px 12px",
+    "--mob-signal-pad-card": "24px",
+    "--mob-signal-pad-cell": "12px 16px",
+    "--mob-signal-row-hover": "{color.row-hover}",
+    "--mob-signal-icon-sm": "16px",
+    "--mob-signal-icon-md": "20px",
+    "--mob-signal-icon-lg": "24px",
+    "--mob-signal-icon-stroke": "1.5px",
+    "--mob-signal-icon-gap": "8px",
+    "--mob-signal-breakpoint-sm": "640px",
+    "--mob-signal-breakpoint-md": "768px",
+    "--mob-signal-breakpoint-lg": "1024px",
+    "--mob-signal-breakpoint-xl": "1280px",
+    "--mob-signal-breakpoint-2xl": "1536px",
+    "--mob-signal-container-app": "1200px",
+    "--mob-signal-container-prose": "920px",
+    "--mob-signal-columns": "12",
+    "--mob-signal-grid-gap": "24px",
+    "--mob-signal-gutter": "48px",
+    "--mob-signal-gutter-md": "24px",
+    "--mob-signal-gutter-sm": "16px",
+    "--mob-signal-nav-height": "48px",
+    "--mob-signal-sidebar": "240px",
+    "--mob-signal-sidebar-wide": "280px",
+    "--mob-signal-drawer": "360px",
+    "--mob-signal-modal-sm": "480px",
+    "--mob-signal-modal-md": "640px",
+    "--mob-signal-modal-lg": "880px",
+    "--mob-signal-popover-max": "320px",
+    "--mob-signal-tooltip-max": "240px",
+    "--mob-signal-z-raised": "1",
+    "--mob-signal-z-sticky": "10",
+    "--mob-signal-z-drawer": "40",
+    "--mob-signal-z-dropdown": "50",
+    "--mob-signal-z-modal": "100",
+    "--mob-signal-z-popover": "110",
+    "--mob-signal-z-toast": "120",
+    "--mob-signal-z-palette": "130",
+    "--mob-signal-motion-hover": "var(--mob-signal-motion)",
+    "--mob-signal-motion-enter": "0.12s cubic-bezier(0.16, 1, 0.3, 1)",
+    "--mob-signal-motion-exit": "0.08s cubic-bezier(0.7, 0, 0.84, 0)",
+    "--mob-signal-motion-progress": "0.24s cubic-bezier(0.16, 1, 0.3, 1)",
+    "--mob-signal-skeleton-fill": "var(--mob-signal-surface-subtle)",
+    "--mob-signal-stagger": "0s",
+    "--mob-signal-scrim": "rgba(0, 0, 0, 0.6)",
+    "--mob-signal-target-visual": "32px",
+    "--mob-signal-target-min": "{sizing.targetMin}",
+    "--mob-signal-target-touch": "{sizing.targetTouch}",
+    "--mob-signal-status-dot": "6px",
+    "--mob-signal-status-edge": "2px",
+    "--mob-signal-chart-series-1": "{color.info}",
+    "--mob-signal-chart-series-2": "#a1a1a1",
+    "--mob-signal-chart-series-3": "#737373",
+    "--mob-signal-chart-series-4": "#ededed",
+    "--mob-signal-chart-series-selected": "{color.primary}",
+    "--mob-signal-chart-line": "2px",
+    "--mob-signal-chart-marker": "4px",
+    "--mob-signal-chart-axis": "{color.border-strong}",
+    "--mob-signal-chart-grid": "{color.surface-subtle}",
+    "--mob-signal-chart-label": "{color.text-secondary}",
+    "--mob-signal-chart-area-fill": "{charts.areaFill}",
+    "--mob-signal-chart-dash-2": "8px 4px",
+    "--mob-signal-chart-dash-3": "4px 4px",
+    "--mob-signal-sparkline-height": "24px",
+    "--mob-signal-chart-y-ticks": "4",
+    "--mob-signal-control-border": "{color.control-border}",
+    "--mob-signal-error-text": "{color.error-text}"
+  }
+}

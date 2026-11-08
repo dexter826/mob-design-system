@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spacing Tokens</title>
+  <style>
+
+    :root {
+      color-scheme: dark;
+      --bg: var(--color-background);
+      --surface: var(--color-surface);
+      --surface-subtle: var(--color-surface-subtle);
+      --surface-elevated: var(--color-surface-elevated);
+      --surface-hover: var(--color-surface-hover);
+      --fg: var(--color-text);
+      --fg-secondary: var(--color-text-secondary);
+      --muted: var(--color-text-muted);
+      --border: var(--color-border);
+      --border-strong: var(--color-border-strong);
+      --accent: var(--color-primary);
+      --accent-hover: var(--color-primary-hover);
+      --accent-active: var(--color-primary-active);
+      --accent-subtle: rgba(0, 204, 92, 0.1);
+      --on-accent: var(--color-text-on-primary);
+      --info: var(--color-info);
+      --warning: var(--color-warning);
+      --error: var(--color-error);
+      --radius: 0px;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+      --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
+      --motion: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      --font-display: 'Space Grotesk', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; border-radius: 0; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--font-body); font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum"; -webkit-font-smoothing: antialiased; }
+    main { width: min(920px, calc(100vw - 100px)); margin: 48px auto; }
+    h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
+    h1 { margin: 0 0 16px; font-size: 32px; line-height: 36px; }
+    h2 { margin: 32px 0 16px; font-size: 20px; line-height: 28px; }
+    h3 { font-size: 18px; line-height: 28px; }
+    p { margin: 0; max-width: 70ch; color: var(--fg-secondary); }
+    .lead { max-width: 70ch; font-size: 18px; line-height: 28px; }
+    .eyebrow { margin: 0 0 8px; color: var(--color-text-secondary); font-size: 12px; line-height: 16px; font-weight: 500; }
+    code { font-family: var(--font-mono); font-size: 12px; color: var(--fg-secondary); }
+    .note { max-width: 70ch; margin: 8px 0 0; color: var(--color-text-secondary); font-size: 12px; line-height: 16px; }
+    .spacing-list { display: grid; gap: 8px; margin: 24px 0; padding: 24px; background: var(--surface); border: 1px solid var(--border); }
+    .spacing-list div { display: grid; grid-template-columns: 120px 88px 1fr; gap: 16px; align-items: center; }
+    .spacing-list code { color: var(--fg); }
+    .spacing-list span { color: var(--fg-secondary); font-size: 14px; line-height: 20px; font-variant-numeric: tabular-nums; }
+    .spacing-list b { display: block; height: 8px; background: var(--accent); }
+    .section-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 32px 0; padding: 0; list-style: none; }
+    .section-list li { display: grid; gap: 8px; align-content: start; padding: 24px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .section-list strong { font-family: var(--font-display); font-size: 18px; line-height: 28px; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
+    .section-list span { max-width: 70ch; color: var(--fg-secondary); font-size: 14px; line-height: 20px; }
+    @media (max-width: 768px) { .section-list { grid-template-columns: 1fr; } .spacing-list div { grid-template-columns: 96px 72px 1fr; } }
+  </style>
+<link rel="icon" href="../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../colors_and_type.css">
+</head>
+<body><main>
+      <p class="eyebrow">Spacing</p>
+      <h1>Spacing tokens</h1>
+      <p class="lead">One 4px base unit and nine usable steps: 4, 8, 12, 16, 20, 24, 32, 40, 48, with space-0 held at 0px. The bar below is drawn at the token value, so the row lengths are the real numbers.</p>
+      <h2>Scale</h2>
+      <div class="spacing-list">
+        <div><code>--space-1</code><span>4px</span><b style="width:4px"></b></div><div><code>--space-2</code><span>8px</span><b style="width:8px"></b></div><div><code>--space-3</code><span>12px</span><b style="width:12px"></b></div><div><code>--space-4</code><span>16px</span><b style="width:16px"></b></div><div><code>--space-5</code><span>20px</span><b style="width:20px"></b></div><div><code>--space-6</code><span>24px</span><b style="width:24px"></b></div><div><code>--space-8</code><span>32px</span><b style="width:32px"></b></div><div><code>--space-10</code><span>40px</span><b style="width:40px"></b></div><div><code>--space-12</code><span>48px</span><b style="width:48px"></b></div>
+      </div>
+      <p class="note">The scale skips 7, 9 and 11 on purpose: 28px, 36px and 44px are not defined. Vertical rhythm is 8px.</p>
+      <h2>Component padding</h2>
+      <div class="spacing-list">
+        <div><code>card</code><span>24px</span><b style="width:24px"></b></div><div><code>button</code><span>8px 16px</span><b style="width:16px"></b></div><div><code>input</code><span>8px 12px</span><b style="width:12px"></b></div><div><code>table cell</code><span>12px 16px</span><b style="width:16px"></b></div><div><code>table header</code><span>10px 16px</span><b style="width:16px"></b></div><div><code>badge</code><span>2px 8px</span><b style="width:8px"></b></div><div><code>kbd</code><span>1px 5px</span><b style="width:5px"></b></div>
+      </div>
+      <p class="note">For the two-value rows the bar shows the horizontal step. Control height is 32px, which is 8px + 14px line + 8px + 2px border. The bars are drawn in the accent #00cc5c because a 4px to 48px mark has to clear the 3:1 non-text floor and only the accent does that on this card (8.73:1 on surface); they are documentation ink, not a status marker, and no product surface may use the accent for a scale like this.</p>
+      <ul class="section-list">
+        <li><strong>Rule</strong><span>Spacing comes from the scale only. Card padding 24px, button padding 8px 16px, input padding 8px 12px, table cell 12px 16px. Grid gaps in these cards are 16px, list gaps 8px, section margins 32px.</span></li>
+        <li><strong>Density</strong><span>High-information tables and panels stay on the 4px grid with tight rows, and contrast plus focus states do the work that shadows usually take. Density comes with breathing room, not with extra padding steps.</span></li>
+        <li><strong>Off-scale in the source</strong><span>Three measured values sit outside the documented scale: the table header cell uses 10px 16px, the badge uses 2px 8px and the kbd uses 1px 5px. They are reproduced here as found, not corrected.</span></li>
+        <li><strong>Shape is not spacing</strong><span>No border-radius step appears on this card. 6px, 10px and 16px are neither spacing values nor radius values in this system — every radius step is 0px. The shape card carries the real values.</span></li>
+      </ul>
+    </main></body>
+</html>

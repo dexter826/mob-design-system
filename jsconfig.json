@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "checkJs": false
+  },
+  "include": [
+    "context/**/*",
+    "tests/**/*",
+    "ui_kits/**/*",
+    "assets/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+

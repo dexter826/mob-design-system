@@ -1,0 +1,275 @@
+{
+  "brand": "M.O.B Signal",
+  "artworkName": "M.O.B",
+  "attachmentSha256": "5f24c05573c62f08ce1c998fb476378ba57f153a72b2a5a7170abf6cd7ae4e3e",
+  "source": "User-supplied archive",
+  "files": [
+    {
+      "path": "logos/mob-logo/png/mob-lockup-dark.png",
+      "bytes": 13032,
+      "sha256": "02eb4414c541119404bb3465e0670fb2c673f4316dc746c418e423821b8ef5c4",
+      "source": "user-supplied",
+      "dimensions": [
+        1200,
+        1200
+      ]
+    },
+    {
+      "path": "logos/mob-logo/png/mob-lockup-light.png",
+      "bytes": 12881,
+      "sha256": "d4ef2f1f299ae813bd202ee344bc6e91d1370ab8c8eef1184e161263d17efb56",
+      "source": "user-supplied",
+      "dimensions": [
+        1200,
+        1200
+      ]
+    },
+    {
+      "path": "logos/mob-logo/png/mob-lockup-stacked.png",
+      "bytes": 13328,
+      "sha256": "1d3b24c3fd7e1136bb8a425867fa49addbedc6625742f3fea3c502ce42e1cc59",
+      "source": "user-supplied",
+      "dimensions": [
+        1200,
+        1200
+      ]
+    },
+    {
+      "path": "logos/mob-logo/png/mob-symbol.png",
+      "bytes": 11107,
+      "sha256": "b82205c0c5192de70e2ef5bbb2c66f63b3be63f3eeee02b89f4499f88372704f",
+      "source": "user-supplied",
+      "dimensions": [
+        1200,
+        1200
+      ]
+    },
+    {
+      "path": "logos/mob-logo/png/og-cover.png",
+      "bytes": 10500,
+      "sha256": "7e3078cf3ffdd70cdf02f25f7e8e017a7ce8a70beb456d1b0a1d76e9f95fc4b3",
+      "source": "user-supplied",
+      "dimensions": [
+        1200,
+        1200
+      ]
+    },
+    {
+      "path": "logos/mob-logo/README.md",
+      "bytes": 6382,
+      "sha256": "fd943dd03f4fb9a3ac3596f19c0e2e46af4c406a68e45db1410694fdd3af38dd",
+      "source": "user-supplied"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-lockup-dark.svg",
+      "bytes": 1367,
+      "sha256": "58e3b0e9c712dda39473c05dc560dff84ce8858b4cdee961134edc441f99ee7c",
+      "source": "user-supplied",
+      "viewBox": "0 0 884 256"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-lockup-light.svg",
+      "bytes": 1318,
+      "sha256": "5e4661a45f8dd2bf82423eb956a8a7012bd68ad99b24c3434ddadade1a6383ec",
+      "source": "user-supplied",
+      "viewBox": "0 0 884 256"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-lockup-mono-black.svg",
+      "bytes": 1318,
+      "sha256": "873139b70abf66f482e1e41b0c6b2e6db3dd227db3a115fdb324aff113e24316",
+      "source": "user-supplied",
+      "viewBox": "0 0 884 256"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-lockup-mono-white.svg",
+      "bytes": 1318,
+      "sha256": "a383b0c45e3a951877aca3bc2e09a5e6db493b2d0d6077fc74a0971dd01793ac",
+      "source": "user-supplied",
+      "viewBox": "0 0 884 256"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-lockup-stacked.svg",
+      "bytes": 1390,
+      "sha256": "80c357ab815782bf03e13269d182a4c0ee0a8714e32114987df1767489d35366",
+      "source": "user-supplied",
+      "viewBox": "0 0 644 512"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-symbol-dark.svg",
+      "bytes": 704,
+      "sha256": "6dea4348fd360962ba572719ccbb12c3e87d29174bf8ab3774a8ce32a348851f",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-symbol-light.svg",
+      "bytes": 706,
+      "sha256": "f1bd969598fd07543041dbddae28e4a592b744a1ee77a9e3836a710532fc6272",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-symbol.svg",
+      "bytes": 698,
+      "sha256": "3729ca37f1056eda4ab587a6e63e9602e2e906e637f4dd0f9843b0d3d41da0d5",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/vectors/mob-wordmark.svg",
+      "bytes": 758,
+      "sha256": "cc7a92f3b6e7338488932d532404c8d219298ff86c220266bb68127cc47e0708",
+      "source": "user-supplied",
+      "viewBox": "0 0 644 200"
+    },
+    {
+      "path": "logos/mob-logo/vectors/og-cover.svg",
+      "bytes": 1493,
+      "sha256": "27c508076e0dca65dc6a7ef50fc1bf0b79ec4949221cb14519eb7914bdec13f4",
+      "source": "user-supplied",
+      "viewBox": "0 0 1200 630"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/apple-touch-icon.png",
+      "bytes": 1208,
+      "sha256": "eec1d5fb736b9a913fab85329dc3e516f432754d77ae895cc46c348ad100f7eb",
+      "source": "user-supplied",
+      "dimensions": [
+        180,
+        180
+      ]
+    },
+    {
+      "path": "logos/mob-logo/web-icons/favicon-16.png",
+      "bytes": 421,
+      "sha256": "07dee5f5bda4a1ce0ff43fd1afed206ad4989a4d023cd1c7ebde4814a7ca58af",
+      "source": "user-supplied",
+      "dimensions": [
+        16,
+        16
+      ]
+    },
+    {
+      "path": "logos/mob-logo/web-icons/favicon-32.png",
+      "bytes": 562,
+      "sha256": "acc50b0e097f0a1c4b85fb4b27f0c7a624cac1321e31f0430f5c5775ab55c5b0",
+      "source": "user-supplied",
+      "dimensions": [
+        32,
+        32
+      ]
+    },
+    {
+      "path": "logos/mob-logo/web-icons/favicon-48.png",
+      "bytes": 664,
+      "sha256": "0af1bfcce814fcf483ca64949385c18f6f50dbb32af43ef3941da579fbdaf63b",
+      "source": "user-supplied",
+      "dimensions": [
+        48,
+        48
+      ]
+    },
+    {
+      "path": "logos/mob-logo/web-icons/favicon.ico",
+      "bytes": 1701,
+      "sha256": "7f08fbe9f8b7a5fa5f15b649b0c3de7d7778d3607491aae3a113ffc533f7bc8e",
+      "source": "user-supplied"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/favicon.svg",
+      "bytes": 711,
+      "sha256": "ffcd63ae476a1b17ab4874c35a26d7d46b1196363d7d4b22412ca3ab2bbae764",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/head-snippet.html",
+      "bytes": 266,
+      "sha256": "25387841e0167155d875de033df181a7909a5a6421fe9f1f21ecf5d3a5876b51",
+      "source": "user-supplied"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/icon-192.png",
+      "bytes": 1328,
+      "sha256": "c630831d292ba5f5e96d9b49a435e76ef28b20fa671ed466d8b2362dd5944982",
+      "source": "user-supplied",
+      "dimensions": [
+        192,
+        192
+      ]
+    },
+    {
+      "path": "logos/mob-logo/web-icons/icon-512.png",
+      "bytes": 3292,
+      "sha256": "4bb9c8bf1df49a51a58d54ef0dcb50479dbfb44e6844035fcbdf1fae439ffe3b",
+      "source": "user-supplied",
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "path": "logos/mob-logo/web-icons/maskable-512.png",
+      "bytes": 3093,
+      "sha256": "4739d21a8a9cec7eaa82502820b20de9226dc8b4d37d37903e5c5650f28dd949",
+      "source": "user-supplied",
+      "dimensions": [
+        512,
+        512
+      ]
+    },
+    {
+      "path": "logos/mob-logo/web-icons/mob-symbol-app-icon.svg",
+      "bytes": 767,
+      "sha256": "59cbb449ce010ba3ab43c042133fe84cc23d8ae05021c963707737d4afc0d6e3",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/mob-symbol-black.svg",
+      "bytes": 713,
+      "sha256": "7e65041818be482cf684a9cc71ee496b4bc152484c43c395781d9ddf2d92f7cb",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/mob-symbol-favicon.svg",
+      "bytes": 711,
+      "sha256": "ffcd63ae476a1b17ab4874c35a26d7d46b1196363d7d4b22412ca3ab2bbae764",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/mob-symbol-square.svg",
+      "bytes": 711,
+      "sha256": "5276e01b124f3862c589a280b2183ed66624046a5f603edf76c0c46431e22179",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/mob-symbol-white.svg",
+      "bytes": 713,
+      "sha256": "0f1662ae1c068d728f61a46b710a7d9ec285cfcb74a8f6a906d5e7a4a66c7293",
+      "source": "user-supplied",
+      "viewBox": "0 0 256 256"
+    },
+    {
+      "path": "logos/mob-logo/web-icons/site.webmanifest",
+      "bytes": 480,
+      "sha256": "b46d025b1cdf93effcbbc045af72b799321f1cdcb7991dc96f6200ab65392f26",
+      "source": "user-supplied"
+    }
+  ],
+  "compatibilityAlias": {
+    "path": "assets/logo.svg",
+    "source": "logos/mob-logo/vectors/mob-lockup-dark.svg"
+  },
+  "limitations": [
+    "Supplied artwork contains M.O.B, without Signal.",
+    "All png/ files are 1200x1200; horizontal and OG raster geometry differs from the supplied README.",
+    "No editable AI/PDF print master, rendered clear-space proof or misuse sheet is supplied.",
+    "Permission to use supplied assets in this project does not establish a redistribution licence."
+  ],
+  "generatedExports": "logos/exports/manifest.json"
+}

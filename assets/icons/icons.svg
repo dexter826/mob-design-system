@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ===========================================================================
+     M.O.B Signal — icon sprite (65 symbols, ids prefixed "i-")
+     =======================================================================
+     EXTRAPOLATED BRAND WORK, authored for this system. The source archive
+     (historical design input (not bundled)) supplied NO icons: the whole
+     reference page contains one decorative <svg> and there is no icon file, no
+     icon font and no glyph sheet in the bundle. This set is therefore measured
+     against the brand's geometry rules, not transcribed from evidence, and it is
+     deliberately not a generic library: orthogonal strokes and true 45 deg
+     diagonals only, no arcs, no rounded joins, no circular blobs.
+
+     Consume it as, adding the size modifier for the 16 / 20 / 24 step:
+       <svg class="mob-icon" aria-hidden="true">
+         <use href="icons.svg#i-check"></use>
+       </svg>
+
+     Geometry contract (see assets/icons/icons.css for the full family rules):
+       - viewBox 0 0 24 24, live area 20x20, 2px padding, centreline coords in 2..22
+       - stroke 1.5px at the 24px box, butt caps, miter joins, fill: none
+       - colour is always currentColor; nothing here bakes in the accent
+       - the only fills are solid square markers (fill="currentColor" stroke="none")
+         used for status dots, git nodes, keyholes, quota use and list/key marks
+       - centrelines sit on whole or half units so the 1.5 band straddles the grid
+         symmetrically at the 2x render target
+     ========================================================================= -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true" focusable="false">
+
+  <!-- ===================== STATUS ===================== -->
+
+  <!-- Confirmation. Two 45 deg strokes, no curve in the tick. -->
+  <symbol id="i-check" viewBox="0 0 24 24">
+    <path d="M4.5 12.5 L9.5 17.5 L19.5 7.5"/>
+  </symbol>
+
+  <!-- Failure / dismiss. Cross built from two exact 45 deg strokes. -->
+  <symbol id="i-close" viewBox="0 0 24 24">
+    <path d="M6.5 6.5 L17.5 17.5"/>
+    <path d="M17.5 6.5 L6.5 17.5"/>
+  </symbol>
+
+  <!-- Degraded. A rotated square (diamond) instead of a round warning sign. -->
+  <symbol id="i-alert" viewBox="0 0 24 24">
+    <path d="M12 2.5 L21.5 12 L12 21.5 L2.5 12 Z"/>
+    <path d="M12 8 L12 13"/>
+    <rect x="11" y="15" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Informational note. Square frame, orthogonal stem, square dot. -->
+  <symbol id="i-info" viewBox="0 0 24 24">
+    <rect x="3.5" y="3.5" width="17" height="17"/>
+    <path d="M12 11.5 L12 17.5"/>
+    <rect x="11" y="6.5" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Pending. A square face with two orthogonal hands — explicitly not a circle. -->
+  <symbol id="i-clock" viewBox="0 0 24 24">
+    <rect x="3.5" y="3.5" width="17" height="17"/>
+    <path d="M12 7.5 L12 12 L16.5 12"/>
+  </symbol>
+
+  <!-- Paused / held. Two butt-capped verticals. -->
+  <symbol id="i-pause" viewBox="0 0 24 24">
+    <path d="M9.5 7.5 L9.5 16.5"/>
+    <path d="M14.5 7.5 L14.5 16.5"/>
+  </symbol>
+
+  <!-- Run. Triangle closed from two 45 deg edges off a vertical back. -->
+  <symbol id="i-play" viewBox="0 0 24 24">
+    <path d="M8.5 5.5 L8.5 18.5 L15 12 Z"/>
+  </symbol>
+
+  <!-- Stopped / unavailable / reduced. One orthogonal rule. -->
+  <symbol id="i-minus" viewBox="0 0 24 24">
+    <path d="M6.5 12 L17.5 12"/>
+  </symbol>
+
+  <!-- ===================== ACTIONS ===================== -->
+
+  <!-- Deploy new service. Arrow driving up into a target rule. -->
+  <symbol id="i-deploy" viewBox="0 0 24 24">
+    <path d="M12 19.5 L12 8.5"/>
+    <path d="M8 12.5 L12 8.5 L16 12.5"/>
+    <path d="M6.5 4.5 L17.5 4.5"/>
+  </symbol>
+
+  <!-- Rollback to previous release. Square return bracket, 45 deg head. -->
+  <symbol id="i-rollback" viewBox="0 0 24 24">
+    <path d="M17.5 18.5 L17.5 9.5 L8.5 9.5"/>
+    <path d="M11.5 6.5 L8.5 9.5 L11.5 12.5"/>
+  </symbol>
+
+  <!-- Provision new resource. A frame with a full-step cross inside it. -->
+  <symbol id="i-provision" viewBox="0 0 24 24">
+    <rect x="3.5" y="3.5" width="17" height="17"/>
+    <path d="M12 7.5 L12 16.5"/>
+    <path d="M7.5 12 L16.5 12"/>
+  </symbol>
+
+  <!-- Refresh / re-poll. Two interlocking square runs, square arrowheads, no arc. -->
+  <symbol id="i-refresh" viewBox="0 0 24 24">
+    <path d="M8.5 5.5 L18.5 5.5 L18.5 15.5"/>
+    <path d="M15.5 12.5 L18.5 15.5 L21.5 12.5"/>
+    <path d="M15.5 18.5 L5.5 18.5 L5.5 8.5"/>
+    <path d="M12.5 11.5 L9.5 8.5 L6.5 11.5"/>
+  </symbol>
+
+  <!-- Edit. Pencil band at 45 deg with a square tip. -->
+  <symbol id="i-edit" viewBox="0 0 24 24">
+    <path d="M15.5 4.5 L19.5 8.5 L8 20 L4 20 L4 16 Z"/>
+    <path d="M4 16 L8 20"/>
+  </symbol>
+
+  <!-- Delete. Bin with a square lid, square handle and two ribs. -->
+  <symbol id="i-trash" viewBox="0 0 24 24">
+    <path d="M4.5 7.5 L19.5 7.5"/>
+    <path d="M9.5 7.5 L9.5 4.5 L14.5 4.5 L14.5 7.5"/>
+    <path d="M6.5 7.5 L6.5 20 L17.5 20 L17.5 7.5"/>
+    <path d="M10 11.5 L10 17"/>
+    <path d="M14 11.5 L14 17"/>
+  </symbol>
+
+  <!-- Copy. Two sheets, the rear one drawn as two visible edges only. -->
+  <symbol id="i-copy" viewBox="0 0 24 24">
+    <path d="M8.5 4.5 L19.5 4.5 L19.5 15.5"/>
+    <rect x="4.5" y="8.5" width="11" height="11"/>
+  </symbol>
+
+  <!-- Download artifact. Arrow into an open tray bracket. -->
+  <symbol id="i-download" viewBox="0 0 24 24">
+    <path d="M12 4.5 L12 13"/>
+    <path d="M8.5 9.5 L12 13 L15.5 9.5"/>
+    <path d="M4.5 14.5 L4.5 20 L19.5 20 L19.5 14.5"/>
+  </symbol>
+
+  <!-- Upload config. Same tray, reversed shaft so the pair reads as one family. -->
+  <symbol id="i-upload" viewBox="0 0 24 24">
+    <path d="M12 13 L12 4.5"/>
+    <path d="M8.5 8 L12 4.5 L15.5 8"/>
+    <path d="M4.5 14.5 L4.5 20 L19.5 20 L19.5 14.5"/>
+  </symbol>
+
+  <!-- Open in a new tab. Frame with an exit notch and a 45 deg shaft. -->
+  <symbol id="i-external-link" viewBox="0 0 24 24">
+    <path d="M20.5 12.5 L20.5 20.5 L3.5 20.5 L3.5 3.5 L11.5 3.5"/>
+    <path d="M13 11 L20.5 3.5"/>
+    <path d="M15.5 3.5 L20.5 3.5 L20.5 8.5"/>
+  </symbol>
+
+  <!-- Row actions. Three solid square marks, the only fill the family allows. -->
+  <symbol id="i-more-horizontal" viewBox="0 0 24 24">
+    <rect x="4" y="11" width="2" height="2" fill="currentColor" stroke="none"/>
+    <rect x="11" y="11" width="2" height="2" fill="currentColor" stroke="none"/>
+    <rect x="18" y="11" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Overflow in a narrow column. -->
+  <symbol id="i-more-vertical" viewBox="0 0 24 24">
+    <rect x="11" y="4" width="2" height="2" fill="currentColor" stroke="none"/>
+    <rect x="11" y="11" width="2" height="2" fill="currentColor" stroke="none"/>
+    <rect x="11" y="18" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Command palette. Hub square with four corner brackets, not the round glyph. -->
+  <symbol id="i-command" viewBox="0 0 24 24">
+    <rect x="7.5" y="7.5" width="9" height="9"/>
+    <path d="M4.5 7.5 L4.5 4.5 L7.5 4.5"/>
+    <path d="M16.5 4.5 L19.5 4.5 L19.5 7.5"/>
+    <path d="M19.5 16.5 L19.5 19.5 L16.5 19.5"/>
+    <path d="M7.5 19.5 L4.5 19.5 L4.5 16.5"/>
+  </symbol>
+
+  <!-- ===================== NAVIGATION ===================== -->
+
+  <symbol id="i-chevron-up" viewBox="0 0 24 24">
+    <path d="M6.5 14.5 L12 9 L17.5 14.5"/>
+  </symbol>
+
+  <symbol id="i-chevron-down" viewBox="0 0 24 24">
+    <path d="M6.5 9.5 L12 15 L17.5 9.5"/>
+  </symbol>
+
+  <symbol id="i-chevron-left" viewBox="0 0 24 24">
+    <path d="M14.5 6.5 L9 12 L14.5 17.5"/>
+  </symbol>
+
+  <symbol id="i-chevron-right" viewBox="0 0 24 24">
+    <path d="M9.5 6.5 L15 12 L9.5 17.5"/>
+  </symbol>
+
+  <symbol id="i-arrow-up" viewBox="0 0 24 24">
+    <path d="M12 19.5 L12 4.5"/>
+    <path d="M6.5 10 L12 4.5 L17.5 10"/>
+  </symbol>
+
+  <symbol id="i-arrow-down" viewBox="0 0 24 24">
+    <path d="M12 4.5 L12 19.5"/>
+    <path d="M6.5 13 L12 18.5 L17.5 13"/>
+  </symbol>
+
+  <symbol id="i-arrow-left" viewBox="0 0 24 24">
+    <path d="M19.5 12 L4.5 12"/>
+    <path d="M10 6.5 L4.5 12 L10 17.5"/>
+  </symbol>
+
+  <symbol id="i-arrow-right" viewBox="0 0 24 24">
+    <path d="M4.5 12 L19.5 12"/>
+    <path d="M14 6.5 L19.5 12 L14 17.5"/>
+  </symbol>
+
+  <!-- Mobile navigation. Three rules on a 4.5-unit rhythm. -->
+  <symbol id="i-menu" viewBox="0 0 24 24">
+    <path d="M4.5 7.5 L19.5 7.5"/>
+    <path d="M4.5 12 L19.5 12"/>
+    <path d="M4.5 16.5 L19.5 16.5"/>
+  </symbol>
+
+  <!-- Overview root. Roof is a true 45 deg peak, body is square. -->
+  <symbol id="i-home" viewBox="0 0 24 24">
+    <path d="M4 12 L12 4 L20 12"/>
+    <path d="M6.5 10.5 L6.5 20 L17.5 20 L17.5 10.5"/>
+    <path d="M10 20 L10 15.5 L14 15.5 L14 20"/>
+  </symbol>
+
+  <!-- Search resources. Square lens, 45 deg handle — no circle anywhere. -->
+  <symbol id="i-search" viewBox="0 0 24 24">
+    <rect x="4.5" y="4.5" width="11" height="11"/>
+    <path d="M16.5 16.5 L20.5 20.5"/>
+  </symbol>
+
+  <!-- Filter. Funnel built from 45 deg shoulders and an orthogonal stem well. -->
+  <symbol id="i-filter" viewBox="0 0 24 24">
+    <path d="M4.5 5.5 L19.5 5.5 L13 12 L13 18.5 L11 16.5 L11 12 Z"/>
+  </symbol>
+
+  <!-- Sort ascending: bars short to long down the column, pointer up. -->
+  <symbol id="i-sort-asc" viewBox="0 0 24 24">
+    <path d="M4.5 6.5 L12 6.5"/>
+    <path d="M4.5 12 L14.5 12"/>
+    <path d="M4.5 17.5 L17 17.5"/>
+    <path d="M19.5 18 L19.5 6.5"/>
+    <path d="M17 9 L19.5 6.5 L22 9"/>
+  </symbol>
+
+  <!-- Sort descending: bars long to short, pointer down. -->
+  <symbol id="i-sort-desc" viewBox="0 0 24 24">
+    <path d="M4.5 6.5 L17 6.5"/>
+    <path d="M4.5 12 L14.5 12"/>
+    <path d="M4.5 17.5 L12 17.5"/>
+    <path d="M19.5 6 L19.5 17.5"/>
+    <path d="M17 15 L19.5 17.5 L22 15"/>
+  </symbol>
+
+  <!-- Linked resource. Two square brackets joined by a 45 deg bar. -->
+  <symbol id="i-link" viewBox="0 0 24 24">
+    <path d="M13.5 6.5 L18.5 6.5 L18.5 11.5"/>
+    <path d="M10.5 17.5 L5.5 17.5 L5.5 12.5"/>
+    <path d="M14 10 L10 14"/>
+  </symbol>
+
+  <!-- Sign out. Frame open on the exit side, arrow leaving left. -->
+  <symbol id="i-log-out" viewBox="0 0 24 24">
+    <path d="M11 4.5 L20 4.5 L20 19.5 L11 19.5"/>
+    <path d="M13.5 12 L4.5 12"/>
+    <path d="M8 8.5 L4.5 12 L8 15.5"/>
+  </symbol>
+
+  <!-- ===================== DOMAIN ===================== -->
+
+  <!-- Console / shell session. Window frame, 45 deg prompt, cursor rule. -->
+  <symbol id="i-terminal" viewBox="0 0 24 24">
+    <rect x="3.5" y="4.5" width="17" height="15"/>
+    <path d="M7.5 9.5 L11 13 L7.5 16.5"/>
+    <path d="M13 16.5 L17.5 16.5"/>
+  </symbol>
+
+  <!-- Commit. Node mark on an interrupted rule. -->
+  <symbol id="i-commit" viewBox="0 0 24 24">
+    <path d="M4.5 12 L9 12"/>
+    <path d="M15 12 L19.5 12"/>
+    <rect x="9" y="9" width="6" height="6" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Branch. Two square nodes on a run that steps off at 45 deg. -->
+  <symbol id="i-branch" viewBox="0 0 24 24">
+    <path d="M5 14 L5 9.5 L9.5 5 L14 5"/>
+    <rect x="3.5" y="15.5" width="3" height="3" fill="currentColor" stroke="none"/>
+    <rect x="15.5" y="3.5" width="3" height="3" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Database. Drum drawn as a square with two shelf rules. -->
+  <symbol id="i-database" viewBox="0 0 24 24">
+    <rect x="3.5" y="4.5" width="17" height="15"/>
+    <path d="M3.5 9.5 L20.5 9.5"/>
+    <path d="M3.5 14.5 L20.5 14.5"/>
+  </symbol>
+
+  <!-- Instance / rack. Two units, each with a solid square status mark. -->
+  <symbol id="i-server" viewBox="0 0 24 24">
+    <rect x="3.5" y="5.5" width="17" height="6"/>
+    <rect x="3.5" y="12.5" width="17" height="6"/>
+    <rect x="6" y="7.5" width="2" height="2" fill="currentColor" stroke="none"/>
+    <rect x="6" y="14.5" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Layers. Rotated square plane over a second plane edge, 45 deg only. -->
+  <symbol id="i-layers" viewBox="0 0 24 24">
+    <path d="M12 3 L21 12 L12 21 L3 12 Z"/>
+    <path d="M6.5 12.5 L12 18 L17.5 12.5"/>
+  </symbol>
+
+  <!-- Region / edge footprint. A gridded square rather than a round globe. -->
+  <symbol id="i-region" viewBox="0 0 24 24">
+    <rect x="3.5" y="3.5" width="17" height="17"/>
+    <path d="M12 3.5 L12 20.5"/>
+    <path d="M3.5 8.5 L20.5 8.5"/>
+    <path d="M3.5 15.5 L20.5 15.5"/>
+  </symbol>
+
+  <!-- Quota. Frame holding three square units, two consumed as solid marks,
+       one still open. Consumption is counted in squares, never a filled span. -->
+  <symbol id="i-quota" viewBox="0 0 24 24">
+    <rect x="3.5" y="7.5" width="17" height="9"/>
+    <rect x="5" y="10.5" width="3" height="3" fill="currentColor" stroke="none"/>
+    <rect x="10.5" y="10.5" width="3" height="3" fill="currentColor" stroke="none"/>
+    <rect x="16" y="10.5" width="3" height="3"/>
+  </symbol>
+
+  <!-- Overview. Header rule over a three-bar reading. -->
+  <symbol id="i-dashboard" viewBox="0 0 24 24">
+    <rect x="3.5" y="4.5" width="17" height="15"/>
+    <path d="M3.5 9.5 L20.5 9.5"/>
+    <path d="M7.5 16.5 L7.5 13"/>
+    <path d="M12 16.5 L12 11.5"/>
+    <path d="M16.5 16.5 L16.5 14"/>
+  </symbol>
+
+  <!-- Structured result set. Header row plus one column divider. -->
+  <symbol id="i-table" viewBox="0 0 24 24">
+    <rect x="3.5" y="4.5" width="17" height="15"/>
+    <path d="M3.5 9.5 L20.5 9.5"/>
+    <path d="M12 9.5 L12 19.5"/>
+  </symbol>
+
+  <!-- Dense run list. Square marks on a 4.5-unit rhythm, rules to the right. -->
+  <symbol id="i-list" viewBox="0 0 24 24">
+    <rect x="4.5" y="6.5" width="2" height="2" fill="currentColor" stroke="none"/>
+    <rect x="4.5" y="11" width="2" height="2" fill="currentColor" stroke="none"/>
+    <rect x="4.5" y="15.5" width="2" height="2" fill="currentColor" stroke="none"/>
+    <path d="M9.5 7.5 L19.5 7.5"/>
+    <path d="M9.5 12 L19.5 12"/>
+    <path d="M9.5 16.5 L19.5 16.5"/>
+  </symbol>
+
+  <!-- Card layout. Four square cells, 2px gutter. -->
+  <symbol id="i-grid" viewBox="0 0 24 24">
+    <rect x="4" y="4" width="7" height="7"/>
+    <rect x="13" y="4" width="7" height="7"/>
+    <rect x="4" y="13" width="7" height="7"/>
+    <rect x="13" y="13" width="7" height="7"/>
+  </symbol>
+
+  <!-- Manifest / log file. Sheet with a 45 deg folded corner. -->
+  <symbol id="i-file" viewBox="0 0 24 24">
+    <path d="M6.5 3.5 L14.5 3.5 L18.5 7.5 L18.5 20.5 L6.5 20.5 Z"/>
+    <path d="M14.5 3.5 L14.5 7.5 L18.5 7.5"/>
+  </symbol>
+
+  <!-- Project folder. Tab steps off at 45 deg. -->
+  <symbol id="i-folder" viewBox="0 0 24 24">
+    <path d="M3.5 5.5 L9.5 5.5 L11.5 7.5 L20.5 7.5 L20.5 20.5 L3.5 20.5 Z"/>
+  </symbol>
+
+  <!-- Access key. Square bow, orthogonal shaft, two square teeth. -->
+  <symbol id="i-key" viewBox="0 0 24 24">
+    <rect x="3.5" y="8.5" width="6" height="7"/>
+    <path d="M9.5 12 L20.5 12"/>
+    <path d="M15.5 12 L15.5 17.5"/>
+    <path d="M18.5 12 L18.5 16.5"/>
+  </symbol>
+
+  <!-- Protected. Shackle steps off at 45 deg, keyway is a square plus a slot. -->
+  <symbol id="i-lock" viewBox="0 0 24 24">
+    <rect x="4.5" y="11.5" width="15" height="9"/>
+    <path d="M8 11.5 L8 8.5 L12 4.5 L16 8.5 L16 11.5"/>
+    <path d="M12 14.5 L12 17.5"/>
+    <rect x="11" y="13" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Policy / security posture. Plate with a 45 deg point, check inside. -->
+  <symbol id="i-shield" viewBox="0 0 24 24">
+    <path d="M4.5 4.5 L19.5 4.5 L19.5 13 L12 20.5 L4.5 13 Z"/>
+    <path d="M9 11 L11.5 13.5 L15.5 9.5"/>
+  </symbol>
+
+  <!-- Service principal. Square head, 45 deg shoulders. -->
+  <symbol id="i-user" viewBox="0 0 24 24">
+    <rect x="9" y="4.5" width="6" height="6"/>
+    <path d="M5.5 20.5 L5.5 17 L9 13.5 L15 13.5 L18.5 17 L18.5 20.5 Z"/>
+  </symbol>
+
+  <!-- Team / members. Second principal tucked behind, one step lower. -->
+  <symbol id="i-users" viewBox="0 0 24 24">
+    <rect x="5" y="4.5" width="6" height="6"/>
+    <path d="M2.5 20.5 L2.5 18 L5 15.5 L11 15.5 L13.5 18 L13.5 20.5 Z"/>
+    <rect x="14.5" y="5.5" width="5" height="5"/>
+    <path d="M16 15.5 L18 15.5 L20.5 18 L20.5 20.5"/>
+  </symbol>
+
+  <!-- Alert rule fired. Bell drawn as 45 deg shoulders over a square clapper. -->
+  <symbol id="i-bell" viewBox="0 0 24 24">
+    <path d="M12 4.5 L12 6"/>
+    <path d="M6.5 17.5 L9 15 L9 9.5 L12 6.5 L15 9.5 L15 15 L17.5 17.5 Z"/>
+    <rect x="11" y="19" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Maintenance window. Square month with a solid square for the selected day. -->
+  <symbol id="i-calendar" viewBox="0 0 24 24">
+    <rect x="3.5" y="5.5" width="17" height="15"/>
+    <path d="M3.5 10.5 L20.5 10.5"/>
+    <path d="M8 3.5 L8 6.5"/>
+    <path d="M16 3.5 L16 6.5"/>
+    <rect x="10.5" y="13" width="3" height="3" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Throughput / signal. A trapezoid pulse on the centre line, 45 deg ramps,
+       deliberately not a bezier squiggle. -->
+  <symbol id="i-activity" viewBox="0 0 24 24">
+    <path d="M3.5 13.5 L8 13.5 L11 10.5 L13 10.5 L16 13.5 L20.5 13.5"/>
+  </symbol>
+
+  <!-- Visible / secret revealed. Lens is a rotated square over a square mark. -->
+  <symbol id="i-eye" viewBox="0 0 24 24">
+    <path d="M12 5 L19 12 L12 19 L5 12 Z"/>
+    <rect x="10.5" y="10.5" width="3" height="3" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Hidden. Same lens, mark replaced by a 45 deg bar. -->
+  <symbol id="i-eye-off" viewBox="0 0 24 24">
+    <path d="M12 5 L19 12 L12 19 L5 12 Z"/>
+    <path d="M9 15 L15 9"/>
+  </symbol>
+
+  <!-- Create. Full-step cross, 6.5 units each way from centre. -->
+  <symbol id="i-plus" viewBox="0 0 24 24">
+    <path d="M12 5.5 L12 18.5"/>
+    <path d="M5.5 12 L18.5 12"/>
+  </symbol>
+
+  <!-- Preferences. Hub square with eight teeth — four orthogonal, four at 45 deg. -->
+  <symbol id="i-settings" viewBox="0 0 24 24">
+    <rect x="8.5" y="8.5" width="7" height="7"/>
+    <path d="M12 4.5 L12 8.5"/>
+    <path d="M12 15.5 L12 19.5"/>
+    <path d="M4.5 12 L8.5 12"/>
+    <path d="M15.5 12 L19.5 12"/>
+    <path d="M6.5 6.5 L8.5 8.5"/>
+    <path d="M17.5 6.5 L15.5 8.5"/>
+    <path d="M17.5 17.5 L15.5 15.5"/>
+    <path d="M6.5 17.5 L8.5 15.5"/>
+  </symbol>
+
+  <!-- Docs / help. Frame with an orthogonal-45 deg question hook and a square dot. -->
+  <symbol id="i-help" viewBox="0 0 24 24">
+    <rect x="3.5" y="3.5" width="17" height="17"/>
+    <path d="M9.5 8.5 L12 6 L14.5 8.5 L14.5 11 L12 13.5 L12 15"/>
+    <rect x="11" y="16.5" width="2" height="2" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- Shortcuts. Keycap plate with three keys and a space bar. -->
+  <symbol id="i-keyboard" viewBox="0 0 24 24">
+    <rect x="2.5" y="6.5" width="19" height="11"/>
+    <path d="M5.5 10 L7.5 10"/>
+    <path d="M9.5 10 L11.5 10"/>
+    <path d="M13.5 10 L15.5 10"/>
+    <path d="M8.5 14 L15.5 14"/>
+  </symbol>
+
+</svg>

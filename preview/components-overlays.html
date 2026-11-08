@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Overlays and feedback</title>
+  <link rel="stylesheet" href="../colors_and_type.css" />
+  <link rel="stylesheet" href="../overlays.css" />
+  <style>
+    /* Card chrome only. Every value is a variable from colors_and_type.css: the
+       card carries no brand literal of its own. */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+    html { scrollbar-gutter: stable; }
+    body {
+      min-height: 100vh;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font: 400 var(--mob-signal-text-base)/var(--mob-signal-line-base) var(--font-family);
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+      -webkit-font-smoothing: antialiased;
+    }
+    main { width: min(var(--container-prose), calc(100vw - 96px)); margin: var(--mob-signal-space-12) auto; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); color: var(--color-text); }
+    h1 { font-size: var(--mob-signal-text-3xl); line-height: var(--mob-signal-line-3xl); margin-bottom: var(--mob-signal-space-4); }
+    h2 { font-size: var(--mob-signal-text-xl); line-height: var(--mob-signal-line-xl); margin: var(--space-8) 0 var(--space-4); }
+    h3 { font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); margin-bottom: var(--space-2); }
+    .eyebrow { color: var(--color-text-secondary); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); font-weight: 500; margin-bottom: var(--space-2); }
+    .lead { max-width: 70ch; font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); color: var(--color-text-secondary); }
+    .note { max-width: 70ch; font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); color: var(--color-text-secondary); }
+
+    /* Trigger buttons, documented component contract for the card */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+      min-height: var(--control-height); padding: var(--mob-signal-pad-button);
+      font-family: var(--font-family); font-size: var(--mob-signal-text-sm); line-height: 1; font-weight: 500;
+      border: var(--mob-signal-border-width) solid var(--color-border); background-color: var(--color-surface-subtle);
+      color: var(--color-text); cursor: pointer; white-space: nowrap;
+      transition: background-color var(--motion), border-color var(--motion), color var(--motion);
+    }
+    .btn:hover { background-color: var(--mob-signal-surface-hover); border-color: var(--color-border-strong); }
+    .btn:focus-visible { outline: none; box-shadow: var(--mob-signal-shadow-focus); }
+    .btn-primary { background-color: var(--color-primary); border-color: var(--color-primary); color: var(--color-text-on-primary); font-weight: 600; }
+    .btn-primary:hover { background-color: var(--color-primary-hover); border-color: var(--color-primary-hover); }
+    .btn-ghost { background-color: transparent; border-color: transparent; color: var(--color-text-secondary); }
+    .btn-ghost:hover { background-color: var(--color-surface-subtle); border-color: transparent; color: var(--color-text); }
+    .field { display: grid; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .field-label { font-size: var(--mob-signal-text-sm); font-weight: 500; color: var(--color-text); }
+    .field-hint { font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); color: var(--color-text-secondary); }
+    .input {
+      width: 100%; padding: var(--mob-signal-pad-input); font: 400 var(--mob-signal-text-sm)/1.25 var(--font-family);
+      background-color: var(--color-background); border: var(--mob-signal-border-width) solid var(--color-border); color: var(--color-text);
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin: var(--space-6) 0 var(--space-8); }
+    .grid > article {
+      display: grid; gap: var(--space-3); align-content: start; padding: var(--space-6);
+      background-color: var(--color-surface); border: var(--mob-signal-border-width) solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+    .grid > article > .btn { justify-self: start; }
+    /* Caption: 14px sentence case, naming the trigger key, the z step, the
+       enter/exit durations and the focus contract. */
+    .caption { font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); color: var(--color-text-secondary); max-width: 70ch; }
+    .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+    /* The measured .kbd chip from the component contract, restated here so the
+       card is standalone. The archive sets the glyph in muted var(--color-text-secondary), which
+       measures 4.18:1 and is reserved for placeholders, disabled text and 18px+
+       metadata; 12px mono steps up to text-secondary instead. */
+    .kbd {
+      display: inline-flex; align-items: center; padding: 1px 5px; line-height: 1;
+      font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs);
+      color: var(--color-text-secondary); background-color: var(--color-surface-subtle);
+      border: var(--mob-signal-border-width) solid var(--color-border); white-space: nowrap;
+    }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .motion-table { width: 100%; border-collapse: collapse; font-size: var(--mob-signal-text-sm); text-align: left; }
+    .motion-table caption { caption-side: top; text-align: start; padding-bottom: var(--space-2); font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); }
+    .motion-table th { background-color: var(--color-surface-subtle); color: var(--color-text-secondary); font-weight: 500; font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); padding: var(--space-3) var(--space-4); border-bottom: var(--mob-signal-border-width) solid var(--color-border); white-space: nowrap; }
+    .motion-table td { padding: var(--mob-signal-pad-cell); border-bottom: var(--mob-signal-border-width) solid var(--color-border); color: var(--color-text); vertical-align: top; }
+    .motion-table tr:last-child td { border-bottom: 0; }
+    .motion-table td code { font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); }
+    .wrap-table { border: var(--mob-signal-border-width) solid var(--color-border); overflow-x: auto; }
+    .badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: 2px var(--space-2); font-size: var(--mob-signal-text-xs); font-weight: 500; border: var(--mob-signal-border-width) solid var(--color-border); background-color: var(--color-surface-subtle); color: var(--color-text-secondary); }
+    .badge .badge-dot { width: var(--mob-signal-status-dot); height: var(--mob-signal-status-dot); background-color: currentColor; }
+    /* Status tone rides the word, the marker and the hue. The dot is currentColor,
+       so the tone class colours both halves at once. */
+    .badge-operational { color: var(--color-success); border-color: color-mix(in srgb, var(--color-success) 35%, var(--color-border)); }
+    .badge-degraded { color: var(--color-warning); border-color: color-mix(in srgb, var(--color-warning) 35%, var(--color-border)); }
+    .badge-failed { color: var(--color-error); border-color: color-mix(in srgb, var(--color-error) 35%, var(--color-border)); }
+    @media (max-width: 768px) { main { width: calc(100vw - 48px); } .grid { grid-template-columns: 1fr; } }
+  </style>
+<link rel="icon" href="../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../fonts/fonts.css">
+</head>
+<body>
+<main>
+  <p class="eyebrow">Components</p>
+  <h1>Overlays and feedback</h1>
+  <p class="lead">Every floating surface in one recipe sheet: modal, destructive confirm, drawer, menu, popover, tooltip, toast, command palette, plus the four static feedback patterns. Radius stays 0px. A scrim is black alpha with no blur. Motion is an opacity fade in and a shorter opacity fade out, and nothing else.</p>
+
+  <h2>Operable overlays</h2>
+  <p class="note" style="margin-bottom: var(--space-4)">Open one, press Escape, and watch where focus lands. It returns to the control that opened the layer. The modal traps Tab between its first and last control.</p>
+
+  <section class="grid">
+    <article>
+      <h3>Modal</h3>
+      <button class="btn btn-primary" type="button" data-open-layer="modal-service" aria-haspopup="dialog" aria-expanded="false">Deploy new service</button>
+      <p class="caption">Trigger: click, or Enter and Space on the focused button. Layer <code>z-modal</code>. Enter 0.12s opacity, exit 0.08s opacity. Focus moves to the first field, Tab is trapped, Escape closes, focus returns to this button. <code>role="dialog"</code>, <code>aria-modal="true"</code>, labelled by the heading.</p>
+    </article>
+
+    <article>
+      <h3>Destructive confirm</h3>
+      <button class="btn" type="button" data-open-layer="modal-discard" aria-haspopup="dialog" aria-expanded="false">Discard draft</button>
+      <p class="caption">Trigger: click. Layer <code>z-modal</code>. Enter 0.12s, exit 0.08s, opacity only. Focus starts on Cancel, the safe control; Tab is trapped, Escape closes without acting and returns focus here. The confirm button carries the error border and never the accent fill.</p>
+    </article>
+
+    <article>
+      <h3>Drawer</h3>
+      <button class="btn" type="button" data-open-layer="drawer-detail" aria-haspopup="dialog" aria-expanded="false">Open request detail</button>
+      <p class="caption">Trigger: click. Layer <code>z-drawer</code>, one step below the modal, and a drawer never stacks on a modal: open a dialog first and this trigger does nothing. Enter 0.12s, exit 0.08s, no slide. Same focus contract as the modal.</p>
+    </article>
+
+    <article>
+      <h3>Dropdown menu</h3>
+      <div class="overlay-anchor">
+        <button class="btn" type="button" id="menu-trigger" aria-haspopup="menu" aria-expanded="false" aria-controls="demo-menu">Row actions</button>
+        <div class="menu" id="demo-menu" role="menu" aria-labelledby="menu-trigger" data-open="false">
+          <p class="menu-label" role="presentation">Service</p>
+          <button class="menu-item" type="button" role="menuitem">Inspect logs <span class="menu-shortcut"><span class="kbd" aria-hidden="true">I</span><span class="sr-only">Shortcut I</span></span></button>
+          <button class="menu-item" type="button" role="menuitem" aria-selected="true">Region: Singapore <span class="menu-state">Selected</span></button>
+          <button class="menu-item" type="button" role="menuitem">Scale replicas <span class="menu-shortcut"><span class="kbd" aria-hidden="true">S</span><span class="sr-only">Shortcut S</span></span></button>
+          <hr class="menu-divider" role="separator" />
+          <button class="menu-item" type="button" role="menuitem" aria-disabled="true">Rollback (no snapshot)</button>
+          <button class="menu-item" type="button" role="menuitem" data-toast="Draft saved" data-tone="success">Save changes</button>
+        </div>
+      </div>
+      <p class="caption">Trigger: click, ArrowDown or Enter on a focused row control. Layer <code>z-dropdown</code>. Enter 0.12s, exit 0.08s. Arrow keys move between items, Home and End jump to the ends, typeahead matches the first letter, Escape closes and returns focus to the trigger, Tab closes and moves on.</p>
+    </article>
+
+    <article>
+      <h3>Popover</h3>
+      <div class="overlay-anchor">
+        <button class="btn" type="button" id="pop-trigger" aria-expanded="false" aria-controls="demo-popover">Filter options</button>
+        <div class="popover" id="demo-popover" role="dialog" aria-label="Filter services" data-open="false">
+          <p class="popover-title">Filter services</p>
+          <p class="popover-body">Two controls, one dismiss action. A popover may hold interactive content; a tooltip may never hold one.</p>
+          <div class="row" style="margin-top: var(--space-3)">
+            <button class="btn btn-ghost" type="button" data-close-popover>Dismiss</button>
+            <button class="btn btn-primary" type="button" data-toast="Filter applied to 4 services" data-tone="success">Apply filter</button>
+          </div>
+        </div>
+      </div>
+      <p class="caption">Trigger: click. Layer <code>z-popover</code>, above the modal it may sit on. Enter 0.12s, exit 0.08s. Focus moves to the first control, Escape closes without applying, outside activation closes, focus returns to the trigger.</p>
+    </article>
+
+    <article>
+      <h3>Tooltip</h3>
+      <div class="row">
+        <span class="tooltip-anchor">
+          <button class="btn" type="button" aria-describedby="tip-1">Hover or focus this control</button>
+          <span class="tooltip" id="tip-1" role="tooltip">Shows the last successful health check, in UTC.</span>
+        </span>
+        <span class="tooltip-anchor" tabindex="0" aria-describedby="tip-2">
+          <button class="btn" type="button" disabled>Rollback</button>
+          <span class="tooltip" id="tip-2" role="tooltip">Rollback is unavailable until a snapshot exists.</span>
+        </span>
+      </div>
+      <p class="caption">Trigger: pointer hover and keyboard focus. The second control is disabled, so the wrapper is the trigger and it is the focus stop. Layer <code>z-popover</code>. Enter 0.12s, exit 0.08s. Escape dismisses it. Text only, max width <code>tooltip-max</code>.</p>
+    </article>
+
+    <article>
+      <h3>Toast</h3>
+      <div class="row">
+        <button class="btn" type="button" data-toast="Deploy queued for graphql-gateway" data-tone="success">Show status toast</button>
+        <button class="btn btn-ghost" type="button" data-toast="Scale request failed for worker-indexer-asia" data-tone="error" data-action="Open request detail">Show failed toast</button>
+      </div>
+      <p class="caption">Trigger: click, or the menu and popover actions above. Layer <code>z-toast</code>, so a result stays readable while a dialog is open. Surface <code>#202020</code> with <code>shadow-lg</code>, the measured <code>.toast-box</code> lineage. Enter 0.12s, exit 0.08s, dismiss at 6s or 10s with an action; hover pauses the clock. Focus is never taken. A failed action also stays in the audit log.</p>
+    </article>
+
+    <article>
+      <h3>Command palette</h3>
+      <div class="row">
+        <button class="btn" type="button" id="palette-trigger" data-open-layer="palette" aria-haspopup="dialog" aria-expanded="false" aria-controls="palette">Run command</button>
+        <span class="kbd">Cmd K</span><span class="kbd">Ctrl K</span>
+      </div>
+      <p class="caption">Trigger: click, or Cmd K and Ctrl K from anywhere. Layer <code>z-palette</code>, the top step. Enter 0.12s, exit 0.08s. Focus lands in the field; ArrowUp and ArrowDown move the active row, Enter runs it, Escape closes and returns focus here.</p>
+    </article>
+  </section>
+
+  <h2>Static feedback patterns</h2>
+  <section class="grid">
+    <article>
+      <h3>Skeleton</h3>
+      <div class="skeleton-region" aria-busy="true" role="status">
+        <span class="skeleton-title"></span>
+        <span class="skeleton-line"></span>
+        <span class="skeleton-line"></span>
+        <span class="skeleton-line-short"></span>
+        <div class="row">
+          <span class="skeleton-avatar"></span>
+          <span class="skeleton-block" style="flex: 1 1 auto"></span>
+        </div>
+        <span class="sr-only">Loading services</span>
+      </div>
+      <p class="caption">Flat <code>#181818</code> blocks, no shimmer. A shimmer is either a gradient or a looping animation, and the contract bans both. The region is paired with a word, because a block alone does not report status.</p>
+    </article>
+
+    <article>
+      <h3>Empty state</h3>
+      <div class="empty-state">
+        <p class="empty-state-title">No deployments in this namespace</p>
+        <p class="empty-state-text">Deploy a service to populate this view. The first build takes about four minutes.</p>
+        <div class="row overlay-actions">
+          <button class="btn btn-primary" type="button" data-toast="Deploy started for auth-service-v3" data-tone="success">Deploy new service</button>
+        </div>
+      </div>
+      <p class="caption">Heading, one sentence that names the next action, one primary button. No illustration and no mascot; the archive ships one decorative svg and no icon system.</p>
+    </article>
+
+    <article>
+      <h3>Avatar group</h3>
+      <div class="avatar-group">
+        <span class="avatar" role="img" aria-label="Lan Minh, Operational">LM<span class="avatar-status" aria-hidden="true"></span></span>
+        <span class="avatar" role="img" aria-label="Priya Raman, Degraded">PR<span class="avatar-status avatar-status-warning" aria-hidden="true"></span></span>
+        <span class="avatar" role="img" aria-label="Tom Okel, Pending">TO<span class="avatar-status avatar-status-outline" aria-hidden="true"></span></span>
+        <span class="avatar avatar-more" aria-hidden="true">+3</span><span class="sr-only">3 more members</span>
+      </div>
+      <div class="row">
+        <span class="avatar avatar-sm" role="img" aria-label="Kyung Lee, Operational">KL<span class="avatar-status" aria-hidden="true"></span></span>
+        <span class="avatar avatar-lg" role="img" aria-label="Ade Okonkwo, Failed">AO<span class="avatar-status avatar-status-error" aria-hidden="true"></span></span>
+      </div>
+      <p class="caption">A square, at 24, 32 and 40px. Initials in Space Grotesk 600 on <code>#181818</code>. The 6px corner marker is a square and the word sits in the accessible name, so status never rides on hue alone; Pending is the outline square. The group is a butted row, not an overlap.</p>
+    </article>
+
+    <article>
+      <h3>Breadcrumbs</h3>
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="#breadcrumb-project">Platform</a></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg><a href="#breadcrumb-env">Production</a></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg><a href="#breadcrumb-service">Services</a></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg><span aria-current="page">graphql-gateway</span></li>
+        </ol>
+      </nav>
+      <p class="caption">14px sentence case, chevron separators, current page as plain foreground text. The tail is not a link and is not the accent: neon green #00cc5c means a primary action, a selection, focus or the selected series; the Operational state runs on the same green and is told apart by its word and its 6px square.</p>
+    </article>
+
+    <article>
+      <h3>Pagination</h3>
+      <nav class="pagination" aria-label="Pages of services">
+        <button class="page-item" type="button" aria-label="Previous page">Prev</button>
+        <button class="page-item" type="button" aria-current="page">1<span class="sr-only"> Current page</span></button>
+        <button class="page-item" type="button">2</button>
+        <button class="page-item" type="button">3</button>
+        <span class="page-gap" aria-hidden="true">&ctdot;</span><span class="sr-only">Pages skipped</span>
+        <button class="page-item" type="button">12</button>
+        <button class="page-item" type="button" aria-label="Next page">Next</button>
+      </nav>
+      <div class="badge"><span class="badge-dot"></span>48 services, 4 per page</div>
+      <p class="caption">32px boxes on a 4px gap. The current page takes the accent border, weight 600 and <code>aria-current="page"</code>, the same mark an active nav item uses. Never a filled pill, never a radius.</p>
+    </article>
+  </section>
+
+  <h2>Overlay motion values</h2>
+  <p class="note" style="margin-bottom: var(--space-4)">One rule, deliberately minimal. The source allows 0.12s on background-color, border-color and color and bans entrance choreography, so an overlay only changes opacity: no transform, no slide, no scale, no stagger. Exit is 67% of entrance because a dismissal should feel cheaper than an arrival. Nothing here changes a box size.</p>
+  <div class="wrap-table">
+    <table class="motion-table">
+      <caption>Measured and added values, from colors_and_type.css</caption>
+      <thead>
+        <tr><th scope="col">Layer</th><th scope="col">Z step</th><th scope="col">Enter</th><th scope="col">Exit</th><th scope="col">Property</th><th scope="col">Reduced motion</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Modal</td><td><code>z-modal</code></td><td><code>motion-enter</code> 0.12s cubic-bezier(0.16,1,0.3,1)</td><td><code>motion-exit</code> 0.08s cubic-bezier(0.7,0,0.84,0)</td><td>opacity</td><td>0.01ms both</td></tr>
+        <tr><td>Destructive confirm</td><td><code>z-modal</code></td><td>0.12s</td><td>0.08s</td><td>opacity</td><td>0.01ms both</td></tr>
+        <tr><td>Drawer</td><td><code>z-drawer</code></td><td>0.12s</td><td>0.08s</td><td>opacity, no slide</td><td>0.01ms both</td></tr>
+        <tr><td>Dropdown menu</td><td><code>z-dropdown</code></td><td>0.12s</td><td>0.08s</td><td>opacity</td><td>0.01ms both</td></tr>
+        <tr><td>Popover</td><td><code>z-popover</code></td><td>0.12s</td><td>0.08s</td><td>opacity</td><td>0.01ms both</td></tr>
+        <tr><td>Tooltip</td><td><code>z-popover</code></td><td>0.12s</td><td>0.08s</td><td>opacity</td><td>0.01ms both</td></tr>
+        <tr><td>Toast</td><td><code>z-toast</code></td><td>0.12s</td><td>0.08s</td><td>opacity</td><td>0.01ms both</td></tr>
+        <tr><td>Command palette</td><td><code>z-palette</code></td><td>0.12s</td><td>0.08s</td><td>opacity</td><td>0.01ms both</td></tr>
+        <tr><td>Interactive states</td><td>not a layer</td><td>0.12s</td><td>0.12s</td><td>background-color, border-color, color</td><td>0.01ms both</td></tr>
+        <tr><td>Skeleton</td><td>not a layer</td><td>none</td><td>none</td><td>static fill</td><td>static fill</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note" style="margin-top: var(--space-4)"><code>prefers-reduced-motion: reduce</code> collapses <code>motion-enter</code> and <code>motion-exit</code> to 0.01ms in the token contract, so both fades stop instantly and every layer reaches the same open and closed state. No layout depends on a duration: the scrim is an opacity cap, not a blur; a hidden layer keeps its box; the drawer is anchored rather than translated: a sliding drawer would break the entrance-choreography ban, and the scrim, the exit ratio and the region widths are the values this system changes instead.</p>
+</main>
+
+<!-- Modal: panel on the elevated surface, header/body/footer at 24px -->
+<div class="overlay" data-layer="modal" id="modal-service" data-open="false">
+  <div class="overlay-scrim" data-close-layer="modal-service"></div>
+  <div class="overlay-surface modal modal-md" role="dialog" aria-modal="true" aria-labelledby="modal-service-title">
+    <header class="overlay-header">
+      <h2 class="overlay-title" id="modal-service-title">Deploy new service</h2>
+      <button class="overlay-close" type="button" aria-label="Close dialog" data-close-layer="modal-service">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </header>
+    <div class="overlay-body">
+      <div class="field">
+        <label class="field-label" for="svc-name">Service name</label>
+        <input class="input" id="svc-name" name="svc-name" autocomplete="off" value="auth-service-v4" data-focus-first />
+        <span class="field-hint">Lowercase letters, digits and dashes. 3 to 40 characters.</span>
+      </div>
+      <div class="field">
+        <label class="field-label" for="svc-region">Region</label>
+        <select class="input" id="svc-region">
+          <option>Singapore</option>
+          <option>Frankfurt</option>
+          <option>Ohio</option>
+        </select>
+      </div>
+      <p>The first build takes about four minutes. The service stays Pending until the health check passes twice.</p>
+    </div>
+    <footer class="overlay-footer">
+      <button class="btn btn-ghost" type="button" data-close-layer="modal-service">Cancel</button>
+      <button class="btn btn-primary" type="button" data-close-layer="modal-service" data-toast="Deploy started for auth-service-v4" data-tone="success">Deploy new service</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Destructive confirm: primary demoted to secondary, error border on confirm -->
+<div class="overlay" data-layer="modal" id="modal-discard" data-open="false">
+  <div class="overlay-scrim" data-close-layer="modal-discard"></div>
+  <div class="overlay-surface modal modal-sm" role="dialog" aria-modal="true" aria-labelledby="modal-discard-title" aria-describedby="modal-discard-text">
+    <header class="overlay-header">
+      <h2 class="overlay-title" id="modal-discard-title">Discard draft</h2>
+      <button class="overlay-close" type="button" aria-label="Close dialog" data-close-layer="modal-discard">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </header>
+    <div class="overlay-body">
+      <p class="confirm-consequence" id="modal-discard-text"><strong>Discarding deletes 1 unpublished revision and 3 staged files.</strong> Nothing is recoverable afterwards: a snapshot is written every 24 hours, and the last one is 6 hours old.</p>
+    </div>
+    <footer class="overlay-footer">
+      <button class="btn" type="button" data-focus-first data-close-layer="modal-discard">Keep editing</button>
+      <button class="btn overlay-confirm" type="button" data-close-layer="modal-discard" data-toast="Draft discarded, 1 revision removed" data-tone="error">Discard draft</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Drawer: right-anchored, fades in place, never slides -->
+<div class="overlay" data-layer="drawer" id="drawer-detail" data-open="false">
+  <div class="overlay-scrim" data-close-layer="drawer-detail"></div>
+  <div class="overlay-surface drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <header class="overlay-header">
+      <h2 class="overlay-title" id="drawer-title">Request 8b40ef1</h2>
+      <button class="overlay-close" type="button" aria-label="Close panel" data-close-layer="drawer-detail">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </header>
+    <div class="overlay-body">
+      <p class="palette-id">worker-indexer-asia &middot; feat/v4-cache</p>
+      <p style="margin-top: var(--space-3)">Replicas 4 of 12 healthy. Latency p99 42ms over the last 15 minutes.</p>
+      <div class="row" style="margin-top: var(--space-4)">
+        <span class="badge badge-degraded"><span class="badge-dot"></span>Degraded</span>
+        <span class="kbd">Updated 12:04 UTC</span>
+      </div>
+    </div>
+    <footer class="overlay-footer">
+      <button class="btn btn-ghost" type="button" data-close-layer="drawer-detail">Close</button>
+      <button class="btn" type="button" data-focus-first data-toast="Scaling worker-indexer-asia to 8 replicas" data-tone="info">Scale replicas</button>
+    </footer>
+  </div>
+</div>
+
+<!-- Command palette: top layer, field on canvas, dense results -->
+<div class="overlay" data-layer="palette" id="palette" data-open="false">
+  <div class="overlay-scrim" data-close-layer="palette"></div>
+  <div class="overlay-surface palette" role="dialog" aria-modal="true" aria-label="Run a command">
+    <div class="palette-field">
+      <input class="palette-input" id="palette-input" type="text" role="combobox" aria-expanded="true" aria-controls="palette-list" aria-autocomplete="list" data-focus-first placeholder="Search services and commands" autocomplete="off" spellcheck="false" />
+      <span class="kbd">Esc</span>
+    </div>
+    <ul class="palette-results" id="palette-list" role="listbox" aria-label="Results">
+      <li role="presentation">
+        <p class="palette-group-head">Recent services</p>
+        <ul role="group" aria-label="Recent services">
+          <li class="palette-item" id="cmd-open-1" role="option" aria-selected="false" data-toast="Opened auth-service-v3"><span>Open service</span><span class="palette-id">fa981c2</span><span class="palette-hint">auth-service-v3</span></li>
+          <li class="palette-item" id="cmd-open-2" role="option" aria-selected="false" data-toast="Opened graphql-gateway"><span>Open service</span><span class="palette-id">8b40ef1</span><span class="palette-hint">graphql-gateway</span></li>
+          <li class="palette-item" id="cmd-open-3" role="option" aria-selected="false" data-toast="Opened worker-indexer-asia"><span>Open service</span><span class="palette-id">29d10a4</span><span class="palette-hint">worker-indexer-asia</span></li>
+        </ul>
+      </li>
+      <li role="presentation">
+        <p class="palette-group-head">Commands</p>
+        <ul role="group" aria-label="Commands">
+          <li class="palette-item" id="cmd-run-1" role="option" aria-selected="false" data-toast="Deploy queued"><span>Deploy new service</span><span class="palette-id">dep run</span><span class="palette-hint">Cmd D</span></li>
+          <li class="palette-item" id="cmd-run-2" role="option" aria-selected="false" data-toast="Opened audit log"><span>View audit log</span><span class="palette-id">audit</span><span class="palette-hint">Cmd L</span></li>
+          <li class="palette-item" id="cmd-run-3" role="option" aria-selected="false" data-toast="Paused scaling for 30 minutes" data-tone="warning"><span>Pause scaling</span><span class="palette-id">scale off</span><span class="palette-hint">Cmd P</span></li>
+        </ul>
+      </li>
+    </ul>
+    <footer class="palette-foot">
+      <span class="kbd">Up</span><span class="kbd">Down</span><span>Move</span>
+      <span class="kbd">Enter</span><span>Run</span>
+      <span class="kbd">Esc</span><span>Close</span>
+    </footer>
+  </div>
+</div>
+
+<div class="toast-stack" id="toast-stack"></div>
+
+<script>
+  /* Defensive vanilla JS. Every lookup is guarded: a missing node returns
+     rather than throwing, so the card degrades to a static review sheet. */
+  (function () {
+    'use strict';
+
+    var SELECTOR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    var stack = [];
+
+    function byId(id) { return document.getElementById(id); }
+    function list(root, sel) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+    function top() { return stack.length ? stack[stack.length - 1] : null; }
+    function isFixed(node) { return node.classList.contains('overlay'); }
+
+    function focusables(root) {
+      return list(root, SELECTOR).filter(function (el) {
+        return el.offsetWidth > 0 || el.offsetHeight > 0 || el.getClientRects().length > 0;
+      });
+    }
+
+    function syncBody() {
+      var modal = false, drawer = false;
+      stack.forEach(function (entry) {
+        var layer = entry.node.getAttribute('data-layer');
+        if (layer === 'modal') modal = true;
+        if (layer === 'drawer') drawer = true;
+      });
+      document.body.setAttribute('data-modal-open', modal ? 'true' : 'false');
+      document.body.setAttribute('data-drawer-open', drawer ? 'true' : 'false');
+    }
+
+    function triggerFor(node) {
+      if (!node.id) return null;
+      return document.querySelector('[aria-controls="' + node.id + '"], [data-open-layer="' + node.id + '"]');
+    }
+
+    function open(node, invoker) {
+      if (!node || node.getAttribute('data-open') === 'true') return;
+      if (node.classList.contains('drawer') && document.body.getAttribute('data-modal-open') === 'true') return;
+      stack.push({ node: node, invoker: invoker || document.activeElement });
+      node.setAttribute('data-open', 'true');
+      syncBody();
+      var trigger = triggerFor(node);
+      if (trigger) trigger.setAttribute('aria-expanded', 'true');
+      var first = node.querySelector('[data-focus-first]') || focusables(node)[0];
+      if (first && typeof first.focus === 'function') first.focus();
+    }
+
+    function close(node) {
+      if (!node) return;
+      var index = -1;
+      for (var i = 0; i < stack.length; i += 1) { if (stack[i].node === node) { index = i; break; } }
+      if (index < 0) return;
+      var entry = stack.splice(index, 1)[0];
+      node.setAttribute('data-open', 'false');
+      var trigger = triggerFor(node);
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      syncBody();
+      var target = (entry.invoker && document.contains(entry.invoker)) ? entry.invoker : trigger;
+      if (target && document.contains(target) && typeof target.focus === 'function') target.focus();
+    }
+
+    // Toasts, built from the data attributes so every trigger stays declarative.
+    function toast(text, tone, actionLabel) {
+      var region = byId('toast-stack');
+      if (!region || !text) return;
+      while (region.children.length > 2) region.removeChild(region.firstElementChild);
+
+      var origin = document.activeElement;
+      var box = document.createElement('div');
+      box.className = 'toast-box toast-' + (tone || 'info');
+      box.setAttribute('role', tone === 'error' ? 'alert' : 'status');
+      box.setAttribute('data-open', 'false');
+
+      var marker = document.createElement('span');
+      marker.className = 'toast-marker';
+      marker.setAttribute('aria-hidden', 'true');
+
+      var body = document.createElement('span');
+      body.className = 'toast-text';
+      body.textContent = text;
+
+      box.appendChild(marker);
+      box.appendChild(body);
+
+      var ms = 6000;
+      var action = null;
+      if (actionLabel) {
+        action = document.createElement('button');
+        action.type = 'button';
+        action.className = 'toast-action';
+        action.textContent = actionLabel;
+        box.appendChild(action);
+        ms = 10000;
+      }
+
+      region.appendChild(box);
+      requestAnimationFrame(function () { box.setAttribute('data-open', 'true'); });
+
+      var timer = 0, left = ms, started = Date.now(), gone = false;
+      function dismiss() {
+        if (gone) return;
+        gone = true;
+        window.clearTimeout(timer);
+        box.setAttribute('data-open', 'false');
+        window.setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 140);
+      }
+      function arm(delay) {
+        if (gone) return;
+        left = delay;
+        started = Date.now();
+        timer = window.setTimeout(dismiss, delay);
+      }
+      function pause() {
+        if (gone) return;
+        window.clearTimeout(timer);
+        left = Math.max(left - (Date.now() - started), 1500);
+      }
+      function resume() { if (!gone) arm(left); }
+
+      box.addEventListener('mouseenter', pause);
+      box.addEventListener('mouseleave', resume);
+      box.addEventListener('focusin', pause);
+      box.addEventListener('focusout', resume);
+      if (action) {
+        action.addEventListener('click', function () {
+          dismiss();
+          var target = byId('drawer-detail');
+          if (target) open(target, origin);
+        });
+      }
+      arm(ms);
+    }
+
+    // Global keys: Escape closes one layer, Tab is trapped in a fixed layer.
+    document.addEventListener('keydown', function (event) {
+      if ((event.metaKey || event.ctrlKey) && (event.key === 'k' || event.key === 'K')) {
+        event.preventDefault();
+        var palette = byId('palette');
+        if (palette) { if (palette.getAttribute('data-open') === 'true') close(palette); else open(palette, document.activeElement); }
+        return;
+      }
+      if (event.key === 'Escape') {
+        var entry = top();
+        if (entry) { close(entry.node); return; }
+        list(document, '.tooltip[data-open="true"]').forEach(function (tip) { tip.setAttribute('data-open', 'false'); });
+        return;
+      }
+      if (event.key === 'Tab') {
+        var entry = top();
+        if (!entry) return;
+        if (!isFixed(entry.node)) { close(entry.node); return; }
+        var items = focusables(entry.node);
+        if (!items.length) { event.preventDefault(); return; }
+        var first = items[0], last = items[items.length - 1];
+        if (!entry.node.contains(document.activeElement)) {
+          event.preventDefault(); first.focus();
+        } else if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault(); last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first.focus();
+        }
+      }
+    });
+
+    // Triggers.
+    list(document, '[data-open-layer]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var node = byId(button.getAttribute('data-open-layer'));
+        if (node) open(node, button);
+      });
+    });
+
+    list(document, '[data-close-layer]').forEach(function (node) {
+      node.addEventListener('click', function () { close(byId(node.getAttribute('data-close-layer'))); });
+    });
+
+    list(document, '[data-toast]').forEach(function (node) {
+      node.addEventListener('click', function () {
+        toast(node.getAttribute('data-toast'), node.getAttribute('data-tone'), node.getAttribute('data-action'));
+      });
+    });
+
+    list(document, '[data-close-popover]').forEach(function (node) {
+      node.addEventListener('click', function () { close(node.closest('.popover') || node.parentNode); });
+    });
+
+    // Anchored layers: menu, popover. Outside activation closes them.
+    function bindTrigger(triggerId, panelId) {
+      var trigger = byId(triggerId), panel = byId(panelId);
+      if (!trigger || !panel) return;
+      trigger.addEventListener('click', function () {
+        if (panel.getAttribute('data-open') === 'true') close(panel); else open(panel, trigger);
+      });
+      document.addEventListener('click', function (event) {
+        if (panel.getAttribute('data-open') !== 'true') return;
+        if (panel.contains(event.target) || trigger.contains(event.target)) return;
+        close(panel);
+      });
+    }
+    bindTrigger('menu-trigger', 'demo-menu');
+    bindTrigger('pop-trigger', 'demo-popover');
+
+    var menu = byId('demo-menu');
+    if (menu) {
+      menu.addEventListener('keydown', function (event) {
+        var items = list(menu, '.menu-item:not([aria-disabled="true"])');
+        if (!items.length) return;
+        var index = items.indexOf(document.activeElement);
+        if (event.key === 'ArrowDown') { event.preventDefault(); (items[index + 1] || items[0]).focus(); }
+        else if (event.key === 'ArrowUp') { event.preventDefault(); (items[index - 1] || items[items.length - 1]).focus(); }
+        else if (event.key === 'Home') { event.preventDefault(); items[0].focus(); }
+        else if (event.key === 'End') { event.preventDefault(); items[items.length - 1].focus(); }
+        else if (event.key.length === 1 && /\S/.test(event.key)) {
+          var letter = event.key.toLowerCase();
+          for (var i = 1; i <= items.length; i += 1) {
+            var candidate = items[(index + i) % items.length];
+            if (candidate.textContent.trim().toLowerCase().indexOf(letter) === 0) { candidate.focus(); break; }
+          }
+        }
+      });
+    }
+
+    // Tooltips: hover and focus, never on a disabled control without the wrapper.
+    list(document, '.tooltip-anchor').forEach(function (anchor) {
+      var tip = anchor.querySelector('.tooltip');
+      if (!tip) return;
+      function show() { tip.setAttribute('data-open', 'true'); }
+      function hide() { tip.setAttribute('data-open', 'false'); }
+      anchor.addEventListener('mouseenter', show);
+      anchor.addEventListener('mouseleave', hide);
+      anchor.addEventListener('focusin', show);
+      anchor.addEventListener('focusout', hide);
+      anchor.addEventListener('keydown', function (event) { if (event.key === 'Escape') hide(); });
+    });
+
+    // Command palette: type to filter, arrows to move, Enter to run, Esc to close.
+    var palette = byId('palette'), field = byId('palette-input');
+    if (palette && field) {
+      function rows() { return list(palette, '.palette-item:not([hidden])'); }
+      function setActive(row) {
+        list(palette, '.palette-item').forEach(function (item) {
+          item.setAttribute('data-active', item === row ? 'true' : 'false');
+          item.setAttribute('aria-selected', item === row ? 'true' : 'false');
+        });
+        field.setAttribute('aria-activedescendant', row && row.id ? row.id : '');
+      }
+      function filter() {
+        var query = field.value.trim().toLowerCase();
+        rows().forEach(function (row) { row.setAttribute('data-active', 'false'); });
+        list(palette, '.palette-item').forEach(function (row) {
+          row.hidden = query ? row.textContent.toLowerCase().indexOf(query) < 0 : false;
+        });
+        list(palette, '.palette-group-head').forEach(function (head) {
+          var group = head.parentNode;
+          head.hidden = !group || !list(group, '.palette-item:not([hidden])').length;
+        });
+        setActive(rows()[0]);
+      }
+      field.addEventListener('input', filter);
+      field.addEventListener('focus', filter);
+      setActive(rows()[0]);
+      palette.addEventListener('keydown', function (event) {
+        var items = rows();
+        if (!items.length) return;
+        var active = items.filter(function (row) { return row.getAttribute('data-active') === 'true'; })[0];
+        var position = items.indexOf(active);
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          var next = event.key === 'ArrowDown' ? items[position + 1] || items[0] : items[position - 1] || items[items.length - 1];
+          setActive(next);
+          if (next && next.scrollIntoView) next.scrollIntoView({ block: 'nearest' });
+        } else if (event.key === 'Enter') {
+          event.preventDefault();
+          var run = active || items[0];
+          if (run) toast(run.getAttribute('data-toast') || 'Command run', run.getAttribute('data-tone') || 'info');
+          close(palette);
+          field.value = '';
+        }
+      });
+    }
+
+    // Menu rows and the palette run their own action, then dismiss.
+    if (menu) menu.addEventListener('click', function (event) { if (event.target.closest('.menu-item')) close(menu); });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+import React from 'react';
+import {createRoot} from 'react-dom/client';
+import './components/StatusBadge.jsx';
+import './components/AppNav.jsx';
+import './components/MetricsRow.jsx';
+import './components/DeploymentTable.jsx';
+import './components/AuditFeed.jsx';
+import './components/App.jsx';
+window.React=React;
+createRoot(document.getElementById('root')).render(<window.App />);

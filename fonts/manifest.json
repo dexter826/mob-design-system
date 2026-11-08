@@ -1,0 +1,38 @@
+[
+  {
+    "family": "Space Grotesk",
+    "file": "space-grotesk-variable.woff2",
+    "weight": [
+      300.0,
+      700.0
+    ],
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/spacegrotesk/SpaceGrotesk%5Bwght%5D.ttf",
+    "license": "OFL-1.1",
+    "sha256": "cb17de4389e9234c0efd7205c31ce6b917f75bfd6ac6cf2709524ed169b02b49",
+    "glyphs": 735
+  },
+  {
+    "family": "Plus Jakarta Sans",
+    "file": "plus-jakarta-sans-variable.woff2",
+    "weight": [
+      200.0,
+      800.0
+    ],
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/plusjakartasans/PlusJakartaSans%5Bwght%5D.ttf",
+    "license": "OFL-1.1",
+    "sha256": "bc63b2065d494032da81c8795f9fcc46574bf38f522d755fded75165f26778d4",
+    "glyphs": 721
+  },
+  {
+    "family": "JetBrains Mono",
+    "file": "jetbrains-mono-variable.woff2",
+    "weight": [
+      100.0,
+      800.0
+    ],
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/jetbrainsmono/JetBrainsMono%5Bwght%5D.ttf",
+    "license": "OFL-1.1",
+    "sha256": "70b92b5a349c1bfcdb77b501055029f635c0a6497c96e431c9762d26d611c5b1",
+    "glyphs": 976
+  }
+]
