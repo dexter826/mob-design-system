@@ -6,7 +6,7 @@
 
 [![Node.js](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org)
 [![React](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://react.dev)
-[![Version](https://img.shields.io/badge/version-1.5.0-black.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-1.6.0-black.svg)](package.json)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
 <p>Dark-mode web design system with shared CSS tokens, UI component styles, and local variable fonts with Vietnamese glyph coverage.</p>

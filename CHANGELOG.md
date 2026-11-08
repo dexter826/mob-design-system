@@ -11,14 +11,15 @@ and currently reads 4.0.0. The archive digest is the tie between them: `design-s
 **Provenance tags.** `measured` = copied out of the archive. `authored` = written to close a gap the archive left open, reversible. `corrected` = the archive states something measurement disproved. Every ratio in
 this file is the value recorded in `context/contrast-measured.md`.
 
-## Unreleased
+## 1.6.0 - 2026-11-08
 
 ### Added
 - Native Tailwind CSS v4 `@theme` design tokens in `tailwind.css` with 0px radius reset and 4px spacing scale.
+- Package export `./tailwind.css` in `package.json` for seamless Tailwind v4 integration.
 
 ### Fixed
-- Preserve focus ring visibility in Windows High Contrast Mode (`forced-colors`) via transparent outline fallbacks on interactive elements.
-- Expand touch target area for 16px checkbox and radio inputs to meet 24px fine and 44px coarse pointer standards without breaking brand square geometry.
+- Preserve focus ring visibility in Windows High Contrast Mode (`forced-colors`) via transparent outline fallbacks on interactive elements and icon buttons.
+- Expand touch target area for 16px checkbox, radio, and switch inputs to meet 24px fine and 44px coarse pointer standards without breaking brand square geometry.
 - Replace `transition: all` anti-pattern with scoped property transitions across showcase kit and artifacts.
 - Convert fake `<a role="button">` links in component kit to native `<button type="button">`.
 
