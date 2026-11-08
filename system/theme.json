@@ -5,6 +5,7 @@
     "colorWarning": "#f59e0b",
     "colorError": "#ef4444",
     "colorInfo": "#38bdf8",
+    "colorLink": "#38bdf8",
     "colorTextBase": "#ededed",
     "colorBgBase": "#0a0a0a",
     "fontFamily": "Plus Jakarta Sans, Space Grotesk, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif",
@@ -18,8 +19,7 @@
     "motionUnit": 0.12,
     "motionBase": 0,
     "wireframe": false,
-    "motion": true,
-    "colorLink": "#38bdf8"
+    "motion": true
   },
   "algorithm": "dark"
 }
