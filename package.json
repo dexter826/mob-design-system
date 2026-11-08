@@ -3,7 +3,7 @@
   "version": "1.6.0",
   "private": true,
   "type": "module",
-  "description": "Reusable dark-mode web design system: local fonts, shared CSS, component behaviors and interactive examples.",
+  "description": "A dark, square UI system for engineering consoles, built around dense data, operational states, and one disciplined green signal.",
   "exports": {
     ".": "./colors_and_type.css",
     "./components.css": "./components.css",

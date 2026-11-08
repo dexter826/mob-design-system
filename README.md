@@ -9,7 +9,7 @@
 [![Version](https://img.shields.io/badge/version-1.6.0-black.svg)](package.json)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
-<p>Dark-mode web design system with shared CSS tokens, UI component styles, and local variable fonts with Vietnamese glyph coverage.</p>
+<p>A dark, square UI system for engineering consoles, built around dense data, operational states, and one disciplined green signal.</p>
 
 </div>
 
