@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "A dark, square UI system for engineering consoles, built around dense data, operational states, and one disciplined green signal.",
+  "description": "Dark-only design system for engineering interfaces with W3C design tokens, 0px border-radius, Tailwind CSS v4, and 28 headless Radix UI primitives.",
   "exports": {
     ".": "./dist/colors_and_type.css",
     "./components.css": "./dist/components.css",

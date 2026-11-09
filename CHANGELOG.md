@@ -14,16 +14,25 @@ this file is the value recorded in `scripts/contrast-measured.md`.
 ## 2.0.0 - 2026-11-09
 
 ### Breaking Changes
-- Move source CSS to `src/styles/` and compiled exports to `dist/`.
-- Remove compiled CSS from root; update `package.json` `exports` to resolve from `./dist/*`.
+- Restructure project into a 4-tier design system architecture: tokens, framework CSS (`dist/`), component registry (`registry/`), and showcase hub (`showcase/`).
+- Move source styles to `src/styles/` and compiled artifacts to `dist/`.
+- Update `package.json` package exports to resolve from `./dist/*` and `./ui/*`.
 
 ### Added
-- Add shadcn/ui custom registry (`components.json`, `src/lib/utils.ts`, `registry/default/ui/*.tsx`).
-- Consolidate preview and showcase pages into `showcase/`.
-- Update `SKILL.md` with component templates and token usage guidelines.
+- Author 28 headless Radix UI primitives in `registry/default/ui/*.tsx` with Tailwind CSS v4 and strictly 0px radius (`rounded-none`).
+- Provide custom shadcn/ui registry indexed at `registry/registry.json` and configured via `components.json`.
+- Add automated registry verification test suite (`scripts/validate-registry.mjs`, `npm run check:registry`).
+- Implement full TypeScript typing (`tsconfig.json`, `@types/react`, `@types/react-dom`, `@types/node`) and integrate `npm run typecheck` (`tsc --noEmit`) into automated test suite.
+- Expand Showcase Hub (`showcase/index.html`) with an interactive Component Catalog, 5 category filters, and one-click `npx shadcn add` CLI commands.
+- Align `DESIGN.md` specification to Google Labs format with complete 28-primitive definitions and eliminate marketing buzzwords.
+- Update AI agent `SKILL.md` with complete primitive catalog and copy-paste React examples.
+
+### Changed
+- Clean up all stale `context/` paths and machine-specific cache paths across documentation and manifest.
+- Update GitHub Release workflow to package `dist/` CSS artifacts and run automated build verification.
 
 ### Removed
-- Remove `playwright` dependency and browser mock tests.
+- Remove `playwright` dependency and obsolete browser mock tests in favor of lightweight Node.js regression checks.
 
 ## 1.7.0 - 2026-11-09
 

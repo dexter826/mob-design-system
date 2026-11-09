@@ -29,6 +29,7 @@ jobs:
       - name: Run verification checks
         run: |
           npm run check:tokens
+          npm run build
           npm test
 
       - name: Package standalone assets
@@ -40,12 +41,14 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ github.ref_name }}
-          generate_release_notes: true
+          generate_release_notes: false
           draft: false
           prerelease: false
           files: |
-            colors_and_type.css
-            components.css
-            overlays.css
+            dist/colors_and_type.css
+            dist/components.css
+            dist/overlays.css
+            dist/tailwind.css
             mob-signal-fonts.zip
+            mob-signal-logos.zip
             mob-signal-logos.zip
