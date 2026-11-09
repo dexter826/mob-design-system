@@ -1,6 +1,6 @@
 # M.O.B Signal — Brand System
 
-Package version 1.6.0 · source version 4.0.0 (`design-tokens.json` `meta.version`) · derived from
+Package version 1.7.0 · source version 4.0.0 (`design-tokens.json` `meta.version`) · derived from
 `design-system-neon-tech` · registered as `user:product` · archive sha256
 `8d9e46cb6d28432e8b6808417b0770b227f81a2f425d9a1601993f06a25c50d1`
 
@@ -647,7 +647,7 @@ The supplied logo kit is permitted identity artwork. Photography and decorative 
   no third-party set, so no additional licence attaches to them. Their provenance is stated in
   `assets/icons/icons.svg` itself and in section 11.
 - **Version fields.** `meta.name` in the normalized source copy is *M.O.B Signal* at **source version 4.0.0**
-  (unchanged, and not ours to bump). The package is at **1.6.0**, recorded in `CHANGELOG.md`,
+  (unchanged, and not ours to bump). The package is at **1.7.0**, recorded in `CHANGELOG.md`,
   `package.json`, `tokens.measured.json` and the header of this file.
 - **Original input digest (compressed file not bundled).** The recorded SHA-256 is `8d9e46cb6d28432e8b6808417b0770b227f81a2f425d9a1601993f06a25c50d1`
   (15,891 bytes), with per-file digests in `tokens.measured.json`. If the digest moves, every

@@ -11,6 +11,14 @@ and currently reads 4.0.0. The archive digest is the tie between them: `design-s
 **Provenance tags.** `measured` = copied out of the archive. `authored` = written to close a gap the archive left open, reversible. `corrected` = the archive states something measurement disproved. Every ratio in
 this file is the value recorded in `context/contrast-measured.md`.
 
+## 1.7.0 - 2026-11-09
+
+### Added
+- Standardized `DESIGN.md` conforming 100% to Google Labs specification (`google-labs-code/design.md`).
+- Automated `DESIGN.md` generator in `context/design-md-from-brand.mjs` emitting YAML frontmatter tokens and canonical 8 sections.
+- Google Labs official linter tooling `@google/design.md` via `npm run lint:design`.
+- Automated test coverage in `tests/package.test.mjs` verifying canonical outline and token definitions.
+
 ## 1.6.0 - 2026-11-08
 
 ### Added

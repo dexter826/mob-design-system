@@ -79,7 +79,7 @@
   },
   "provenance_doc": "context/provenance.md",
   "package": {
-    "version": "1.6.0",
+    "version": "1.7.0",
     "sourceVersion": "4.0.0",
     "changelog": "CHANGELOG.md",
     "digest": "8d9e46cb6d28432e8b6808417b0770b227f81a2f425d9a1601993f06a25c50d1",

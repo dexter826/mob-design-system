@@ -1,6 +1,6 @@
 {
   "name": "mob-signal",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "type": "module",
   "description": "A dark, square UI system for engineering consoles, built around dense data, operational states, and one disciplined green signal.",

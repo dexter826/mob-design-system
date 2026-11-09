@@ -3,7 +3,7 @@
 Provenance for the values in `brand.json`, `DESIGN.md`, `BRAND.md` and `colors_and_type.css`.
 Every value here comes from a source file or from measurement; none is inferred from prose.
 
-Package **1.6.0**. The archive's own `meta.version` is **4.0.0** and stays 4.0.0: it describes the
+Package **1.7.0**. The archive's own `meta.version` is **4.0.0** and stays 4.0.0: it describes the
 source, not this package.
 
 ## Historical inputs
