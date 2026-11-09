@@ -563,7 +563,7 @@ body[data-modal-open="true"] .overlay[data-layer="drawer"] .overlay-scrim {
 }
 
 /* 12px is the smallest step and the tooltip has no larger one; on #202020
-   #ededed measures 13.92:1 (context/contrast-measured.md), so the small size
+   #ededed measures 13.92:1 (scripts/contrast-measured.md), so the small size
    costs nothing in legibility. The text is a description, never the accessible
    name on its own. */
 

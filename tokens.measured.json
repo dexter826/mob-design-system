@@ -563,8 +563,8 @@
     }
   },
   "contrast": {
-    "report": "context/contrast-measured.md",
-    "generator": "node context/contrast.mjs",
+    "report": "scripts/contrast-measured.md",
+    "generator": "node scripts/contrast.mjs",
     "provenance": "measured"
   },
   "css": {

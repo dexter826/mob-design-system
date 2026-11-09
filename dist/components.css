@@ -129,7 +129,7 @@
 
 /* DEVIATION, recorded not smoothed: design-system.css paints the kbd glyph with
    --color-text-muted. #737373 measures 4.18:1 on canvas and 3.74:1 on this
-   chip's own #181818 fill, which fails AA at 12px, and context/contrast-
+   chip's own #181818 fill, which fails AA at 12px, and scripts/contrast-
    measured.md restricts muted to placeholder, disabled and 18px+ metadata. A
    kbd chip is ordinary small text, so it renders at #a1a1a1 (6.87:1 here). */
 
@@ -956,7 +956,7 @@ fieldset:disabled .input-field {
    authors a listbox on surface-elevated #202020 — that fill is documented for
    popups in BRAND.md §1 — with #181818 hover and a 2px accent leading edge on
    the selected option. The primary-subtle tint that often travels with a
-   selection is 1.16:1 on surface (context/contrast-measured.md), so it is
+   selection is 1.16:1 on surface (scripts/contrast-measured.md), so it is
    decoration: the 2px edge carries the state.
    -------------------------------------------------------------------------- */
 

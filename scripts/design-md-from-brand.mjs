@@ -1,5 +1,5 @@
 // Regenerates DESIGN.md conforming to the google-labs-code/design.md specification.
-// Run: node context/design-md-from-brand.mjs
+// Run: node scripts/design-md-from-brand.mjs
 import fs from 'node:fs';
 
 const brand = JSON.parse(fs.readFileSync('brand.json', 'utf8'));

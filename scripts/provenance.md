@@ -9,7 +9,7 @@ source, not this package.
 ## Historical inputs
 
 Original archives and extracted reference files are not bundled. Source names and digests are
-historical attribution records in `context/provenance.json` and `tokens.measured.json`, not local
+historical attribution records in `scripts/provenance.json` and `tokens.measured.json`, not local
 file dependencies. The current token contract and shared component sources are the implementation
 authority. No source backup or extracted reference copy is retained in this package.
 
@@ -20,8 +20,8 @@ DOM/CSS cross-checking were not available: there is no live site, no Figma file,
 no screenshot in the setup inputs (no external source is available). Every color in this system is therefore
 **measured from a source file**, not observed in a browser.
 
-Contrast ratios are computed, not quoted. `context/contrast.mjs` derives the WCAG 2.2 matrix from the
-hex values and writes `context/contrast-measured.md`; that report is the reference for every ratio in
+Contrast ratios are computed, not quoted. `scripts/contrast.mjs` derives the WCAG 2.2 matrix from the
+hex values and writes `scripts/contrast-measured.md`; that report is the reference for every ratio in
 the package. All four ratios quoted in `design-system.md` differ from the measured values, and one of
 them changes a rule: the muted demotion recorded in `BRAND.md` 15. What remains unmeasured is the part
 that needs a live surface: computed styles, rendered font metrics and real interaction timing.
@@ -38,7 +38,7 @@ Per-file digests, recorded so a later run can tell whether the source moved:
 
 ## Superseded input
 
-The pasted input described a light, rounded placeholder rather than the supplied dark design system. It is not part of the active specification and its raw input notes are not bundled. The rejection is retained as structured metadata in `context/provenance.json`.
+The pasted input described a light, rounded placeholder rather than the supplied dark design system. It is not part of the active specification and its raw input notes are not bundled. The rejection is retained as structured metadata in `scripts/provenance.json`.
 
 ## Local fonts
 
@@ -72,12 +72,12 @@ supports. Citing any of it as "what the brand says" overstates the evidence.
 | Provisional logo rules and the misuse list | Built from `.app-brand-mark` geometry and the ban on rounding/glow; **not** brand guidance | `BRAND.md` 17 |
 | Target-size ruling (32 visual / 24 min / 44 touch) | Resolves the collision between the measured 32px module and the system's own AAA pillar | `BRAND.md` 15 |
 | Dark-only declaration | The archive is dark throughout; the light surfaces in the package are engine chrome | `BRAND.md` 1 |
-| Measured contrast matrix | Computed from the archive's own hex values, not from a new source | `context/contrast*` |
+| Measured contrast matrix | Computed from the archive's own hex values, not from a new source | `scripts/contrast*` |
 | OFL 1.1 licence text | Fetched from the upstream projects published in google/fonts | `fonts/licenses/` |
 
 ## Provenance summary
 
-Three labels, used identically across `tokens.measured.json`, `context/provenance.json` and this
+Three labels, used identically across `tokens.measured.json`, `scripts/provenance.json` and this
 file. `authored` is the standard term for a gap the archive left open; the label this package used
 earlier for that class is retired. No fourth label appears.
 

@@ -77,7 +77,7 @@
     "text_derived": "#cbcbcb",
     "authority": "tokens.measured.json is the authority for color and wins over any engine-derived file; see BRAND.md section 8"
   },
-  "provenance_doc": "context/provenance.md",
+  "provenance_doc": "scripts/provenance.md",
   "package": {
     "version": "2.0.0",
     "sourceVersion": "4.0.0",
@@ -109,8 +109,8 @@
   ],
   "contrast": {
     "route": "computed from the hex values",
-    "generator": "context/contrast.mjs",
-    "report": "context/contrast-measured.md",
+    "generator": "scripts/contrast.mjs",
+    "report": "scripts/contrast-measured.md",
     "quotedClaimsReplaced": true,
     "corrected": {
       "mutedOnCanvas": {
@@ -157,7 +157,7 @@
       "system/variables.dark.css",
       "system/seed.json"
     ],
-    "integrity": "context/token-check.mjs"
+    "integrity": "scripts/token-check.mjs"
   },
   "authoredAdditions": {
     "label": "authored",

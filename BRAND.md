@@ -24,14 +24,14 @@ The reading order follows the usual divisions of a design system:
 ## Provenance
 
 Current token values are defined in `tokens.measured.json`; shared component sources implement
-those rules. Historical source names and digests are recorded in `context/provenance.json`.
+those rules. Historical source names and digests are recorded in `scripts/provenance.json`.
 Original archives and extracted reference files are not included in the package.
 
 Provenance labels distinguish recorded source values (`measured`), designed additions (`authored`)
 and verified corrections (`corrected`). These labels describe origin, not a dependency on an old
 source folder. Local fonts, supplied logos and authored icons have their own asset manifests.
-Current contrast measurements and verification scope are recorded in `context/contrast-measured.md`
-and `context/verification.md`.
+Current contrast measurements and verification scope are recorded in `scripts/contrast-measured.md`
+and `scripts/verification.md`.
 
 ## 1. Color system
 
@@ -83,8 +83,8 @@ in. They are now enforced through three files instead of prose alone:
 | File | Job |
 | --- | --- |
 | `tokens.measured.json` | Machine-readable source of truth for every value, each tagged `measured`, `authored` or `corrected`, with the archive digest. |
-| `colors_and_type.css` | The CSS surface every deliverable loads; nothing may hardcode what this sheet already names. |
-| `context/token-check.mjs` | Resolves every `var(--x)` in the package against the contract and reports any reference no sheet defines. Run `node context/token-check.mjs`. |
+| `dist/colors_and_type.css` | The CSS surface every deliverable loads; nothing may hardcode what this sheet already names. |
+| `scripts/token-check.mjs` | Resolves every `var(--x)` in the package against the contract and reports any reference no sheet defines. Run `node scripts/token-check.mjs`. |
 
 **The accent rule.** `#00cc5c` appears in exactly four situations: the primary CTA fill, the
 selected/active indicator, the keyboard focus ring, and the Operational marker. A fifth use is
@@ -285,7 +285,7 @@ empty state, a panel header. The map's icon column is therefore the pairing **at
 - Pair status color with a word — never hue alone.
 - Use `surface-elevated #202020` for anything that floats above the page.
 - Give essential controls the control-border token. Decorative low-contrast rules and subtle fill differences do not establish a 3:1 boundary.
-- Route every color, size, duration and z-index through `colors_and_type.css`; run `node context/token-check.mjs` when you add a token.
+- Route every color, size, duration and z-index through `dist/colors_and_type.css`; run `node scripts/token-check.mjs` when you add a token.
 - Label a chart series at its end rather than only in a legend, and cap the series count at four.
 - Use the icon family for status, and give any standalone icon button an `aria-label`.
 - Reuse a recipe from `components.css` or `overlays.css` before authoring one; if neither has it, the component is unspecified and must be flagged, not guessed.
@@ -338,17 +338,17 @@ the derived ones:
 
 | File | Contents | Owner |
 | --- | --- | --- |
-| `colors_and_type.css` | Full token contract: accent + hover/active/subtle, the five charcoal steps, three text steps, both border steps, four semantic states, display/body/mono stacks with source fallbacks, the 7-step type scale with line heights, the 4px spacing scale, `0px` radius on every step, black-only elevation, the focus ring, control heights, component padding pairs, motion, and the public `--color-*` / `--space-*` / `--radius-*` aliases that `preview/` and `ui_kits/` consume. | Hand-maintained |
-| `index.html`, `preview/*.html` | Entry page plus eighteen review cards on the dark canvas: `0px` radius everywhere, Space Grotesk headings with `-0.02em`, sentence-case labels, `#000000` on volt fills, 4px-step gaps, focus rings on `:focus-visible`. The shape card states the 0px scale instead of advertising 6/10/16px, the light-theme card states that no light theme exists, and the new cards cover icons, controls, overlays, charts, grid, motion, content patterns and accessibility. | Hand-maintained |
-| `components.css`, `overlays.css` | The component recipes, split by ownership so one component never has two sheets (4.1). Zero color literals: both load the contract first. | Hand-maintained |
+| `dist/colors_and_type.css` | Full token contract: accent + hover/active/subtle, the five charcoal steps, three text steps, both border steps, four semantic states, display/body/mono stacks with source fallbacks, the 7-step type scale with line heights, the 4px spacing scale, `0px` radius on every step, black-only elevation, the focus ring, control heights, component padding pairs, motion, and the public `--color-*` / `--space-*` / `--radius-*` aliases that `showcase/` consumes. | Hand-maintained |
+| `showcase/index.html`, `showcase/pages/*.html` | Showcase Hub plus eighteen review cards on the dark canvas: `0px` radius everywhere, Space Grotesk headings with `-0.02em`, sentence-case labels, `#000000` on volt fills, 4px-step gaps, focus rings on `:focus-visible`. The shape card states the 0px scale instead of advertising 6/10/16px, the light-theme card states that no light theme exists, and the new cards cover icons, controls, overlays, charts, grid, motion, content patterns and accessibility. | Hand-maintained |
+| `dist/components.css`, `dist/overlays.css` | The component recipes, split by ownership so one component never has two sheets (4.1). Zero color literals: both load the contract first. | Hand-maintained |
 | `assets/icons/icons.css`, `assets/icons/icons.svg` | The icon family: 65 symbols on a 24 grid, 1.5px stroke, square joins, `currentColor`. | Hand-maintained |
 | `tokens.measured.json` | The non-derived token source, with provenance per entry and the archive digest. | Hand-maintained |
-| `context/contrast.mjs`, `context/contrast-measured.md` | The measured contrast matrix and the numbers that replace the source's claims. | Hand-maintained |
-| `context/design-md-from-brand.mjs` | Regenerates `DESIGN.md` from `brand.json` in the engine's document shape, so a registry edit does not have to wait for a finalize. | Hand-maintained |
-| `context/token-check.mjs` | Proves every `var(--x)` in the package resolves against the contract. | Hand-maintained |
+| `scripts/contrast.mjs`, `scripts/contrast-measured.md` | The measured contrast matrix and the numbers that replace the source's claims. | Hand-maintained |
+| `scripts/design-md-from-brand.mjs` | Regenerates `DESIGN.md` from `brand.json` in the engine's document shape, so a registry edit does not have to wait for a finalize. | Hand-maintained |
+| `scripts/token-check.mjs` | Proves every `var(--x)` in the package resolves against the contract. | Hand-maintained |
 | `CHANGELOG.md` | Package version history and what each version changed. | Hand-maintained |
 | `fonts/fonts.css`, `fonts/manifest.json`, `fonts/licenses.json`, `fonts/licenses/*.OFL.txt` | Three local variable fonts with English/Vietnamese glyphs, their provenance, and the OFL 1.1 text that must travel with them. | Hand-maintained |
-| `ui_kits/app/` | Applied service console. Class anatomy transcribed from the source preview; no component carries a literal color. | Hand-maintained |
+| `showcase/app/` | Applied service console. Class anatomy transcribed from the source preview; no component carries a literal color. | Hand-maintained |
 | `assets/logo.svg` | Compatibility copy of the supplied dark lockup; originals in `logos/mob-logo/`. | Supplied artwork |
 
 **Re-apply after finalize.** `od brand finalize` regenerates this whole layer from engine templates,
@@ -356,7 +356,7 @@ and those templates emit generic light-mode defaults regardless of `brand.json`:
 `--surface: #fff`, `--muted: #706b65`, cream `#f3f1ec`, radius `4/7/8/10/16px`, Inter, an uppercase
 eyebrow, `#fff` text on the accent fill, and font faces resolved to a non-latin subset with one URL
 reused for every weight. Any file in the table above that a finalize has overwritten must be restored
-from this section's contract rather than trusted as generated, and `context/engine-token-sync.mjs`
+from this section's contract rather than trusted as generated, and `scripts/engine-token-sync.mjs`
 re-run. `od brand preview` does not touch this layer — it re-renders `brand.html` and regenerates
 `DESIGN.md` from `brand.json`.
 
@@ -560,7 +560,7 @@ readable line height. Docs are English; CJK and translation are outside the curr
 
 The contrast report measures color pairs. Automated checks and demo interactions are evidence
 for their tested scope, not a claim of complete WCAG conformance. Manual screen-reader and
-magnification testing remain separate activities. Current execution results are in `context/verification.md`.
+magnification testing remain separate activities. Current execution results are in `scripts/verification.md`.
 
 References: [W3C text contrast](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html),
 [W3C non-text contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html),
@@ -670,7 +670,7 @@ published framework library, backend deployment or infrastructure integration is
 ### 19.3 Verification and external dependencies
 
 Screen-reader coverage, browser combinations and zoom behavior require their own evidence.
-See `context/verification.md` for actual checked scope and pending checks. No statement here is
+See `scripts/verification.md` for actual checked scope and pending checks. No statement here is
 a blanket accessibility certification.
 
 The host application can regenerate files independently. Project build and checks repair/detect

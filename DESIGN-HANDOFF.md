@@ -1,233 +1,75 @@
-# brand-product-df81bc implementation handoff
+# M.O.B Signal — Design System Technical Handoff (v2.0.0)
 
-This archive is the source of truth for turning the design into production code. Start from `index.html`, then preserve the visual system, responsive behavior, and interactions found in the exported files.
+This document specifies the technical contract and architectural handoff for consumers implementing M.O.B Signal UI components and design tokens in production environments.
 
-## Implementation target
-- Build production UI from the exported design, not a loose reinterpretation.
-- Preserve typography scale, spacing rhythm, color tokens, border radii, shadows, motion timing, and component states.
-- Replace static placeholders only when the target app has real data or functional equivalents.
-- Keep generated product UI free of OpenDesign chrome, preview labels, or design-process annotations.
-- Treat this handoff as a visual contract: if implementation choices conflict, match the exported pixels and behavior first, then refactor internals.
+## 1. System Overview & Core Directives
 
-## Source map
-- Primary entry: `index.html`
-- HTML screens detected: 31
-- Stylesheets detected: 9
-- Script/component files detected: 25
-- Supporting assets detected: 85
+M.O.B Signal is an enterprise-grade dark UI design system for engineering consoles, observability dashboards, and data-dense applications.
 
-## Responsive contract
-Validate the implementation across this 2025–2026 viewport matrix:
-- Mobile compact: 360×800
-- Mobile standard: 390×844
-- Mobile large: 430×932
-- Foldable / small tablet: 600×960
-- Tablet portrait: 820×1180
-- Tablet landscape: 1024×768
-- Laptop: 1366×768
-- Desktop: 1440×900
-- Wide desktop: 1920×1080
+- **Theme**: Dark mode only (`color-scheme: dark`).
+- **Geometry**: Strict 0px border-radius (`--radius: 0px`, `rounded-none`). Rounded corners are forbidden on all UI controls.
+- **Palette Signal**: Single green accent `#00cc5c` (`--color-primary`) reserved for active triggers, selections, focus rings, and healthy operational states.
+- **Base Grid**: 4px modular spacing rhythm (`--space-1` to `--space-12`).
+- **Typography**: Localized fonts (Space Grotesk for display/headers, Plus Jakarta Sans for UI labels/body, JetBrains Mono for code/tabular metrics).
 
-For responsive web exports, treat these as a modern breakpoint system for one adaptive web experience, not three fixed screenshots. Do not split responsive web into unrelated native app screens unless the project explicitly includes native targets. Use semantic layout thresholds, fluid `clamp()` type/spacing, and container queries where component width matters more than viewport width. Preserve any CSS media queries, container queries, fluid `clamp()` scales, and layout changes already present in the exported files.
+---
 
-## Design fidelity contract
-- Extract reusable tokens before writing components: background, surface, foreground, muted text, border, accent, radius, shadow, spacing, type scale, and motion duration/easing.
-- Map product screens, in-app modules/components, optional landing page, and optional OS widget surfaces before coding. Keep these surfaces separate in the target architecture.
-- Match layout geometry: max-widths, gutters, grid columns, card proportions, sticky/fixed elements, and viewport-specific navigation.
-- Preserve real copy, labels, and data shown in the export. Do not replace specific text with generic marketing filler.
-- Preserve interactive affordances: hover, focus, pressed, disabled, loading, validation, copy/share, tab/accordion, modal/sheet, and keyboard states where present.
-- Preserve accessibility semantics when converting: headings stay hierarchical, controls remain buttons/links/inputs, focus states stay visible.
-- Do not keep prototype-only annotations, frame labels, or OpenDesign chrome in the production UI.
+## 2. Architecture & File Locations
 
-## CJX-ready UX contract
-- Use `DESIGN-MANIFEST.json` as the machine-readable map for screens, app modules, OS widgets, landing pages, tokens, interactions, and viewport checks.
-- Screen-file-first: when multiple user-facing surfaces exist, implement each HTML screen as its own route/file. Treat `index.html` as a launcher/overview when the manifest marks it that way, not as a combined final UI.
-- If `landing.html`, app screens, platform screens, or OS widget files exist, preserve those boundaries in the target app instead of merging them into one page.
-- A single self-contained `index.html` is acceptable only when the export truly contains one user-facing screen and its CSS/JS are structured enough to extract tokens, components, states, and behavior.
-- If separate `css/` or `js/` files exist, treat them as source of truth for token/component/interactions before porting to React, Vue, SwiftUI, Compose, or another target stack.
-- In-app modules/components are product UI blocks inside the app. OS widgets are home-screen/lock-screen/quick-access surfaces outside the app. Do not merge those concepts.
+| Directory / File | Contract | Description |
+| :--- | :--- | :--- |
+| `dist/colors_and_type.css` | Output CSS | Canonical `:root` CSS custom properties (color tokens, typography, radii, spacing, elevation). |
+| `dist/components.css` | Output CSS | Shared pure CSS component recipes (buttons, inputs, cards, tables, badges). |
+| `dist/overlays.css` | Output CSS | Shared overlay surfaces (dialogs, drawers, popovers, tooltips). |
+| `dist/tailwind.css` | Output CSS | Native Tailwind CSS v4 `@theme` export mapping all design tokens. |
+| `dist/tokens/*.json` | Output JSON | W3C / DTCG token compatibility exports (default, compact, dark). |
+| `src/styles/*.css` | Source CSS | Authoritative source stylesheets compiled to `dist/`. |
+| `registry/registry.json` | Registry API | shadcn CLI compatible component distribution manifest. |
+| `registry/default/ui/*.tsx` | React UI Kit | Pure Radix UI + CVA + Tailwind UI primitives (0px radius). |
+| `showcase/index.html` | Portal | Centralized Showcase Hub and Interactive Component Catalog. |
+| `showcase/pages/*.html` | Demos | 17 comprehensive specification and audit preview pages. |
+| `showcase/app/` | Console | Applied React engineering console demonstrator. |
+| `scripts/*.mjs` | Tooling | Build pipelines, token audit scripts, contrast calculations, and linters. |
 
-## Color and brand contract
-- Use the exported design tokens and product/domain context as the color source of truth.
-- Do not introduce warm beige / cream / peach / pink / orange-brown background washes unless they are already explicit brand/reference colors in the export.
-- A stylesheet or design/token file was detected; inspect it for canonical color variables before choosing framework theme tokens.
+---
 
-## Implementation sequence for AI coding tools
-1. Open `index.html` and `DESIGN-MANIFEST.json`; identify every screen file, launcher/overview file, app module, and interaction before coding.
-2. If multiple HTML screens exist, map them to separate routes/surfaces first; do not merge `landing.html`, product app screens, platform screens, or OS widgets into one route.
-3. Extract a token table from CSS/root styles and inline styles before building framework components.
-4. Build product screens and domain-specific in-app modules from largest layout regions down to controls; avoid starting with isolated atoms that lose spatial intent.
-5. Port responsive behavior across the modern viewport matrix and test each semantic breakpoint before cleanup.
-6. Port interactions and states, then replace static placeholders only with real app data or functional equivalents.
-7. Keep optional landing page and OS widget surfaces as separate surfaces if present.
-8. Compare final screenshots against the export at 360×800, 390×844, 430×932, 820×1180, 1024×768, 1366×768, 1440×900, and 1920×1080 before declaring done.
+## 3. Responsive & Viewport Matrix
 
-## Entry points
-- `brand.html`
-- `index.html`
-- `logos/mob-logo/web-icons/head-snippet.html`
-- `preview/accessibility.html`
-- `preview/brand-assets.html`
-- `preview/colors-primary.html`
-- `preview/colors-theme-dark.html`
-- `preview/colors-theme-light.html`
-- `preview/components-buttons.html`
-- `preview/components-controls.html`
-- `preview/components-inputs.html`
-- `preview/components-overlays.html`
-- `preview/content-patterns.html`
-- `preview/data-viz.html`
-- `preview/icons.html`
-- `preview/layout-grid.html`
-- `preview/motion.html`
-- `preview/spacing-radius.html`
-- `preview/spacing-shadows.html`
-- `preview/spacing-tokens.html`
-- `preview/typography-specimens.html`
-- `system/artifacts/deck.html`
-- `system/artifacts/email.html`
-- `system/artifacts/form.html`
-- `system/artifacts/landing.html`
-- `system/artifacts/newsletter.html`
-- `system/artifacts/poster.html`
-- `system/index.html`
-- `system/kit.dark.html`
-- `system/kit.html`
-- `ui_kits/app/index.html`
+Implementation must validate without document-level horizontal overflow across the following viewports:
+- Mobile Compact: 320px – 375px
+- Mobile Standard: 390px – 430px
+- Tablet Portrait: 768px – 820px
+- Laptop / Desktop: 1024px – 1440px
+- Wide Console: 1920px+
 
-## Styles
-- `assets/icons/icons.css`
-- `colors_and_type.css`
-- `components.css`
-- `context/token-aliases.css`
-- `fonts/fonts.css`
-- `overlays.css`
-- `system/variables.css`
-- `system/variables.dark.css`
-- `ui_kits/app/console.css`
+Tables and code blocks must retain localized horizontal scrolling with labelled regions when viewport boundaries are constrained.
 
-## Scripts/components
-- `assets/components.js`
-- `context/build.mjs`
-- `context/contrast.mjs`
-- `context/design-md-from-brand.mjs`
-- `context/engine-token-sync.mjs`
-- `context/server.mjs`
-- `context/token-check.mjs`
-- `context/token-model.mjs`
-- `src/components/design-system-reference.tsx`
-- `system/scripts/apply-design-tokens.mjs`
-- `tests/browser.mjs`
-- `tests/package.test.mjs`
-- `ui_kits/app/components/App.jsx`
-- `ui_kits/app/components/AppNav.jsx`
-- `ui_kits/app/components/AssistantsList.jsx`
-- `ui_kits/app/components/AuditFeed.jsx`
-- `ui_kits/app/components/ChatArea.jsx`
-- `ui_kits/app/components/DeploymentTable.jsx`
-- `ui_kits/app/components/InputBar.jsx`
-- `ui_kits/app/components/MessageBubble.jsx`
-- `ui_kits/app/components/MetricsRow.jsx`
-- `ui_kits/app/components/Sidebar.jsx`
-- `ui_kits/app/components/StatusBadge.jsx`
-- `ui_kits/app/console.js`
-- `ui_kits/app/main.jsx`
+---
 
-## Assets and supporting files
-- `%SystemDrive%/ProgramData/Microsoft/Windows/Caches/{6AF0698E-D558-4F6E-9B3C-3716689AF493}.2.ver0x0000000000000001.db`
-- `%SystemDrive%/ProgramData/Microsoft/Windows/Caches/{DDF571F2-BE98-426D-8288-1A9A39C3FDA2}.2.ver0x0000000000000001.db`
-- `%SystemDrive%/ProgramData/Microsoft/Windows/Caches/{F1977D51-A422-43D7-8032-AC082FD82599}.2.ver0x0000000000000001.db`
-- `%SystemDrive%/ProgramData/Microsoft/Windows/Caches/cversions.2.db`
-- `assets/icons/icons.svg`
-- `assets/logo.svg`
-- `assets/vendor-licenses/react-dom.LICENSE.txt`
-- `assets/vendor-licenses/react.LICENSE.txt`
-- `assets/vendor-licenses/scheduler.LICENSE.txt`
-- `brand.json`
-- `BRAND.md`
-- `CHANGELOG.md`
-- `context/acquire-fonts.py`
-- `context/contrast-measured.md`
-- `context/input-DESIGN.md`
-- `context/provenance.json`
-- `context/provenance.md`
-- `context/verification.md`
-- `DESIGN.md`
-- `fonts/jetbrains-mono-variable.woff2`
-- `fonts/licenses.json`
-- `fonts/licenses/jetbrainsmono.OFL.txt`
-- `fonts/licenses/plusjakartasans.OFL.txt`
-- `fonts/licenses/spacegrotesk.OFL.txt`
-- `fonts/manifest.json`
-- `fonts/plus-jakarta-sans-variable.woff2`
-- `fonts/space-grotesk-variable.woff2`
-- `guide.md`
-- `logos/exports/manifest.json`
-- `logos/exports/mob-lockup-dark.png`
-- `logos/exports/mob-lockup-light.png`
-- `logos/exports/mob-lockup-stacked.png`
-- `logos/exports/mob-symbol.png`
-- `logos/exports/mob-wordmark.png`
-- `logos/exports/og-cover.png`
-- `logos/manifest.json`
-- `logos/mob-logo/png/mob-lockup-dark.png`
-- `logos/mob-logo/png/mob-lockup-light.png`
-- `logos/mob-logo/png/mob-lockup-stacked.png`
-- `logos/mob-logo/png/mob-symbol.png`
-- `logos/mob-logo/png/og-cover.png`
-- `logos/mob-logo/README.md`
-- `logos/mob-logo/vectors/mob-lockup-dark.svg`
-- `logos/mob-logo/vectors/mob-lockup-light.svg`
-- `logos/mob-logo/vectors/mob-lockup-mono-black.svg`
-- `logos/mob-logo/vectors/mob-lockup-mono-white.svg`
-- `logos/mob-logo/vectors/mob-lockup-stacked.svg`
-- `logos/mob-logo/vectors/mob-symbol-dark.svg`
-- `logos/mob-logo/vectors/mob-symbol-light.svg`
-- `logos/mob-logo/vectors/mob-symbol.svg`
-- `logos/mob-logo/vectors/mob-wordmark.svg`
-- `logos/mob-logo/vectors/og-cover.svg`
-- `logos/mob-logo/web-icons/apple-touch-icon.png`
-- `logos/mob-logo/web-icons/favicon-16.png`
-- `logos/mob-logo/web-icons/favicon-32.png`
-- `logos/mob-logo/web-icons/favicon-48.png`
-- `logos/mob-logo/web-icons/favicon.ico`
-- `logos/mob-logo/web-icons/favicon.svg`
-- `logos/mob-logo/web-icons/icon-192.png`
-- `logos/mob-logo/web-icons/icon-512.png`
-- `logos/mob-logo/web-icons/maskable-512.png`
-- `logos/mob-logo/web-icons/mob-symbol-app-icon.svg`
-- `logos/mob-logo/web-icons/mob-symbol-black.svg`
-- `logos/mob-logo/web-icons/mob-symbol-favicon.svg`
-- `logos/mob-logo/web-icons/mob-symbol-square.svg`
-- `logos/mob-logo/web-icons/mob-symbol-white.svg`
-- `logos/mob-logo/web-icons/site.webmanifest`
-- `logos/site.webmanifest`
-- `package-lock.json`
-- `package.json`
-- `README.md`
-- `SKILL.md`
-- `src/assets/README.md`
-- `system/BRAND-SYSTEM.md`
-- `system/seed.json`
-- `system/theme.json`
-- `system/tokens.compact.json`
-- `system/tokens.dark.json`
-- `system/tokens.default.json`
-- `tests/package_static.py`
-- `tests/server_static.py`
-- `tests/windows_runner.py`
-- `tokens.measured.json`
-- `ui_kits/app/console.js.LEGAL.txt`
-- `ui_kits/app/README.md`
+## 4. Accessibility & Contrast Invariants
 
-## Coding checklist for AI tools
-1. Inspect `index.html` and `DESIGN-MANIFEST.json` first and identify reusable components before coding.
-2. Implement each user-facing screen file as its own route/surface; keep launcher, landing, app, platform, and OS widget files separate.
-3. Extract design tokens into the target stack: colors, type scale, spacing, radius, shadows, and motion.
-4. Implement layout with real 2025–2026 responsive breakpoints, fluid type/spacing, and container-query-aware component behavior; test with no horizontal overflow.
-5. Preserve interactive controls, hover/focus/pressed states, form behavior, validation, and copy actions where present.
-6. Implement domain-specific in-app modules with real states; do not flatten them into generic cards.
-7. Keep landing page, product screens, and OS widget/quick-access surfaces separate when present.
-8. Confirm the production result visually matches the exported design before refactoring internals.
-9. Reject implementation shortcuts that flatten the design into generic cards, generic gradients, placeholder stats, or framework-default typography.
-10. If a detail is ambiguous, keep the exported HTML/CSS/JS behavior rather than inventing a new pattern.
+- **Text Contrast**: AAA (16:1+) on canvas for primary text (`#ededed` on `#0a0a0a`).
+- **Accent Contrast**: Black ink (`#000000`, `--color-primary-foreground`) is the only permitted foreground on `#00cc5c` (measures 9.8:1). White text on accent is strictly forbidden.
+- **Focus Rings**: Mandatory 2px offset focus ring (`focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none`).
+- **Touch Targets**: Minimum 24px for fine-pointer environments, 44px for coarse-pointer touch devices.
+- **State Semantics**: Operational states must pair color with explicit text labels and geometric markers (never color alone).
+
+---
+
+## 5. Component Registry & Installation
+
+Consumers in React / Next.js / Vite projects import components directly via the shadcn CLI:
+
+```bash
+# Add foundational primitives
+npx shadcn add https://raw.githubusercontent.com/dexter826/mob-design-system/main/registry/registry.json/button
+npx shadcn add https://raw.githubusercontent.com/dexter826/mob-design-system/main/registry/registry.json/input
+npx shadcn add https://raw.githubusercontent.com/dexter826/mob-design-system/main/registry/registry.json/dialog
+```
+
+For vanilla web applications:
+```html
+<link rel="stylesheet" href="mob-signal/dist/colors_and_type.css" />
+<link rel="stylesheet" href="mob-signal/dist/components.css" />
+<link rel="stylesheet" href="mob-signal/dist/overlays.css" />
+```

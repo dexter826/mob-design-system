@@ -42,9 +42,6 @@ for(const name of ['default','compact','dark']){
 if(fs.existsSync('showcase/app/main.jsx')){
   await build({entryPoints:['showcase/app/main.jsx'],bundle:true,format:'iife',platform:'browser',target:['es2020'],minify:true,define:{'process.env.NODE_ENV':'"production"'},outfile:'showcase/app/console.js',legalComments:'external'});
 }
-if(fs.existsSync('ui_kits/app/main.jsx')){
-  await build({entryPoints:['ui_kits/app/main.jsx'],bundle:true,format:'iife',platform:'browser',target:['es2020'],minify:true,define:{'process.env.NODE_ENV':'"production"'},outfile:'ui_kits/app/console.js',legalComments:'external'});
-}
 
 // 6. Vendor licenses and logo exports
 fs.mkdirSync('assets/vendor-licenses',{recursive:true});
