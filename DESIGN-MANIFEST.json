@@ -15,8 +15,8 @@
       "brand.json",
       "BRAND.md",
       "CHANGELOG.md",
-      "colors_and_type.css",
-      "components.css",
+      "dist/colors_and_type.css",
+      "dist/components.css",
       "scripts/acquire-fonts.py",
       "scripts/build.mjs",
       "scripts/contrast-measured.md",
@@ -84,27 +84,27 @@
       "logos/mob-logo/web-icons/mob-symbol-white.svg",
       "logos/mob-logo/web-icons/site.webmanifest",
       "logos/site.webmanifest",
-      "overlays.css",
+      "dist/overlays.css",
       "package-lock.json",
       "package.json",
-      "preview/accessibility.html",
-      "preview/brand-assets.html",
-      "preview/colors-primary.html",
-      "preview/colors-theme-dark.html",
-      "preview/colors-theme-light.html",
-      "preview/components-buttons.html",
-      "preview/components-controls.html",
-      "preview/components-inputs.html",
-      "preview/components-overlays.html",
-      "preview/content-patterns.html",
-      "preview/data-viz.html",
-      "preview/icons.html",
-      "preview/layout-grid.html",
-      "preview/motion.html",
-      "preview/spacing-radius.html",
-      "preview/spacing-shadows.html",
-      "preview/spacing-tokens.html",
-      "preview/typography-specimens.html",
+      "showcase/pages/accessibility.html",
+      "showcase/pages/brand-assets.html",
+      "showcase/pages/colors-primary.html",
+      "showcase/pages/colors-theme-dark.html",
+      "showcase/pages/colors-theme-light.html",
+      "showcase/pages/components-buttons.html",
+      "showcase/pages/components-controls.html",
+      "showcase/pages/components-inputs.html",
+      "showcase/pages/components-overlays.html",
+      "showcase/pages/content-patterns.html",
+      "showcase/pages/data-viz.html",
+      "showcase/pages/icons.html",
+      "showcase/pages/layout-grid.html",
+      "showcase/pages/motion.html",
+      "showcase/pages/spacing-radius.html",
+      "showcase/pages/spacing-shadows.html",
+      "showcase/pages/spacing-tokens.html",
+      "showcase/pages/typography-specimens.html",
       "README.md",
       "SKILL.md",
       "src/assets/README.md",
@@ -155,24 +155,24 @@
       "brand.html",
       "index.html",
       "logos/mob-logo/web-icons/head-snippet.html",
-      "preview/accessibility.html",
-      "preview/brand-assets.html",
-      "preview/colors-primary.html",
-      "preview/colors-theme-dark.html",
-      "preview/colors-theme-light.html",
-      "preview/components-buttons.html",
-      "preview/components-controls.html",
-      "preview/components-inputs.html",
-      "preview/components-overlays.html",
-      "preview/content-patterns.html",
-      "preview/data-viz.html",
-      "preview/icons.html",
-      "preview/layout-grid.html",
-      "preview/motion.html",
-      "preview/spacing-radius.html",
-      "preview/spacing-shadows.html",
-      "preview/spacing-tokens.html",
-      "preview/typography-specimens.html",
+      "showcase/pages/accessibility.html",
+      "showcase/pages/brand-assets.html",
+      "showcase/pages/colors-primary.html",
+      "showcase/pages/colors-theme-dark.html",
+      "showcase/pages/colors-theme-light.html",
+      "showcase/pages/components-buttons.html",
+      "showcase/pages/components-controls.html",
+      "showcase/pages/components-inputs.html",
+      "showcase/pages/components-overlays.html",
+      "showcase/pages/content-patterns.html",
+      "showcase/pages/data-viz.html",
+      "showcase/pages/icons.html",
+      "showcase/pages/layout-grid.html",
+      "showcase/pages/motion.html",
+      "showcase/pages/spacing-radius.html",
+      "showcase/pages/spacing-shadows.html",
+      "showcase/pages/spacing-tokens.html",
+      "showcase/pages/typography-specimens.html",
       "system/artifacts/deck.html",
       "system/artifacts/email.html",
       "system/artifacts/form.html",
@@ -186,11 +186,11 @@
     ],
     "css": [
       "assets/icons/icons.css",
-      "colors_and_type.css",
-      "components.css",
+      "dist/colors_and_type.css",
+      "dist/components.css",
       "scripts/token-aliases.css",
       "fonts/fonts.css",
-      "overlays.css",
+      "dist/overlays.css",
       "system/variables.css",
       "system/variables.dark.css",
       "ui_kits/app/console.css"
@@ -323,92 +323,92 @@
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/accessibility.html",
+      "file": "showcase/pages/accessibility.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/brand-assets.html",
+      "file": "showcase/pages/brand-assets.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/colors-primary.html",
+      "file": "showcase/pages/colors-primary.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/colors-theme-dark.html",
+      "file": "showcase/pages/colors-theme-dark.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/colors-theme-light.html",
+      "file": "showcase/pages/colors-theme-light.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/components-buttons.html",
+      "file": "showcase/pages/components-buttons.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/components-controls.html",
+      "file": "showcase/pages/components-controls.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/components-inputs.html",
+      "file": "showcase/pages/components-inputs.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/components-overlays.html",
+      "file": "showcase/pages/components-overlays.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/content-patterns.html",
+      "file": "showcase/pages/content-patterns.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/data-viz.html",
+      "file": "showcase/pages/data-viz.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/icons.html",
+      "file": "showcase/pages/icons.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/layout-grid.html",
+      "file": "showcase/pages/layout-grid.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/motion.html",
+      "file": "showcase/pages/motion.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/spacing-radius.html",
+      "file": "showcase/pages/spacing-radius.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/spacing-shadows.html",
+      "file": "showcase/pages/spacing-shadows.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/spacing-tokens.html",
+      "file": "showcase/pages/spacing-tokens.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
     {
-      "file": "preview/typography-specimens.html",
+      "file": "showcase/pages/typography-specimens.html",
       "role": "screen",
       "implementationNote": "Preserve visual hierarchy, responsive behavior, and interactive states from this screen."
     },
@@ -495,11 +495,11 @@
   "tokens": {
     "source": [
       "assets/icons/icons.css",
-      "colors_and_type.css",
-      "components.css",
+      "dist/colors_and_type.css",
+      "dist/components.css",
       "scripts/token-aliases.css",
       "fonts/fonts.css",
-      "overlays.css",
+      "dist/overlays.css",
       "system/variables.css",
       "system/variables.dark.css",
       "ui_kits/app/console.css"

@@ -121,7 +121,7 @@ components:
 
 # M.O.B Signal
 
-*Sharp, square, dark-mode product UI with one disciplined neon accent.*
+*Dark-mode web design system for engineering consoles. 0px border-radius, 4px grid rhythm, and green signal accent.*
 
 ## Overview
 
@@ -200,13 +200,15 @@ The defining brand trait of M.O.B Signal is strictly square geometry:
 
 ## Components
 
-All components prioritize keyboard accessibility, WCAG contrast, and deterministic behaviors:
+M.O.B Signal ships 28 foundational Radix UI headless primitives styled with Tailwind CSS v4, strictly 0px radius, and dark console tokens:
 
-- **Buttons:** Primary (`#00cc5c` fill, `#000000` text), Secondary (`#181818` fill, `#262626` border), Ghost (transparent fill), Danger (`#ef4444` border). Always use native `<button type="button">`.
-- **Touch Targets:** Minimum 24px for fine pointers (mouse) and 44px for coarse pointers (touch). Achieved via centered invisible `::before` pseudo-elements on 16px controls (checkbox, radio, switch) to preserve 16px square visuals.
+- **Actions:** `Button` (primary, secondary, outline, ghost, danger, link; sizes: sm, default, lg, icon; `asChild` slot delegation).
+- **Form Controls:** `Input`, `Textarea`, `Label`, `Checkbox` (16x16 with green check fill), `RadioGroup` (square with solid inner square indicator), `Select` (custom square dropdown), `Switch` (square sliding toggle), `Slider` (horizontal range track with square thumb).
+- **Data Display & Containers:** `Card` (Header, Title, Description, Content, Footer), `Table` (Header, Body, Row, Head, Cell; dense spacing with row hover and selection), `Badge` (operational, warning, error, info, neutral), `Avatar` (square with fallback initials), `Skeleton` (pulse placeholder), `Progress` (linear bar with green signal fill), `Separator` (1px horizontal/vertical divider), `AspectRatio`.
+- **Navigation & Disclosure:** `Tabs` (TabsList, TabsTrigger, TabsContent with 2px green active underline), `Accordion` (collapsible sections), `Collapsible`, `Breadcrumb` (List, Item, Link, Separator, Page).
+- **Feedback & Overlays:** `Alert` (default, info, warning, destructive with 4px colored left border), `Tooltip` (instant hover on elevated dark surface), `Dialog` (modal scrim with focus trap), `AlertDialog` (destructive action confirmation), `Sheet` (slide-out side drawer from 4 screen edges), `Popover` (anchored floating container), `DropdownMenu` (multilevel menu with checkboxes, radio items, and shortcuts).
+- **Touch Targets:** Minimum 24px for fine pointers (mouse) and 44px for coarse pointers (touch) via centered pseudo-elements on 16px controls to preserve square visual density.
 - **Status Indicators:** Multimodal signaling: always combine a 6px square marker + status text + icon at 14px+. Never use color alone to convey state.
-- **Form Inputs:** 32px height, 4px 12px padding, explicit labels, accent focus ring with zero layout shift.
-- **Data Tables:** Dense layout, right-aligned numeric data with `tabular-nums`, 1px borders, subtle row hover (`rgba(255, 255, 255, 0.02)`).
 - **Motion:** Scoped to 0.12s ease-out (`cubic-bezier(0.16, 1, 0.3, 1)`) on `background-color`, `border-color`, and `color`. Overlays use opacity fades (0.12s enter, 0.08s exit). All motion collapses to 0.01ms under `prefers-reduced-motion: reduce`.
 
 ## Do's and Don'ts
