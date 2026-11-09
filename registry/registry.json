@@ -4,70 +4,172 @@
   "homepage": "https://github.com/dexter826/mob-design-system",
   "items": [
     {
-      "name": "button",
+      "name": "accordion",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-accordion", "lucide-react"],
+      "files": [{ "path": "registry/default/ui/accordion.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-alert-dialog"],
+      "files": [{ "path": "registry/default/ui/alert-dialog.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "alert",
       "type": "registry:ui",
       "dependencies": ["class-variance-authority"],
-      "files": [
-        {
-          "path": "registry/default/ui/button.tsx",
-          "type": "registry:ui"
-        }
-      ]
+      "files": [{ "path": "registry/default/ui/alert.tsx", "type": "registry:ui" }]
     },
     {
-      "name": "input",
+      "name": "aspect-ratio",
       "type": "registry:ui",
-      "dependencies": [],
-      "files": [
-        {
-          "path": "registry/default/ui/input.tsx",
-          "type": "registry:ui"
-        }
-      ]
+      "dependencies": ["@radix-ui/react-aspect-ratio"],
+      "files": [{ "path": "registry/default/ui/aspect-ratio.tsx", "type": "registry:ui" }]
     },
     {
-      "name": "table",
+      "name": "avatar",
       "type": "registry:ui",
-      "dependencies": [],
-      "files": [
-        {
-          "path": "registry/default/ui/table.tsx",
-          "type": "registry:ui"
-        }
-      ]
+      "dependencies": ["@radix-ui/react-avatar"],
+      "files": [{ "path": "registry/default/ui/avatar.tsx", "type": "registry:ui" }]
     },
     {
       "name": "badge",
       "type": "registry:ui",
       "dependencies": ["class-variance-authority"],
-      "files": [
-        {
-          "path": "registry/default/ui/badge.tsx",
-          "type": "registry:ui"
-        }
-      ]
+      "files": [{ "path": "registry/default/ui/badge.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-slot", "lucide-react"],
+      "files": [{ "path": "registry/default/ui/breadcrumb.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "files": [{ "path": "registry/default/ui/button.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [{ "path": "registry/default/ui/card.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-checkbox", "lucide-react"],
+      "files": [{ "path": "registry/default/ui/checkbox.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-collapsible"],
+      "files": [{ "path": "registry/default/ui/collapsible.tsx", "type": "registry:ui" }]
     },
     {
       "name": "dialog",
       "type": "registry:ui",
       "dependencies": ["@radix-ui/react-dialog", "lucide-react"],
-      "files": [
-        {
-          "path": "registry/default/ui/dialog.tsx",
-          "type": "registry:ui"
-        }
-      ]
+      "files": [{ "path": "registry/default/ui/dialog.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-dropdown-menu", "lucide-react"],
+      "files": [{ "path": "registry/default/ui/dropdown-menu.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [{ "path": "registry/default/ui/input.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-label", "class-variance-authority"],
+      "files": [{ "path": "registry/default/ui/label.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-popover"],
+      "files": [{ "path": "registry/default/ui/popover.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-progress"],
+      "files": [{ "path": "registry/default/ui/progress.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-radio-group"],
+      "files": [{ "path": "registry/default/ui/radio-group.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-select", "lucide-react"],
+      "files": [{ "path": "registry/default/ui/select.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-separator"],
+      "files": [{ "path": "registry/default/ui/separator.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-dialog", "class-variance-authority", "lucide-react"],
+      "files": [{ "path": "registry/default/ui/sheet.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [{ "path": "registry/default/ui/skeleton.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-slider"],
+      "files": [{ "path": "registry/default/ui/slider.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-switch"],
+      "files": [{ "path": "registry/default/ui/switch.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [{ "path": "registry/default/ui/table.tsx", "type": "registry:ui" }]
     },
     {
       "name": "tabs",
       "type": "registry:ui",
       "dependencies": ["@radix-ui/react-tabs"],
-      "files": [
-        {
-          "path": "registry/default/ui/tabs.tsx",
-          "type": "registry:ui"
-        }
-      ]
+      "files": [{ "path": "registry/default/ui/tabs.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "dependencies": [],
+      "files": [{ "path": "registry/default/ui/textarea.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": ["@radix-ui/react-tooltip"],
+      "files": [{ "path": "registry/default/ui/tooltip.tsx", "type": "registry:ui" }]
     }
   ]
 }

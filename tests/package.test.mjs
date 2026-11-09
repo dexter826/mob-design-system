@@ -60,8 +60,12 @@ test('shadcn/ui registry and components.json are valid', () => {
   assert.equal(config.style, 'default');
   assert.equal(config.tailwind.css, 'dist/tailwind.css');
 
-  const components = ['button.tsx', 'input.tsx', 'table.tsx', 'badge.tsx', 'dialog.tsx', 'tabs.tsx'];
-  for (const file of components) {
-    assert.ok(fs.existsSync(`registry/default/ui/${file}`), `Missing registry component: ${file}`);
+  assert.ok(fs.existsSync('registry/registry.json'));
+  const registry = JSON.parse(fs.readFileSync('registry/registry.json', 'utf8'));
+  assert.ok(registry.items.length >= 26);
+  for (const item of registry.items) {
+    for (const f of item.files) {
+      assert.ok(fs.existsSync(f.path), `Missing registry file: ${f.path}`);
+    }
   }
 });
