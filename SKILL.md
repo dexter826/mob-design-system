@@ -4,24 +4,20 @@ description: Build dark-mode web interfaces, engineering consoles, dashboards, a
 user-invocable: true
 ---
 
-# M.O.B Signal Design System & shadcn/ui Guide
+# M.O.B Signal
 
-M.O.B Signal is an engineering-first, dark-only design system. It combines strict square geometry (0px radius), dense information architecture, and a disciplined single neon green accent (`#00cc5c`) reserved exclusively for primary actions, selection, focus, and healthy operational states.
+Dark-only UI system. 0px border radius, 4px spacing grid. Green (`#00cc5c`) is reserved for primary actions, selection, focus, and operational health.
 
----
+## 1. Quickstart & Imports
 
-## 1. Quickstart & Installation
-
-### Option A: Modern Tailwind CSS v4 Project (Recommended)
-In your global CSS file (e.g. `src/styles/globals.css` or `app/globals.css`):
+### Tailwind CSS v4
 ```css
 @import "tailwindcss";
 @import "mob-signal/dist/tailwind.css";
 @import "mob-signal/dist/colors_and_type.css";
 ```
 
-### Option B: shadcn/ui Configuration
-Ensure `components.json` is configured to use M.O.B Signal tokens:
+### shadcn/ui Config (`components.json`)
 ```json
 {
   "$schema": "https://ui.shadcn.com/schema.json",
@@ -42,70 +38,58 @@ Ensure `components.json` is configured to use M.O.B Signal tokens:
 }
 ```
 
-### Option C: Vanilla HTML
+### Vanilla HTML
 ```html
 <link rel="stylesheet" href="node_modules/mob-signal/fonts/fonts.css" />
 <link rel="stylesheet" href="node_modules/mob-signal/dist/colors_and_type.css" />
 <link rel="stylesheet" href="node_modules/mob-signal/dist/components.css" />
 ```
 
----
+## 2. Tokens & Utilities
 
-## 2. Core Tokens & Utility Classes
-
-| Role | Hex / Value | Tailwind v4 Class | Semantic Usage |
+| Role | Hex | Tailwind v4 Class | Usage |
 | :--- | :--- | :--- | :--- |
-| **Primary** | `#00cc5c` | `bg-primary`, `text-primary`, `border-primary` | Primary action, active selection, focus ring, healthy status |
-| **Primary Hover** | `#00e065` | `hover:bg-primary-hover` | Button hover state |
-| **Primary Active**| `#00b853` | `active:bg-primary-active` | Button pressed state |
-| **Primary Subtle**| `rgba(0,204,92,0.1)`| `bg-primary-subtle` | Table row selection, selected card fill |
-| **Text on Primary**| `#000000`| `text-primary-foreground` | High-contrast black text on green buttons |
+| **Primary** | `#00cc5c` | `bg-primary`, `text-primary`, `border-primary` | Action, selection, focus ring, healthy status |
+| **Primary Hover** | `#00e065` | `hover:bg-primary-hover` | Button hover |
+| **Primary Active**| `#00b853` | `active:bg-primary-active` | Button active |
+| **Primary Subtle**| `rgba(0,204,92,0.1)`| `bg-primary-subtle` | Table row selection, selected fill |
+| **Text on Primary**| `#000000`| `text-primary-foreground` | Black ink on primary green |
 | **Background** | `#0a0a0a` | `bg-background` | Root canvas |
-| **Surface** | `#121212` | `bg-surface` | Cards, panels, sidebars |
+| **Surface** | `#121212` | `bg-surface` | Cards, panels |
 | **Surface Subtle**| `#181818` | `bg-surface-subtle` | Table headers, secondary buttons |
-| **Surface Elevated**| `#202020`| `bg-surface-elevated` | Modal dialogs, dropdown popovers |
-| **Border** | `#262626` | `border-border` | Default structural divider |
-| **Border Strong** | `#383838` | `border-border-strong` | Active boundaries, card outlines |
-| **Foreground** | `#ededed` | `text-foreground` | Primary body text, headings |
-| **Text Secondary**| `#a1a1a1`| `text-text-secondary` | Labels, captions, table headers |
-| **Muted** | `#737373` | `text-muted` | Disabled elements, non-essential metadata |
+| **Surface Elevated**| `#202020`| `bg-surface-elevated` | Modals, popovers |
+| **Border** | `#262626` | `border-border` | Default structural border |
+| **Border Strong** | `#383838` | `border-border-strong` | Card bounds |
+| **Foreground** | `#ededed` | `text-foreground` | Body text, headings |
+| **Text Secondary**| `#a1a1a1`| `text-text-secondary` | Labels, table headers |
+| **Muted** | `#737373` | `text-muted` | Disabled elements, non-text hints |
 | **Success** | `#00cc5c` | `text-success` | Healthy operational status (aliases primary) |
-| **Warning** | `#f59e0b` | `text-warning` | Pending, degrading, warning state |
-| **Error** | `#ef4444` | `text-error`, `bg-error` | Critical errors, destructive actions |
+| **Warning** | `#f59e0b` | `text-warning` | Warning state |
+| **Error** | `#ef4444` | `text-error`, `bg-error` | Errors, destructive actions |
 | **Info** | `#38bdf8` | `text-info` | Informational callouts, links |
 
-### Typography & Fonts
-- **Display**: Space Grotesk (`font-display`) — headings, hero numbers.
-- **Body**: Plus Jakarta Sans (`font-sans`) — interface labels, body text.
-- **Monospace**: JetBrains Mono (`font-mono`) — console logs, metrics, code, status badges.
+### Typography
+- Space Grotesk (`font-display`): headings, metrics.
+- Plus Jakarta Sans (`font-sans`): labels, body text.
+- JetBrains Mono (`font-mono`): console, code, status badges.
 
-### Absolute Square Geometry
-- **Rule**: Every element must have `rounded-none` (0px border-radius). Never use `rounded-sm`, `rounded-md`, or `rounded-full`.
+### Geometry
+- `rounded-none` (0px border-radius) on all elements.
 
----
+## 3. Component Patterns (React + TypeScript)
 
-## 3. Component Implementation Patterns (React + TypeScript)
-
-### 3.1 Button Component
+### Button
 ```tsx
 import { Button } from "@/components/ui/button";
 
-// Primary Action (Signal Green)
 <Button variant="primary">Deploy Service</Button>
-
-// Secondary Action (Subtle Surface)
 <Button variant="secondary">Cancel</Button>
-
-// Destructive Action
 <Button variant="danger">Terminate Node</Button>
-
-// Outline / Ghost
 <Button variant="outline">Export Logs</Button>
 <Button variant="ghost">Dismiss</Button>
 ```
 
-### 3.2 Form Input & Field Layout
-Always pair inputs with a high-contrast label and hint/error:
+### Form Input
 ```tsx
 import { Input } from "@/components/ui/input";
 
@@ -115,17 +99,16 @@ import { Input } from "@/components/ui/input";
   </label>
   <Input
     id="service-name"
-    placeholder="e.g. auth-gateway-sg"
+    placeholder="auth-gateway-sg"
     aria-describedby="service-hint"
   />
   <p id="service-hint" className="text-xs text-muted">
-    Alphanumeric characters only. Stored locally in browser.
+    Stored locally in browser.
   </p>
 </div>
 ```
 
-### 3.3 Status Badges
-Status indicators must always include a semantic label and dot marker:
+### Status Badge
 ```tsx
 import { Badge } from "@/components/ui/badge";
 
@@ -136,8 +119,7 @@ import { Badge } from "@/components/ui/badge";
 <Badge variant="neutral">OFFLINE</Badge>
 ```
 
-### 3.4 Dense Data Table
-For console views and metric lists:
+### Data Table
 ```tsx
 import {
   Table,
@@ -174,7 +156,7 @@ import {
 </Table>
 ```
 
-### 3.5 Modal Dialog
+### Dialog
 ```tsx
 import {
   Dialog,
@@ -193,43 +175,33 @@ import { Button } from "@/components/ui/button";
   </DialogTrigger>
   <DialogContent>
     <DialogHeader>
-      <DialogTitle>Deploy New Service</DialogTitle>
-      <DialogDescription>
-        Configure target environment and container image parameters.
-      </DialogDescription>
+      <DialogTitle>Deploy Service</DialogTitle>
+      <DialogDescription>Configure environment and image parameters.</DialogDescription>
     </DialogHeader>
     <div className="py-4">
       {/* Form content */}
     </div>
     <DialogFooter>
       <Button variant="secondary">Cancel</Button>
-      <Button variant="primary">Confirm Deploy</Button>
+      <Button variant="primary">Confirm</Button>
     </DialogFooter>
   </DialogContent>
 </Dialog>
 ```
 
----
+## 4. Accessibility Rules
 
-## 4. Accessibility & Quality Rules
+- Body text: `#ededed` on `#0a0a0a` (16.9:1).
+- Secondary text: `#a1a1a1` on `#202020` (6.3:1).
+- Text on primary: `#000000` on `#00cc5c` (9.8:1).
+- `#737373` (muted) is 4.18:1 against `#0a0a0a`. Do not use for functional text smaller than 24px regular or 18.667px bold.
+- Focus ring: `focus-visible:ring-2 focus-visible:ring-primary forced-colors:focus-visible:outline forced-colors:focus-visible:outline-2 forced-colors:focus-visible:outline-[Highlight]`.
+- Target size: minimum 24px for fine pointers, 44px for touch.
 
-1. **Contrast Compliance (WCAG 2.1 AA/AAA)**:
-   - Body text on canvas: `#ededed` on `#0a0a0a` achieves **16.9:1** (exceeds AAA).
-   - Secondary text: `#a1a1a1` on elevated surfaces achieves **6.3:1** (exceeds AA).
-   - Text on Primary: `#000000` on `#00cc5c` achieves **9.8:1** (exceeds AAA).
-   - Do NOT use `#737373` (muted) for small functional labels — it achieves 4.18:1 (fails 4.5:1 AA).
-2. **Focus Rings in Forced-Colors**:
-   - Interactive elements must retain transparent outline fallbacks for Windows High Contrast Mode:
-     `forced-colors:focus-visible:outline forced-colors:focus-visible:outline-2 forced-colors:focus-visible:outline-[Highlight]`.
-3. **Touch Targets**:
-   - Controls must satisfy at least 24px for fine pointers and 44px for touch interfaces without distorting the square aesthetic.
+## 5. Constraints
 
----
-
-## 5. Anti-Patterns (Do's and Don'ts)
-
-- ❌ **DON'T**: Apply border radius (`rounded`, `rounded-md`, `rounded-full`). Square geometry is non-negotiable.
-- ❌ **DON'T**: Use `transition: all`. Use scoped transitions (e.g. `transition-colors duration-150`).
-- ❌ **DON'T**: Build a light theme. M.O.B Signal is strictly dark-only.
-- ❌ **DON'T**: Use `#00cc5c` as a decorative or generic border. Reserve it for primary actions, active focus, and healthy status.
-- ❌ **DON'T**: Rely on hue alone to convey status. Always combine colors with text labels (`HEALTHY`, `FAILED`) and dot markers.
+- Geometry: 0px border-radius (`rounded-none`). No rounded corners.
+- Transitions: scoped properties only (`transition-colors`). Never `transition: all`.
+- Theme: dark-only.
+- Accent: `#00cc5c` is reserved for action, selection, focus, and healthy status. Do not use for generic borders or decoration.
+- Status: pair color with visible text (`HEALTHY`, `FAILED`) and dot markers.
