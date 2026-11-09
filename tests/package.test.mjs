@@ -26,6 +26,7 @@ test('dist/tailwind.css emits valid Tailwind v4 theme and 0px radius reset', () 
   const css = fs.readFileSync('dist/tailwind.css', 'utf8');
   assert.ok(css.includes('@theme {'));
   assert.ok(css.includes(`--color-primary: ${tokens.color.primary.value};`));
+  assert.ok(css.includes('--color-primary-foreground: #000000;'));
   assert.ok(css.includes('--radius: 0px;'));
   assert.ok(css.includes('--radius-*: initial;'));
   assert.ok(css.includes('--spacing: 4px;'));

@@ -14,16 +14,16 @@ this file is the value recorded in `context/contrast-measured.md`.
 ## 2.0.0 - 2026-11-09
 
 ### Breaking Changes
-- Refactored repository into modern 4-tier architecture: source CSS in `src/styles/`, distribution exports in `dist/`.
-- Root compiled CSS files removed; `package.json` `exports` now resolves `"."` to `./dist/colors_and_type.css`, `"./tailwind.css"` to `./dist/tailwind.css`, and `"./components.css"` to `./dist/components.css`.
+- Move source CSS to `src/styles/` and compiled exports to `dist/`.
+- Remove compiled CSS from root; update `package.json` `exports` to resolve from `./dist/*`.
 
 ### Added
-- Official **shadcn/ui Custom Registry** integration: `components.json`, `src/lib/utils.ts` (`cn`), and accessible React components in `registry/default/ui/` (`button.tsx`, `input.tsx`, `table.tsx`, `badge.tsx`, `dialog.tsx`, `tabs.tsx`) with strict 0px radius and green signal accent.
-- Unified Showcase Portal at `showcase/index.html` consolidating all 17 foundation/component previews and the Service Console application.
-- Comprehensive `SKILL.md` rewrite following `skill-creator` principles with ready-to-use component copy-paste recipes and Tailwind v4 token mapping.
+- Add shadcn/ui custom registry (`components.json`, `src/lib/utils.ts`, `registry/default/ui/*.tsx`).
+- Consolidate preview and showcase pages into `showcase/`.
+- Update `SKILL.md` with component templates and token usage guidelines.
 
 ### Removed
-- Removed heavy `playwright` devDependency and deprecated legacy browser mock tests.
+- Remove `playwright` dependency and browser mock tests.
 
 ## 1.7.0 - 2026-11-09
 

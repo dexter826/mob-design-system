@@ -25,6 +25,7 @@ export function renderTailwindTheme() {
   --color-primary-subtle: ${resolveToken('color.primary-subtle')};
   --color-accent-secondary: ${resolveToken('engineRoles.accent-secondary')};
   --color-text-on-primary: ${resolveToken('color.text-on-primary')};
+  --color-primary-foreground: ${resolveToken('color.text-on-primary')};
   --color-background: ${resolveToken('engineRoles.background')};
   --color-surface: ${resolveToken('engineRoles.surface')};
   --color-surface-subtle: ${resolveToken('color.surface-subtle')};

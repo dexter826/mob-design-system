@@ -4,16 +4,20 @@
     "moduleResolution": "NodeNext",
     "target": "ES2022",
     "jsx": "react-jsx",
-    "checkJs": false
+    "checkJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": [
-    "context/**/*",
+    "src/**/*",
+    "scripts/**/*",
     "tests/**/*",
-    "ui_kits/**/*",
+    "showcase/**/*",
     "assets/**/*"
   ],
   "exclude": [
     "node_modules"
   ]
 }
-
