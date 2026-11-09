@@ -40,6 +40,27 @@ test('tailwind.css emits valid Tailwind v4 theme and 0px radius reset',()=>{
  assert.ok(css.includes('--radius-*: initial;'));
  assert.ok(css.includes('--spacing: 4px;'));
 });
+test('DESIGN.md follows canonical google-labs-code/design.md spec',()=>{
+ const md=fs.readFileSync('DESIGN.md','utf8');
+ const expectedSections = [
+   '## Overview',
+   '## Colors',
+   '## Typography',
+   '## Layout',
+   '## Elevation & Depth',
+   '## Shapes',
+   '## Components',
+   "## Do's and Don'ts"
+ ];
+ let lastIdx = -1;
+ for(const section of expectedSections) {
+   const idx = md.indexOf(section);
+   assert.ok(idx > lastIdx, `Section missing or out of order: ${section}`);
+   lastIdx = idx;
+ }
+ assert.ok(md.includes('primary: "#00cc5c"'));
+ assert.ok(md.includes('none: "0px"'));
+});
 test('local server serves assets and rejects protected paths',async()=>{
  const server=createServer();server.listen(0,'127.0.0.1');await once(server,'listening');
  const url='http://127.0.0.1:'+server.address().port;

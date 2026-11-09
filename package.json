@@ -18,6 +18,7 @@
     "design-md": "node context/design-md-from-brand.mjs",
     "sync:engine": "node context/build.mjs",
     "check:tokens": "node context/token-check.mjs",
+    "lint:design": "designmd lint DESIGN.md",
     "test": "node --test tests/package.test.mjs",
     "test:browser": "node tests/browser.mjs"
   },
@@ -26,8 +27,9 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@google/design.md": "^0.4.0",
+    "@resvg/resvg-js": "2.6.2",
     "esbuild": "0.25.12",
-    "playwright": "1.56.1",
-    "@resvg/resvg-js": "2.6.2"
+    "playwright": "1.56.1"
   }
 }
