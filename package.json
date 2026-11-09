@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "A dark, square UI system for engineering consoles, built around dense data, operational states, and one disciplined green signal.",
+  "description": "A dark, square design system for engineering consoles, built around dense data, operational states, and a single green signal.",
   "exports": {
     ".": "./dist/colors_and_type.css",
     "./components.css": "./dist/components.css",
