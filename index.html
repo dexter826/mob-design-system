@@ -1,133 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>M.O.B Signal</title>
+  <meta http-equiv="refresh" content="0; url=showcase/index.html" />
+  <title>M.O.B Signal — Redirecting to Showcase</title>
   <style>
-
-    :root {
-      color-scheme: dark;
-      --bg: var(--color-background);
-      --surface: var(--color-surface);
-      --surface-subtle: var(--color-surface-subtle);
-      --surface-elevated: var(--color-surface-elevated);
-      --surface-hover: var(--color-surface-hover);
-      --fg: var(--color-text);
-      --fg-secondary: var(--color-text-secondary);
-      --muted: var(--color-text-muted);
-      --border: var(--color-border);
-      --border-strong: var(--color-border-strong);
-      --accent: var(--color-primary);
-      --accent-hover: var(--color-primary-hover);
-      --accent-active: var(--color-primary-active);
-      --accent-subtle: rgba(0, 204, 92, 0.1);
-      --on-accent: var(--color-text-on-primary);
-      --info: var(--color-info);
-      --warning: var(--color-warning);
-      --error: var(--color-error);
-      --radius: 0px;
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
-      --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
-      --motion: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
-      --font-display: 'Space Grotesk', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    body {
+      background-color: #0a0a0a;
+      color: #ededed;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
     }
-    *, *::before, *::after { box-sizing: border-box; border-radius: 0; }
-    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--font-body); font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum"; -webkit-font-smoothing: antialiased; }
-    main { width: min(920px, calc(100vw - 100px)); margin: 48px auto; }
-    h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
-    h1 { margin: 0 0 16px; font-size: 32px; line-height: 36px; }
-    h2 { margin: 32px 0 16px; font-size: 20px; line-height: 28px; }
-    h3 { font-size: 18px; line-height: 28px; }
-    p { margin: 0; max-width: 70ch; color: var(--fg-secondary); }
-    .lead { max-width: 70ch; font-size: 18px; line-height: 28px; }
-    .eyebrow { margin: 0 0 8px; color: var(--color-text-secondary); font-size: 12px; line-height: 16px; font-weight: 500; }
-    code { font-family: var(--font-mono); font-size: 12px; color: var(--fg-secondary); }
-    .palette, .swatch-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 32px 0; }
-    .swatch { border: 1px solid var(--border); background: var(--surface); overflow: hidden; }
-    .swatch b { display: block; height: 76px; background: var(--color); border-bottom: 1px solid var(--border); }
-    .swatch span { display: block; padding: 12px 12px 4px; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fg); }
-    .swatch code { display: block; padding: 0 12px 12px; color: var(--fg-secondary); }
-    .section-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 32px 0; padding: 0; list-style: none; }
-    .section-list li, article { display: grid; gap: 8px; align-content: start; padding: 24px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-    .section-list strong { font-family: var(--font-display); font-size: 18px; line-height: 28px; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
-    .section-list span, article > span { max-width: 70ch; color: var(--fg-secondary); font-size: 14px; line-height: 20px; }
-    a { color: var(--info); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    a:focus-visible { outline: none; box-shadow: var(--focus-ring); }
-    .card-index { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 32px 0; }
-    .card-index a { display: grid; gap: 4px; padding: 16px; background: var(--surface); color: var(--fg); }
-    .card-index a:hover { background: var(--surface-hover); text-decoration: none; outline: none; }
-    .card-index strong { font-size: 14px; line-height: 20px; font-weight: 500; }
-    .card-index span { color: var(--fg-secondary); font-size: 12px; line-height: 16px; }
-    .tag { display: inline-block; margin-left: 8px; font-family: var(--font-mono); font-size: 12px; line-height: 16px; color: var(--fg-secondary); border: 1px solid var(--border); background: var(--surface-subtle); padding: 0 4px; }
-    @media (max-width: 768px) { .card-index { grid-template-columns: 1fr; } }
-    .section-list span, article > span { max-width: 70ch; color: var(--fg-secondary); font-size: 14px; line-height: 20px; }
-    @media (max-width: 768px) { .palette, .swatch-grid, .section-list { grid-template-columns: 1fr; } }
+    a {
+      color: #00cc5c;
+      text-decoration: none;
+    }
   </style>
-<link rel="icon" href="logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="logos/mob-logo/web-icons/favicon.ico">
-<link rel="apple-touch-icon" href="logos/mob-logo/web-icons/apple-touch-icon.png">
-<link rel="manifest" href="logos/site.webmanifest">
-<link rel="stylesheet" href="fonts/fonts.css">
-<link rel="stylesheet" href="colors_and_type.css">
 </head>
-<body><main class="overview">
-      <p class="eyebrow">Open Design system</p>
-      <h1>M.O.B Signal</h1>
-      <p class="lead">Sharp, square, dark-mode product UI with one disciplined neon accent. Neutral, type and geometry are measured from <code>design-tokens.json</code> and <code>design-system.css</code> in the source archive; the accent is the one corrected value, and <code>success</code> is an alias of it.</p>
-      <div class="palette">
-        <div class="swatch" style="--color:#0a0a0a"><b></b><span>Background</span><code>#0a0a0a</code></div>
-        <div class="swatch" style="--color:#262626"><b></b><span>Border</span><code>#262626</code></div>
-        <div class="swatch" style="--color:#ededed"><b></b><span>Foreground</span><code>#ededed</code></div>
-        <div class="swatch" style="--color:#00cc5c"><b></b><span>Accent</span><code>#00cc5c</code></div>
-        <div class="swatch" style="--color:#00cc5c"><b></b><span>Success (alias)</span><code>#00cc5c</code></div>
-      </div>
-      <ul class="section-list">
-        <li><strong>Color palette</strong><span>Seven engine roles: background #0a0a0a, surface #121212, foreground #ededed, muted #737373, border #262626, accent #00cc5c, accent-secondary #38bdf8 — plus <code>success</code>, an alias of the accent with no engine role of its own. Ratios are measured, not quoted: foreground 16.91:1 on canvas, black on the accent 9.79:1, muted 4.18:1 and therefore not a small-text color.</span></li>
-        <li><strong>Typography</strong><span>Space Grotesk for display at weights 500, 600 and 700; Plus Jakarta Sans for body at 400, 500, 600 and 700; JetBrains Mono for code and hex values at 400, 500 and 600. Seven steps, from 12px to 32px.</span></li>
-        <li><strong>Voice and tone</strong><span>Sentence case everywhere, including buttons, labels, table headers and nav. Actions are verb-first: "Deploy new service", "Save changes", "View audit log". No all-caps labels, no noun-only buttons, no superlatives without a measurement.</span></li>
-        <li><strong>Imagery</strong><span>No photography and no illustration. Structure comes from typography, 1px rules and status color. Product captures keep the dark canvas and square framing, cropped to the UI, with no device mockup, drop shadow or colored overlay.</span></li>
-        <li><strong>Layout</strong><span>Radius is 0px on every element. Borders are 1px and step to #383838 on hover and active. Spacing comes from the 4px scale only: 4, 8, 12, 16, 20, 24, 32, 40, 48. Motion is a single 0.12s cubic-bezier(0.16, 1, 0.3, 1) on background-color, border-color and color.</span></li>
-        <li><strong>Components</strong><span>Measured anatomy: Button (primary, secondary, ghost, danger, disabled), Card, Form (label, input, hint, focus, error), Navigation, Data Table, Badge, Kbd and the keyboard focus ring. Control height is 32px. Elevation is black-only; the focus ring is 0 0 0 2px #0a0a0a, 0 0 0 4px #00cc5c. Authored on top of it: checkbox, radio, switch, slider, select, date picker, file upload, tabs, segmented control, accordion, progress, modal, drawer, menu, popover, tooltip, toast, command palette, pagination, breadcrumbs, avatar, skeleton and empty state, each with five states.</span></li>
-        <li><strong>Icons</strong><span>A 24-grid family authored for this system: 1.5px stroke, butt caps, miter joins, square geometry, currentColor, three sizes. No icon font, no emoji, no accent-colored glyph outside the selected and healthy states, and no icon alone carries a status.</span></li>
-        <li><strong>Motion</strong><span>0.12s cubic-bezier(0.16, 1, 0.3, 1) on background-color, border-color and color. Overlays fade on opacity only at 0.12s in and 0.08s out, determinate progress moves width at 0.24s, stagger is 0s, and prefers-reduced-motion collapses all of it. No spinner, no shimmer, no slide, no scale.</span></li>
-        <li><strong>Data</strong><span>Four series on secondary blue plus the neutral ramp, the accent reserved for the selected series or a threshold crossing. 2px lines, 4px square markers, square bars, four ticks, direct end labels, tabular mono figures.</span></li>
-        <li><strong>Layout</strong><span>12 columns on a 24px gap, breakpoints at 640, 768, 1024, 1280 and 1536, a 1200px app container and a 920px prose measure, a 48px navigation band that reserves its own height, a 240px sidebar, a 360px drawer, modals at 480, 640 and 880, and a single z-index ladder from 1 to 130.</span></li>
-        <li><strong>Accessibility</strong><span>Ratios are measured, not quoted. #737373 at 4.18:1 is demoted below body-text duty; the 1px rule at 1.31:1 never identifies a control alone; targets are 32px visual, 24px minimum, 44px on touch. Keyboard focus is visible on everything.</span></li>
-      </ul>
-      <h2>Cards</h2>
-      <p>Eighteen review cards, one per module. Cards that close a gap the archive leaves unspecified are labelled authored rather than measured.</p>
-      <div class="card-index">
-        <a href="preview/colors-primary.html"><strong>Colors</strong><span>primary roles and the extended scale</span></a>
-        <a href="preview/colors-theme-dark.html"><strong>Dark theme</strong><span>the only theme published</span></a>
-        <a href="preview/colors-theme-light.html"><strong>Light theme</strong><span>declared out of scope</span></a>
-        <a href="preview/typography-specimens.html"><strong>Typography</strong><span>three faces, seven steps</span></a>
-        <a href="preview/spacing-tokens.html"><strong>Spacing</strong><span>the 4px scale</span></a>
-        <a href="preview/spacing-radius.html"><strong>Shape</strong><span>0px on everything</span></a>
-        <a href="preview/spacing-shadows.html"><strong>Elevation</strong><span>black alpha only</span></a>
-        <a href="preview/components-buttons.html"><strong>Buttons</strong><span>measured anatomy</span></a>
-        <a href="preview/components-inputs.html"><strong>Inputs</strong><span>field, label, hint, error</span></a>
-        <a href="preview/components-controls.html"><strong>Controls</strong><span>ten authored recipes, five states each</span></a>
-        <a href="preview/components-overlays.html"><strong>Overlays</strong><span>operable modal, drawer, menu, palette</span></a>
-        <a href="preview/icons.html"><strong>Icons</strong><span>65 symbols at three sizes</span></a>
-        <a href="preview/data-viz.html"><strong>Charts</strong><span>line, bar, sparkline from tokens</span></a>
-        <a href="preview/layout-grid.html"><strong>Grid</strong><span>columns, breakpoints, layering</span></a>
-        <a href="preview/motion.html"><strong>Motion</strong><span>measured trio and the overlay fade</span></a>
-        <a href="preview/content-patterns.html"><strong>Content</strong><span>copy formulas, status map, formats</span></a>
-        <a href="preview/accessibility.html"><strong>Accessibility</strong><span>measured matrix, keymap, targets</span></a>
-        <a href="preview/brand-assets.html"><strong>Brand assets</strong><span>fonts, licences and supplied logo artwork</span></a>
-      </div>
-      <ul class="section-list">
-        <li><strong>Applied UI kit</strong><span>A service console built from the source's own class anatomy: <a href="ui_kits/app/index.html">ui_kits/app/index.html</a>. Navigation, stat cells, a dense deployment table with commit hashes, badges, kbd, forms and toasts.</span></li>
-        <li><strong>Specification</strong><span>Rules and provenance live in <a href="BRAND.md">BRAND.md</a> — sections 1 to 10 are what the archive proves, 11 to 18 are the authored additions, 19 is what remains open. <a href="CHANGELOG.md">CHANGELOG.md</a> records package history. <a href="tokens.measured.json">tokens.measured.json</a> is the non-derived token source.</span></li>
-        <li><strong>Measured evidence</strong><span><a href="context/contrast-measured.md">Contrast report</a> from <code>node context/contrast.mjs</code>. Token integrity from <code>node context/token-check.mjs</code>. Historical input digests are recorded in <code>context/provenance.json</code>; obsolete source files are not bundled.</span></li>
-        <li><strong>Licences</strong><span>Space Grotesk, Plus Jakarta Sans and JetBrains Mono are SIL OFL 1.1 and ship with their licence text in <code>fonts/licenses/</code>. Icons are original geometry with no attached licence. The supplied M.O.B logo kit is in logos/mob-logo/; redistribution licensing is not specified.</span></li>
-      </ul>
-    </main><aside id="local-use-note" style="max-width:920px;margin:24px auto;padding:16px;color:var(--color-text-secondary);font:14px/1.5 var(--font-family)">Local package: run npm start and open the printed address. <a href="README.md" style="color:var(--color-info)">Usage</a> ? <a href="context/verification.md" style="color:var(--color-info)">Verification scope</a></aside>
+<body>
+  <p>Redirecting to <a href="showcase/index.html">M.O.B Signal Design System Hub</a>...</p>
 </body>
 </html>

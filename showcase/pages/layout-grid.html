@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grid and layout</title>
+  <link rel="stylesheet" href="../../dist/colors_and_type.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--color-background);
+      color: var(--color-text);
+      font: 400 var(--mob-signal-text-base)/var(--mob-signal-line-base) var(--font-family);
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { width: min(var(--container-app), calc(100% - var(--gutter) * 2)); margin: var(--space-12) auto; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); color: var(--color-text); }
+    h1 { margin: 0 0 var(--space-4); font-size: var(--mob-signal-text-3xl); line-height: var(--mob-signal-line-3xl); }
+    h2 { margin: var(--space-8) 0 var(--space-4); font-size: var(--mob-signal-text-xl); line-height: var(--mob-signal-line-xl); }
+    h3 { margin-bottom: var(--space-3); font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); }
+    p { max-width: 70ch; color: var(--color-text-secondary); }
+    .eyebrow { margin: 0 0 var(--space-2); color: var(--color-text-secondary); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); font-weight: 500; }
+    .lead { margin-bottom: var(--space-6); font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); }
+    code, .mono { font-family: var(--code-font-family); font-variant-numeric: tabular-nums; }
+    code { font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); }
+    .note { margin: var(--space-3) 0 0; max-width: 70ch; color: var(--color-text-secondary); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); }
+    .rules { margin: var(--space-4) 0 0; padding-left: var(--space-6); max-width: 70ch; list-style: square; color: var(--color-text-secondary); font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); }
+    .rules li { margin-bottom: var(--space-2); }
+
+    .measure { max-width: 100%; background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); padding-block: var(--space-6); }
+    .measure.app { width: var(--container-app); }
+    .measure.prose { width: var(--container-prose); }
+    .measure.padded { padding-inline: var(--gutter); }
+    .stack { display: grid; gap: var(--space-8); margin-top: var(--space-4); }
+    .measure-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); color: var(--color-text-secondary); }
+    .measure-head b { color: var(--color-text); font-weight: 500; }
+    .grid12 { display: grid; grid-template-columns: repeat(var(--mob-signal-columns), minmax(0, 1fr)); gap: var(--grid-gap); }
+    .band { display: flex; align-items: center; justify-content: center; height: calc(var(--space-12) * 2); background: var(--color-surface-subtle); border: 1px solid var(--color-border); color: var(--color-text-secondary); font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); font-variant-numeric: tabular-nums; }
+    .span8 { grid-column: span 8; }
+    .span4 { grid-column: span 4; }
+
+    .regions { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
+    .region { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); max-width: 100%; height: var(--space-8); padding-inline: var(--space-3); background: var(--color-surface-subtle); border: 1px solid var(--color-border); font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); }
+    .region strong { font-family: var(--font-family); font-weight: 500; color: var(--color-text); }
+    .region.app { width: var(--container-app); background: var(--color-surface); }
+    .region.prose { width: var(--container-prose); background: var(--color-surface); }
+    .region.side { width: var(--sidebar-width); }
+    .region.drawer { width: var(--drawer-width); }
+    .region.modal-s { width: var(--mob-signal-modal-sm); }
+    .region.modal-m { width: var(--mob-signal-modal-md); }
+    .region.modal-l { width: var(--mob-signal-modal-lg); }
+    .region.pop { width: var(--mob-signal-popover-max); }
+    .region.tip { width: var(--mob-signal-tooltip-max); }
+
+    .table-wrap { margin-top: var(--space-4); border: 1px solid var(--color-border); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: var(--mob-signal-text-sm); }
+    caption { text-align: left; padding: var(--space-3) var(--space-4); background: var(--color-surface); color: var(--color-text); font-family: var(--font-display); font-size: var(--mob-signal-text-base); line-height: var(--mob-signal-line-base); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); border-bottom: 1px solid var(--color-border); }
+    th { background: var(--color-surface-subtle); color: var(--color-text-secondary); font-weight: 500; font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); text-align: left; padding: 10px var(--space-4); border-bottom: 1px solid var(--color-border); white-space: nowrap; }
+    td { padding: var(--mob-signal-pad-cell); border-bottom: 1px solid var(--color-border); color: var(--color-text); vertical-align: top; font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); }
+    td.num { text-align: right; font-family: var(--code-font-family); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background-color var(--motion); }
+    tbody tr:hover td { background: var(--mob-signal-row-hover); }
+
+    .stage { position: relative; margin-top: var(--space-4); padding: var(--space-6); min-height: 320px; background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .layer { position: absolute; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3); background: var(--color-surface-elevated); border: 1px solid var(--color-border-strong); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); color: var(--color-text-secondary); }
+    .layer b { font-family: var(--code-font-family); font-variant-numeric: tabular-nums; font-weight: 500; color: var(--color-text); }
+    .layer.raised { left: var(--space-6); top: calc(var(--space-12) * 4); width: calc(var(--space-12) * 4); height: var(--space-8); padding-inline: var(--space-2); background: var(--color-surface-subtle); border-color: var(--color-border); z-index: var(--mob-signal-z-raised); }
+    .layer.drawer { left: var(--space-12); top: var(--space-12); width: var(--drawer-width); height: calc(var(--space-12) * 2); z-index: var(--z-drawer); }
+    .layer.modal { left: calc(var(--space-12) * 3); top: calc(var(--space-12) * 2); width: var(--mob-signal-modal-sm); height: calc(var(--space-12) * 2); z-index: var(--z-modal); }
+    .layer.popover { left: calc(var(--space-12) * 8); top: calc(var(--space-12) * 3) ; width: var(--mob-signal-popover-max); height: calc(var(--space-12) * 2); z-index: var(--z-popover); }
+    .layer.toast { left: calc(var(--space-12) * 9); top: calc(var(--space-12) * 2); max-width: var(--mob-signal-popover-max); height: var(--space-8); padding-inline: var(--space-2); z-index: var(--z-toast); }
+
+    .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
+    .pane { display: grid; gap: var(--space-2); }
+    .pane-label { font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); color: var(--color-text-secondary); }
+    .scroller { position: relative; height: 264px; overflow-y: auto; background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .chrome { position: absolute; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); height: var(--nav-height); padding-inline: var(--space-4); background: var(--color-surface-subtle); border-bottom: 1px solid var(--color-border); z-index: var(--z-sticky); }
+    .chrome.pinned { position: sticky; }
+    .chrome b { font-family: var(--font-display); font-size: var(--mob-signal-text-base); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); color: var(--color-text); }
+    .chrome span { font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); }
+    .chrome a { font-family: var(--font-family); font-size: var(--mob-signal-text-sm); color: var(--color-text); text-decoration: none; border-bottom: 2px solid var(--color-border-strong); transition: color var(--motion), background-color var(--motion), border-color var(--motion); }
+    .chrome a:hover { background: var(--mob-signal-surface-hover); border-bottom-color: var(--color-border-strong); color: var(--color-text); }
+    .chrome a:focus-visible { outline: none; box-shadow: var(--mob-signal-shadow-focus); }
+    .reserve { display: flex; align-items: center; height: var(--nav-height); padding-inline: var(--space-4); border-bottom: 1px dashed var(--color-border-strong); color: var(--color-text-secondary); font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); }
+    .rows { padding: var(--space-4); }
+    .row { display: grid; grid-template-columns: minmax(0, 1fr) calc(var(--space-12) * 2 + var(--space-4)) calc(var(--space-12) + var(--space-10)); gap: var(--space-4); align-items: center; padding: var(--space-2) 0; border-bottom: 1px solid var(--color-border); font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); }
+    .row:last-child { border-bottom: none; }
+    .row .r { text-align: right; font-family: var(--code-font-family); font-variant-numeric: tabular-nums; color: var(--color-text-secondary); }
+    .row span:first-child { text-align: left; font-family: var(--font-family); color: var(--color-text); }
+    .provenance { margin-top: var(--space-8); padding: var(--space-4); background: var(--color-surface-subtle); border: 1px solid var(--color-border); font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); color: var(--color-text-secondary); }
+    @media (max-width: 768px) { .grid12 { grid-template-columns: repeat(4, minmax(0, 1fr)); } .duo { grid-template-columns: 1fr; } }
+  </style>
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+</head>
+<body><main>
+  <p class="eyebrow">Grid and regions</p>
+  <h1>Grid and layout</h1>
+  <p class="lead">One 12-column grid inside a 1200px app measure, 24px gaps, gutters from the 4px scale, a 240px docked sidebar that becomes a 360px overlay drawer, and a single ordered z ladder from 1 to 130. Nothing on this page invents a width — every width names a token.</p>
+
+  <h2>Column grid at both measures</h2>
+  <div class="stack">
+    <section>
+      <h3>App measure</h3>
+      <div class="measure app padded">
+        <div class="measure-head"><span><b>--container-app</b> 1200 · padding-inline <b>--gutter</b> 48</span><span>gap <b>--grid-gap</b> 24 · <b>--columns</b> 12</span></div>
+        <div class="grid12">
+          <div class="band">1</div><div class="band">2</div><div class="band">3</div><div class="band">4</div>
+          <div class="band">5</div><div class="band">6</div><div class="band">7</div><div class="band">8</div>
+          <div class="band">9</div><div class="band">10</div><div class="band">11</div><div class="band">12</div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h3>Prose measure</h3>
+      <div class="measure prose padded">
+        <div class="measure-head"><span><b>--container-prose</b> 920 · padding-inline <b>--gutter</b> 48</span><span>column ≈ 47 at 12 tracks</span></div>
+        <div class="grid12">
+          <div class="band">1</div><div class="band">2</div><div class="band">3</div><div class="band">4</div>
+          <div class="band">5</div><div class="band">6</div><div class="band">7</div><div class="band">8</div>
+          <div class="band">9</div><div class="band">10</div><div class="band">11</div><div class="band">12</div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h3>Span pattern</h3>
+      <div class="measure app padded">
+        <div class="measure-head"><span><b>8 + 4</b> — content plus aside, the default console split</span><span>never 5 + 7, never a raw pixel width</span></div>
+        <div class="grid12">
+          <div class="band span8">span 8</div><div class="band span4">span 4</div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <p class="note">Both measures are drawn at true width, so they stack instead of sitting side by side: 1200 plus 920 plus a gap exceeds the app measure, and shrinking the pair to fit would stop being a to-scale reference. Column bands are <code>--color-surface-subtle</code> with a 1px <code>--color-border</code> outline, and that rule computes to 1.31:1 on canvas — it is scaffolding, never the sole carrier of meaning, so the digit inside each band is what states the column. Below 768px this preview collapses to 4 tracks, matching the <code>sm</code> row of the table.</p>
+
+  <h2>Breakpoints</h2>
+  <div class="table-wrap">
+    <table>
+      <caption>What changes at each step</caption>
+      <thead>
+        <tr><th scope="col">Token</th><th scope="col">Min width</th><th scope="col">Gutter</th><th scope="col">Columns</th><th scope="col">Sidebar</th><th scope="col">Stat row</th><th scope="col">Data table</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>--mob-signal-breakpoint-2xl</code></td><td class="num">1536</td><td class="num">48</td><td class="num">12</td><td>Docked, 240</td><td class="num">4 up</td><td>All columns</td></tr>
+        <tr><td><code>--mob-signal-breakpoint-xl</code></td><td class="num">1280</td><td class="num">48</td><td class="num">12</td><td>Docked, 240</td><td class="num">4 up</td><td>All columns; the container fits with no slack</td></tr>
+        <tr><td><code>--mob-signal-breakpoint-lg</code></td><td class="num">1024</td><td class="num">24</td><td class="num">12</td><td>Docked, 240</td><td class="num">4 up</td><td>Drops commit and duration</td></tr>
+        <tr><td><code>--mob-signal-breakpoint-md</code></td><td class="num">768</td><td class="num">24</td><td class="num">8</td><td>Overlay drawer, 360</td><td class="num">2 up</td><td>Essentials only: service, status, p95, action</td></tr>
+        <tr><td><code>--mob-signal-breakpoint-sm</code></td><td class="num">640</td><td class="num">16</td><td class="num">4</td><td>Overlay drawer, capped at 100%</td><td class="num">1 up</td><td>Each row becomes a label–value pair</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Gutter steps 48 → 24 → 16 (<code>--gutter</code>, <code>--mob-signal-gutter-md</code>, <code>--mob-signal-gutter-sm</code>) and columns step 12 → 8 → 4; <code>--columns</code> publishes 12, so 8 and 4 are stated here as grid overrides at a named breakpoint, not as new tokens. Query the breakpoint tokens, never a bare number, so a media query can be audited against the contract. The drawer is an overlay and takes <code>--z-drawer</code>. The token contract registers no scrim colour; the wash lives in <code>overlays.css</code>, where a black element reaches its alpha through its own <code>opacity</code> so no literal hue is ever added to a sheet.</p>
+
+  <h2>Region widths to scale</h2>
+  <div class="regions">
+    <div class="region app"><strong>App container</strong><span>--container-app · 1200</span></div>
+    <div class="region prose"><strong>Prose column</strong><span>--container-prose · 920</span></div>
+    <div class="region modal-l"><strong>Modal, large</strong><span>--mob-signal-modal-lg · 880</span></div>
+    <div class="region modal-m"><strong>Modal, medium</strong><span>--mob-signal-modal-md · 640</span></div>
+    <div class="region modal-s"><strong>Modal, small</strong><span>--mob-signal-modal-sm · 480</span></div>
+    <div class="region drawer"><strong>Drawer</strong><span>--drawer-width · 360</span></div>
+    <div class="region pop"><strong>Popover</strong><span>--mob-signal-popover-max · 320 max</span></div>
+    <div class="region side"><strong>Sidebar</strong><span>--sidebar-width · 240</span></div>
+    <div class="region tip"><strong>Tooltip</strong><span>--mob-signal-tooltip-max · 240 max</span></div>
+  </div>
+  <p class="note">Popover and tooltip are maximums: shorter content sets its own width, longer content wraps rather than exceeding the cap. A second sidebar step is registered, <code>--mob-signal-sidebar-wide</code> at 280, for a filter panel with two-line labels. Any block wider than this card is clamped by <code>max-width: 100%</code>; the label states the true number and only the 1200 block is guaranteed full scale.</p>
+
+  <h2>Layering</h2>
+  <div class="table-wrap">
+    <table>
+      <caption>The z ladder, lowest to highest</caption>
+      <thead>
+        <tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Carries</th><th scope="col">Rule</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>--mob-signal-z-raised</code></td><td class="num">1</td><td>Hovered card, sticky table column, selected-row overlay</td><td>Inside normal flow only; it never floats above the page.</td></tr>
+        <tr><td><code>--z-sticky</code></td><td class="num">10</td><td>Top nav, table header, page action bar</td><td>Reserves its own height. One sticky element per axis.</td></tr>
+        <tr><td><code>--z-drawer</code></td><td class="num">40</td><td>Overlay sidebar, filter panel</td><td>Below the modal: a drawer never stacks on a modal.</td></tr>
+        <tr><td><code>--z-dropdown</code></td><td class="num">50</td><td>Select menu, autocomplete, overflow menu</td><td>Anchored to its trigger, closes on outside interaction.</td></tr>
+        <tr><td><code>--z-modal</code></td><td class="num">100</td><td>Dialog, confirm sheet, full-screen editor</td><td>Paints on <code>--color-surface-elevated</code>, never on <code>--color-surface</code>.</td></tr>
+        <tr><td><code>--z-popover</code></td><td class="num">110</td><td>Popover opened from inside a modal</td><td>Above the modal because it belongs to the modal's content.</td></tr>
+        <tr><td><code>--z-toast</code></td><td class="num">120</td><td>Transient status message</td><td>Above every document surface, keyboard-dismissible.</td></tr>
+        <tr><td><code>--z-palette</code></td><td class="num">130</td><td>Command palette, keyboard-driven overlay</td><td>Top of the ladder. Nothing may sit above it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="stage" aria-label="Stacking order drawn with real z-index tokens: raised card at 1, drawer at 40, modal at 100, popover at 110, toast at 120.">
+    <div class="layer raised"><span>Raised card</span><b>1</b></div>
+    <div class="layer drawer"><span>Drawer</span><b>40</b></div>
+    <div class="layer modal"><span>Modal</span><b>100</b></div>
+    <div class="layer popover"><span>Popover in modal</span><b>110</b></div>
+    <div class="layer toast"><span>Toast</span><b>120</b></div>
+  </div>
+  <p class="note">The numbers in the stage are printed for review only — a component that declares <code>z-index: 100</code> is a bug even when the digit happens to match, because the ladder can then no longer be re-ordered in one place. Each block resolves its own token: <code>--mob-signal-z-raised</code>, <code>--z-drawer</code>, <code>--z-modal</code>, <code>--z-popover</code>, <code>--z-toast</code>. Two rules follow from the ordering: to open a modal over a drawer, close the drawer first; and if the ladder is ever exhausted, re-order it rather than adding a fourth digit. Depth is carried by the surface step and a 1px border, not by a shadow — the three elevation shadows are black-alpha and reserved for real floating surfaces. Note also that <code>z-raised</code> is the only step without a public alias, so a component must reach for the namespaced name.</p>
+
+  <h2>Sticky header and the reserve</h2>
+  <div class="duo">
+    <section class="pane">
+      <p class="pane-label">Sticky — the reserve is implicit</p>
+      <div class="scroller">
+        <div class="chrome pinned"><b>Services</b><a href="#top">Open audit log</a><span>48 · z 10</span></div>
+        <div class="rows">
+          <div class="row"><span class="r">edge-router</span><span class="r">ap-southeast-1</span><span class="r">271 ms</span></div>
+          <div class="row"><span class="r">auth-service</span><span class="r">us-east-1</span><span class="r">86 ms</span></div>
+          <div class="row"><span class="r">billing-worker</span><span class="r">eu-west-1</span><span class="r">139 ms</span></div>
+          <div class="row"><span class="r">audit-ingest</span><span class="r">us-east-1</span><span class="r">74 ms</span></div>
+          <div class="row"><span class="r">search-index</span><span class="r">ap-south-1</span><span class="r">208 ms</span></div>
+          <div class="row"><span class="r">media-transcode</span><span class="r">us-west-2</span><span class="r">412 ms</span></div>
+          <div class="row"><span class="r">session-cache</span><span class="r">eu-central-1</span><span class="r">31 ms</span></div>
+          <div class="row"><span class="r">webhook-dispatch</span><span class="r">us-east-2</span><span class="r">117 ms</span></div>
+          <div class="row"><span class="r">ledger-api</span><span class="r">ap-northeast-1</span><span class="r">165 ms</span></div>
+          <div class="row"><span class="r">notifier-fanout</span><span class="r">eu-west-2</span><span class="r">94 ms</span></div>
+          <div class="row"><span class="r">graph-renderer</span><span class="r">us-east-1</span><span class="r">355 ms</span></div>
+          <div class="row"><span class="r">telemetry-relay</span><span class="r">sa-east-1</span><span class="r">188 ms</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="pane">
+      <p class="pane-label">Fixed — the reserve is declared</p>
+      <div class="scroller">
+        <div class="chrome"><b>Services</b><a href="#top">Open audit log</a><span>48 · z 10</span></div>
+        <div class="reserve">padding-top: var(--nav-height) = 48</div>
+        <div class="rows">
+          <div class="row"><span class="r">edge-router</span><span class="r">ap-southeast-1</span><span class="r">271 ms</span></div>
+          <div class="row"><span class="r">auth-service</span><span class="r">us-east-1</span><span class="r">86 ms</span></div>
+          <div class="row"><span class="r">billing-worker</span><span class="r">eu-west-1</span><span class="r">139 ms</span></div>
+          <div class="row"><span class="r">audit-ingest</span><span class="r">us-east-1</span><span class="r">74 ms</span></div>
+          <div class="row"><span class="r">search-index</span><span class="r">ap-south-1</span><span class="r">208 ms</span></div>
+          <div class="row"><span class="r">media-transcode</span><span class="r">us-west-2</span><span class="r">412 ms</span></div>
+          <div class="row"><span class="r">session-cache</span><span class="r">eu-central-1</span><span class="r">31 ms</span></div>
+          <div class="row"><span class="r">webhook-dispatch</span><span class="r">us-east-2</span><span class="r">117 ms</span></div>
+          <div class="row"><span class="r">ledger-api</span><span class="r">ap-northeast-1</span><span class="r">165 ms</span></div>
+          <div class="row"><span class="r">notifier-fanout</span><span class="r">eu-west-2</span><span class="r">94 ms</span></div>
+          <div class="row"><span class="r">graph-renderer</span><span class="r">us-east-1</span><span class="r">355 ms</span></div>
+          <div class="row"><span class="r">telemetry-relay</span><span class="r">sa-east-1</span><span class="r">188 ms</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <p class="note">Scroll either pane. Both bars are 48px and both carry <code>--z-sticky</code>. The left one is <code>position: sticky</code>, keeps the space it occupied in the flow, and needs no reserve. The right one simulates <code>position: fixed</code> with an absolute bar over scrolling content, so the content must start below the dashed line — a declared <code>padding-top: var(--nav-height)</code>. Keep the height in one token so the chrome and the reserve can never drift apart. The source nav renders at 48px from 12px padding over a 24px line box, with its 1px bottom rule sitting outside the content height the token owns. Tab into either bar to see the focus ring (<code>--mob-signal-shadow-focus</code>: 2px canvas, then 4px accent) drawn without layout shift.</p>
+  <ul class="rules">
+    <li>Fixed chrome reserves its own height instead of covering content.</li>
+    <li>One sticky element per axis per view — a header plus a footer plus a sticky sidebar is three ladders competing.</li>
+    <li>Content names a region token or spans columns; where no region token exists it caps with <code>max-width</code> rather than fixing a width.</li>
+    <li>Gaps come from <code>--grid-gap</code> and the gutter steps only — no per-section gap.</li>
+    <li>Numbers stay right-aligned in mono with tabular figures, so a column reads as a column at every breakpoint.</li>
+  </ul>
+
+  <p class="provenance">Current layout values are defined in tokens.measured.json and implemented through the shared styles. Historical input digests are retained as attribution metadata; extracted source references are not bundled.</p>
+</main></body>
+</html>

@@ -6,16 +6,39 @@ follows Keep a Changelog.
 **Version scheme.** The *package* version belongs to this bundle and moves when its rules or files
 move. The *source* version is `meta.version` inside `design-tokens.json`; it is never bumped here
 and currently reads 4.0.0. The archive digest is the tie between them: `design-system-neon-tech.rar`,
-`8d9e46cb…c50d1`, with per-file digests in `context/provenance.md`.
+`8d9e46cb…c50d1`, with per-file digests in `scripts/provenance.md`.
 
 **Provenance tags.** `measured` = copied out of the archive. `authored` = written to close a gap the archive left open, reversible. `corrected` = the archive states something measurement disproved. Every ratio in
-this file is the value recorded in `context/contrast-measured.md`.
+this file is the value recorded in `scripts/contrast-measured.md`.
+
+## 2.0.0 - 2026-11-09
+
+### Breaking Changes
+- Restructure project into a 4-tier design system architecture: tokens, framework CSS (`dist/`), component registry (`registry/`), and showcase hub (`showcase/`).
+- Move source styles to `src/styles/` and compiled artifacts to `dist/`.
+- Update `package.json` package exports to resolve from `./dist/*` and `./ui/*`.
+
+### Added
+- Author 28 headless Radix UI primitives in `registry/default/ui/*.tsx` with Tailwind CSS v4 and strictly 0px radius (`rounded-none`).
+- Provide custom shadcn/ui registry indexed at `registry/registry.json` and configured via `components.json`.
+- Add automated registry verification test suite (`scripts/validate-registry.mjs`, `npm run check:registry`).
+- Implement full TypeScript typing (`tsconfig.json`, `@types/react`, `@types/react-dom`, `@types/node`) and integrate `npm run typecheck` (`tsc --noEmit`) into automated test suite.
+- Expand Showcase Hub (`showcase/index.html`) with an interactive Component Catalog, 5 category filters, and one-click `npx shadcn add` CLI commands.
+- Align `DESIGN.md` specification to Google Labs format with complete 28-primitive definitions and eliminate marketing buzzwords.
+- Update AI agent `SKILL.md` with complete primitive catalog and copy-paste React examples.
+
+### Changed
+- Clean up all stale `context/` paths and machine-specific cache paths across documentation and manifest.
+- Update GitHub Release workflow to package `dist/` CSS artifacts and run automated build verification.
+
+### Removed
+- Remove `playwright` dependency and obsolete browser mock tests in favor of lightweight Node.js regression checks.
 
 ## 1.7.0 - 2026-11-09
 
 ### Added
 - Standardized `DESIGN.md` conforming 100% to Google Labs specification (`google-labs-code/design.md`).
-- Automated `DESIGN.md` generator in `context/design-md-from-brand.mjs` emitting YAML frontmatter tokens and canonical 8 sections.
+- Automated `DESIGN.md` generator in `scripts/design-md-from-brand.mjs` emitting YAML frontmatter tokens and canonical 8 sections.
 - Google Labs official linter tooling `@google/design.md` via `npm run lint:design`.
 - Automated test coverage in `tests/package.test.mjs` verifying canonical outline and token definitions.
 
@@ -67,13 +90,13 @@ Normalization pass over the documentation layer; no live token value changed.
 
 ### Changed
 - Package documentation (`BRAND.md`, `README.md`, `DESIGN.md`, `SKILL.md`, `guide.md`,
-  `context/provenance.md`, `CHANGELOG.md`) rewritten as impersonal change records: what changed and
+  `scripts/provenance.md`, `CHANGELOG.md`) rewritten as impersonal change records: what changed and
   the measured reason. Editorial narration and editing-session timestamps are removed from the
   package text.
 - Retired values moved out of live tables. `#00ff5c` (interim 1.2.0 accent) and `#10e569` (the
   archive volt) appear only as history: `interimValue` / `archiveValue` in `tokens.measured.json`
-  and the history rows of `context/contrast-measured.md`. Neither may be painted by a recipe.
-- `context/contrast-measured.md` recorded as the single authority for ratios; other documents quote
+  and the history rows of `scripts/contrast-measured.md`. Neither may be painted by a recipe.
+- `scripts/contrast-measured.md` recorded as the single authority for ratios; other documents quote
   it instead of restating numbers independently.
 - Section numbering 1–20 in `BRAND.md` is unchanged, so existing section cross-references in every
   document continue to resolve.
@@ -87,7 +110,7 @@ Normalization pass over the documentation layer; no live token value changed.
   described the retired interim accent.
 - White on the accent added to the measured report at 2.14:1, alongside the existing 1.83:1 for the
   foreground colour, so the prohibition on light ink is measured rather than asserted.
-- `context/engine-token-sync.mjs` snaps any derived green to the nearest published accent stop in
+- `scripts/engine-token-sync.mjs` snaps any derived green to the nearest published accent stop in
   OKLab instead of enumerating hexes, so a ten-step derived ramp collapses onto `#00b853`, `#00cc5c`
   and `#00e065` and a future seed change needs no new mapping row.
 - The same pass now reports any 6-digit hex in the generated layer that is neither a brand value nor
@@ -101,13 +124,13 @@ Normalization pass over the documentation layer; no live token value changed.
   chat components under `ui_kits/app/components/` (verified unreferenced by the kit entry point).
 
 ### Fixed
-- Ratios and counts in the documentation re-checked against `context/contrast-measured.md` and
-  `context/token-check.mjs`; where prose disagreed with the report, the report wins.
-- `context/engine-token-sync.mjs` extended: it now re-asserts the brand description, the first
+- Ratios and counts in the documentation re-checked against `scripts/contrast-measured.md` and
+  `scripts/token-check.mjs`; where prose disagreed with the report, the report wins.
+- `scripts/engine-token-sync.mjs` extended: it now re-asserts the brand description, the first
   messaging pillar and the icon geometry contract (butt caps, miter joins, 1.5px stroke) over the
   generated pages, which previously kept template copy and round-capped glyphs. Run the same way;
   `npm run sync:engine` wraps it.
-- `context/design-md-from-brand.mjs` added: regenerates `DESIGN.md` from `brand.json` in the
+- `scripts/design-md-from-brand.mjs` added: regenerates `DESIGN.md` from `brand.json` in the
   engine's document shape, so the canonical rules file stays coherent with the registry without
   `od brand finalize`, which also rewrites the hand-maintained reuse layer.
 
@@ -139,23 +162,23 @@ Accent moved onto the palette's luminance band; the second green retired.
 - Sources: `colors_and_type.css`, `tokens.measured.json` (history rows `accent-band`, `success-merge`),
   `brand.json` (accent hex and oklch, usage text, `accent-secondary` renamed System Info Blue, seed
   `colorPrimary`/`colorSuccess`, pillar 1, logo ink, focus and status posture rules).
-- Generated layer: `context/engine-token-sync.mjs` ROLES and LITERALS re-pointed, then re-run over
+- Generated layer: `scripts/engine-token-sync.mjs` ROLES and LITERALS re-pointed, then re-run over
   `system/**` and `brand.html`; `brand.html` re-rendered through `od brand preview`; the brand
   description and messaging pillar patched in the six artifact pages and `system/index.html`.
 - Cards and kit: 485 accent-family literals and 67 volt declarations swept across 37 files, then 53
   stale ratio literals and 31 narrative sentences rewritten.
 - Specs: `BRAND.md` 1.1 rewritten around the two corrections, new 1.2 on the green-and-blue chromatic
   pair, sections 4/5/7/8/10/14/15/17/19/20 aligned; `DESIGN.md`, `README.md`, `SKILL.md`, `guide.md`,
-  `context/provenance.md`, `context/provenance.json` and `context/contrast-measured.md` regenerated.
+  `scripts/provenance.md`, `scripts/provenance.json` and `scripts/contrast-measured.md` regenerated.
 - Known limit: `od brand finalize` derives 218 tokens from a 20-key seed, so the generated layer is
-  off-brand the moment it is written and `context/engine-token-sync.mjs` must run after it. The
+  off-brand the moment it is written and `scripts/engine-token-sync.mjs` must run after it. The
   derived green for the 1.3.0 seed is unmeasured, because measuring it requires finalize, which
   overwrites the hand-kept reuse layer; the LITERALS table still records 1.2.1 observations and must
   be re-measured after any future finalize.
 
 ### Fixed
 - Hover `#26ff7a` measured 1.01:1 against its own base, leaving every primary button with no visible
-  hover state. A state step must now clear 1.2:1, and `context/contrast.mjs` prints all four pairs
+  hover state. A state step must now clear 1.2:1, and `scripts/contrast.mjs` prints all four pairs
   so the retired step stays checkable.
 - The two-green pair measured against itself: `#00ff5c` against `#10e569` at 1.24:1 and 2.8 degrees of
   hue, and the active state `#00e04e` at 1.06:1 from the Operational volt — a pressed button was the
@@ -177,7 +200,7 @@ Accent moved onto the palette's luminance band; the second green retired.
 Engine layer re-asserted; dead files deleted a second time.
 
 ### Added
-- `context/engine-token-sync.mjs`, which re-asserts `tokens.measured.json` over 16 generated files.
+- `scripts/engine-token-sync.mjs`, which re-asserts `tokens.measured.json` over 16 generated files.
   Idempotent, so it runs after every `od brand finalize` in place of documenting the drift. The open
   item "engine color derivation" moves from open to post-passed (`BRAND.md` 19, `BRAND.md` 20).
 
@@ -215,8 +238,8 @@ Engine layer re-asserted; dead files deleted a second time.
 Accent corrected, success split out of it, dead files removed.
 
 ### Added
-- `context/contrast.mjs` rewritten for two greens, plus an OKLCH colour-geometry table stating the
-  chroma argument in numbers; `context/contrast-measured.md` regenerated from it.
+- `scripts/contrast.mjs` rewritten for two greens, plus an OKLCH colour-geometry table stating the
+  chroma argument in numbers; `scripts/contrast-measured.md` regenerated from it.
 - `BRAND.md` 17 rewritten as an 18-file logo deliverable manifest — names, canvases, formats, usage,
   the technical gate (outlined text, no filter or glow, 0px, 1.5px stroke floor, accent ink) and the
   wiring list for when the files land. `brand.json.logo.notes` carries the same in short.
@@ -265,14 +288,14 @@ The eleven gaps closed. Nothing previously measured changed except where measure
 each such case is marked `corrected`.
 
 ### Added
-- `context/contrast.mjs` and `context/contrast-measured.md`: the WCAG 2.2 matrix for every text and
+- `scripts/contrast.mjs` and `scripts/contrast-measured.md`: the WCAG 2.2 matrix for every text and
   ground pair, including alpha-composited badge fills and row hover.
 - `colors_and_type.css`: grid and region widths, a z-index ladder, the overlay motion pair, chart
   tokens, icon metrics, target sizes, status geometry, `--scrim`, `--stagger`, public aliases for all
   of it, a `prefers-color-scheme: light` guard and a `prefers-reduced-motion` block.
 - `tokens.measured.json`: hand-kept source of truth, every entry tagged measured / authored /
   corrected and carrying the archive digest, which resolves the two-sources-of-truth problem.
-- `context/token-check.mjs`: proves every `var(--x)` in the package resolves — 204 properties defined
+- `scripts/token-check.mjs`: proves every `var(--x)` in the package resolves — 204 properties defined
   and 163 referenced in that release, zero unresolved.
 - `authored` — `assets/icons/icons.svg` (65 symbols on a 24 grid, 1.5px stroke, butt caps, miter
   joins, `currentColor`) and `assets/icons/icons.css` (`.mob-icon`, three sizes, pairing and naming

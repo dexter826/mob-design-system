@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M.O.B Signal — Accessibility</title>
+<link rel="stylesheet" href="../../dist/colors_and_type.css"><link rel="stylesheet" href="../../dist/components.css"><link rel="stylesheet" href="../../dist/overlays.css">
+<style>
+*{box-sizing:border-box}body{margin:0;background:var(--color-background);color:var(--color-text);font:400 16px/1.6 var(--font-family)}main{width:min(920px,calc(100% - 32px));margin:48px auto}h1,h2{font-family:var(--font-display);font-weight:600;line-height:1.2;letter-spacing:-.02em}h1{font-size:32px}h2{font-size:24px}section{margin:32px 0;padding:24px;border:1px solid var(--color-border);background:var(--color-surface)}p,li{max-width:70ch}a{color:var(--color-info);text-decoration:underline}code,kbd{font-family:var(--code-font-family)}.examples{display:flex;flex-wrap:wrap;gap:24px;margin:24px 0}.field{flex:1;min-width:min(240px,100%)}.elevated{background:var(--color-surface-elevated);padding:16px}.secondary{color:var(--color-text-secondary)}.table-container{overflow:auto}.table{min-width:560px}a:focus-visible{outline:none;box-shadow:var(--shadow-focus)}
+</style>
+</head>
+<body><main>
+<a href="../index.html">Back to the design system</a><h1>Accessibility</h1>
+<p class="secondary">Requirements, working examples and the limits of automated evidence.</p>
+<section><h2>Text contrast</h2><p>Normal text needs at least 4.5:1 for WCAG 2.2 AA. Large text needs 3:1, at a minimum of 24 CSS px regular or 18.667 CSS px bold (700+). A 14px label does not qualify as large text.</p>
+<div class="table-container"><table class="table"><thead><tr><th scope="col">Pair</th><th scope="col">Ratio</th><th scope="col">Use</th></tr></thead><tbody>
+<tr><td>Foreground / canvas</td><td>16.91:1</td><td>Body and headings</td></tr>
+<tr><td>Secondary / elevated</td><td>6.31:1</td><td>Small metadata and hints</td></tr>
+<tr><td>Muted / canvas</td><td>4.18:1</td><td>Fails normal-text AA</td></tr>
+<tr><td>Error / elevated</td><td>4.33:1</td><td>Fails normal-text AA</td></tr>
+<tr><td>Black / primary</td><td>9.79:1</td><td>Primary button labels</td></tr>
+</tbody></table></div>
+<p>Use secondary text for timestamps, placeholders and keyboard labels. Use foreground error copy with a red marker on elevated surfaces. Muted is restricted to disabled/decorative content or qualifying large text with at least 3:1 contrast.</p>
+<div class="elevated"><p class="field-error" id="example-error">Project names must contain at least one non-space character.</p></div></section>
+<section><h2>Controls and focus</h2><p>Essential control boundaries use control-border. Low-contrast separators and a 1.06:1 canvas/surface fill difference do not identify a control on their own. Every focusable control retains the same visible focus ring.</p>
+<div class="examples"><button class="btn btn-primary">Save changes</button><button class="btn btn-secondary">Cancel</button><div class="field"><label class="field-label" for="focus-example">Project name</label><input class="input-field" id="focus-example" placeholder="Enter a project name" aria-describedby="focus-hint"><p class="field-hint" id="focus-hint">Press Tab to inspect keyboard focus.</p></div></div>
+<p>Fine-pointer targets are at least 24×24 CSS px. On coarse pointers, shared controls grow to 44px; the hit areas do not overlap. Target-size rules include exceptions and do not certify a whole interface.</p></section>
+<section><h2>Keyboard-operated tabs</h2><p>Arrow keys, Home and End select enabled tabs. Tab moves into the active panel. Each tab is linked to its panel; disabled tabs are skipped.</p>
+<div class="app-tabs" role="tablist" aria-label="Accessibility examples"><button class="app-tab" id="example-en" role="tab" aria-selected="true" aria-controls="panel-en">English</button><button class="app-tab" id="example-vi" role="tab" aria-selected="false" aria-controls="panel-vi">Tiếng Việt</button><button class="app-tab" role="tab" disabled>Unavailable</button></div>
+<div id="panel-en" role="tabpanel" aria-labelledby="example-en" tabindex="0"><p>Configuration updated. Long content wraps without clipping its meaning.</p></div>
+<div id="panel-vi" role="tabpanel" aria-labelledby="example-vi" tabindex="0" lang="vi" hidden><p>Đã cập nhật cấu hình. Nguyễn Đặng kiểm tra tiếng Việt: ă â ê ô ơ ư đ, dấu hỏi, dấu ngã và nội dung dài xuống dòng.</p></div></section>
+<section><h2>Verification scope</h2><p>Token arithmetic and regression checks provide evidence for specific cases. They do not replace screen-reader, zoom and browser testing. See the <a href="../../scripts/verification.md">execution report</a> for checks actually run and pending work.</p><p>Reference: <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">W3C text contrast</a> and <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/">W3C tabs</a>.</p></section>
+</main><script src="../../assets/components.js" defer></script></body></html>

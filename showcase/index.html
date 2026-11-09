@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>M.O.B Signal — Design System Hub</title>
+  <link rel="stylesheet" href="../fonts/fonts.css" />
+  <link rel="stylesheet" href="../dist/colors_and_type.css" />
+  <link rel="stylesheet" href="../dist/components.css" />
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-background, #0a0a0a);
+      color: var(--color-foreground, #ededed);
+      font-family: var(--font-body, 'Plus Jakarta Sans', system-ui, sans-serif);
+      -webkit-font-smoothing: antialiased;
+    }
+    .hub-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .hub-header {
+      border-bottom: 1px solid var(--color-border, #262626);
+      padding-bottom: 32px;
+      margin-bottom: 40px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      background: var(--color-surface-subtle, #181818);
+      border: 1px solid var(--color-border, #262626);
+      color: var(--color-primary, #00cc5c);
+      margin-bottom: 16px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--color-primary, #00cc5c);
+    }
+    h1 {
+      font-family: var(--font-display, 'Space Grotesk', sans-serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+      color: #ffffff;
+    }
+    .lead {
+      font-size: 1.125rem;
+      color: var(--color-text-secondary, #a1a1a1);
+      max-width: 720px;
+      line-height: 1.6;
+      margin: 0 0 24px;
+    }
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--color-primary, #00cc5c);
+      color: #000000;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-hover, #00e065);
+    }
+    .btn-secondary {
+      background: var(--color-surface-subtle, #181818);
+      color: var(--color-foreground, #ededed);
+      border-color: var(--color-border, #262626);
+    }
+    .btn-secondary:hover {
+      background: var(--color-surface-hover, #222222);
+    }
+    .section-title {
+      font-family: var(--font-display, 'Space Grotesk', sans-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 48px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 16px;
+      background: var(--color-primary, #00cc5c);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--color-surface, #121212);
+      border: 1px solid var(--color-border, #262626);
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .card:hover {
+      border-color: var(--color-primary, #00cc5c);
+      background: var(--color-surface-subtle, #181818);
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin: 0 0 6px;
+      color: #ffffff;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--color-text-secondary, #a1a1a1);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .card-foot {
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      color: var(--color-muted, #737373);
+      margin-top: 16px;
+    }
+    /* Catalog Specific Styles */
+    .catalog-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .filter-btn {
+      background: var(--color-surface-subtle, #181818);
+      border: 1px solid var(--color-border, #262626);
+      color: var(--color-text-secondary, #a1a1a1);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: var(--font-mono, monospace);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--color-primary, #00cc5c);
+      color: #ffffff;
+      background: #202020;
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .catalog-item {
+      background: var(--color-surface, #121212);
+      border: 1px solid var(--color-border, #262626);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .catalog-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+    .catalog-name {
+      font-family: var(--font-mono, monospace);
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .catalog-badge {
+      font-family: var(--font-mono, monospace);
+      font-size: 10px;
+      text-transform: uppercase;
+      padding: 1px 6px;
+      background: var(--color-surface-subtle, #181818);
+      border: 1px solid var(--color-border, #262626);
+      color: var(--color-primary, #00cc5c);
+    }
+    .catalog-desc {
+      font-size: 12px;
+      color: var(--color-text-secondary, #a1a1a1);
+      margin: 0 0 16px;
+      line-height: 1.4;
+    }
+    .catalog-cmd {
+      background: var(--color-background, #0a0a0a);
+      border: 1px solid var(--color-border, #262626);
+      padding: 8px 10px;
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      color: var(--color-text-secondary, #a1a1a1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .catalog-cmd code {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .copy-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-primary, #00cc5c);
+      cursor: pointer;
+      font-size: 11px;
+      font-family: var(--font-mono, monospace);
+      padding: 2px 4px;
+      shrink-0: 0;
+    }
+    .copy-btn:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-border, #262626);
+      font-size: 13px;
+      color: var(--color-muted, #737373);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="hub-container">
+    <header class="hub-header">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>Version 2.0.0 · 28 Radix UI Primitives · shadcn Registry</span>
+      </div>
+      <h1>M.O.B Signal</h1>
+      <p class="lead">
+        Dark-only design system for engineering consoles. Strict 0px border-radius, 4px grid rhythm. Green (#00cc5c) is reserved for primary actions, focus, and operational health.
+      </p>
+      <div class="quick-links">
+        <a class="btn btn-primary" href="app/index.html">Launch Service Console</a>
+        <a class="btn btn-secondary" href="../DESIGN.md">View DESIGN.md Spec</a>
+        <a class="btn btn-secondary" href="../dist/tailwind.css">Tailwind v4 Theme</a>
+        <a class="btn btn-secondary" href="../registry/registry.json">Registry JSON</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Interactive Component Catalog -->
+      <h2 class="section-title">Component Catalog (28 Radix UI Primitives)</h2>
+      <div class="catalog-filter-bar">
+        <button class="filter-btn active" data-filter="all">All (28)</button>
+        <button class="filter-btn" data-filter="actions">Actions (1)</button>
+        <button class="filter-btn" data-filter="forms">Form Controls (8)</button>
+        <button class="filter-btn" data-filter="display">Data Display (8)</button>
+        <button class="filter-btn" data-filter="navigation">Navigation (4)</button>
+        <button class="filter-btn" data-filter="overlays">Overlays & Popups (7)</button>
+      </div>
+
+      <div class="catalog-grid" id="catalogGrid">
+        <!-- Actions -->
+        <div class="catalog-item" data-category="actions">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">button</span>
+              <span class="catalog-badge">Actions</span>
+            </div>
+            <p class="catalog-desc">Interactive triggers with primary, secondary, outline, ghost, and danger variants.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../button</code>
+            <button class="copy-btn" onclick="copyCmd('button')">Copy</button>
+          </div>
+        </div>
+
+        <!-- Form Controls -->
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">input</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Text input field with dark surface, 0px radius, and green focus ring.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../input</code>
+            <button class="copy-btn" onclick="copyCmd('input')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">textarea</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Multiline text area matching input styling with optional error state.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../textarea</code>
+            <button class="copy-btn" onclick="copyCmd('textarea')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">label</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Accessible form control label in uppercase monospace.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../label</code>
+            <button class="copy-btn" onclick="copyCmd('label')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">checkbox</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Square 16x16 checkbox with green active fill and black checkmark.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../checkbox</code>
+            <button class="copy-btn" onclick="copyCmd('checkbox')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">radio-group</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Square radio button group with inner solid square indicator.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../radio-group</code>
+            <button class="copy-btn" onclick="copyCmd('radio-group')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">select</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Square dropdown select with options, groups, and scroll buttons.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../select</code>
+            <button class="copy-btn" onclick="copyCmd('select')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">switch</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Square sliding toggle switch with green active track.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../switch</code>
+            <button class="copy-btn" onclick="copyCmd('switch')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="forms">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">slider</span>
+              <span class="catalog-badge">Forms</span>
+            </div>
+            <p class="catalog-desc">Horizontal range track with square draggable thumb.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../slider</code>
+            <button class="copy-btn" onclick="copyCmd('slider')">Copy</button>
+          </div>
+        </div>
+
+        <!-- Data Display -->
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">card</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Container panel with Header, Title, Description, Content, and Footer.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../card</code>
+            <button class="copy-btn" onclick="copyCmd('card')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">table</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Dense operational data table with hover and row selection states.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../table</code>
+            <button class="copy-btn" onclick="copyCmd('table')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">badge</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Monospace status tags: operational, warning, error, info, neutral.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../badge</code>
+            <button class="copy-btn" onclick="copyCmd('badge')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">avatar</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Square profile avatar container with image and fallback initials.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../avatar</code>
+            <button class="copy-btn" onclick="copyCmd('avatar')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">skeleton</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Loading state pulse placeholder on dark background.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../skeleton</code>
+            <button class="copy-btn" onclick="copyCmd('skeleton')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">progress</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Determinate progress bar with green signal fill indicator.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../progress</code>
+            <button class="copy-btn" onclick="copyCmd('progress')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">separator</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Horizontal or vertical 1px divider rule.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../separator</code>
+            <button class="copy-btn" onclick="copyCmd('separator')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="display">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">aspect-ratio</span>
+              <span class="catalog-badge">Display</span>
+            </div>
+            <p class="catalog-desc">Fixed aspect ratio container for imagery and media.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../aspect-ratio</code>
+            <button class="copy-btn" onclick="copyCmd('aspect-ratio')">Copy</button>
+          </div>
+        </div>
+
+        <!-- Feedback & Navigation -->
+        <div class="catalog-item" data-category="navigation">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">tabs</span>
+              <span class="catalog-badge">Navigation</span>
+            </div>
+            <p class="catalog-desc">Accessible tablist with 2px green active underline indicator.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../tabs</code>
+            <button class="copy-btn" onclick="copyCmd('tabs')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="navigation">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">accordion</span>
+              <span class="catalog-badge">Navigation</span>
+            </div>
+            <p class="catalog-desc">Collapsible multi-section disclosure with animated chevron.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../accordion</code>
+            <button class="copy-btn" onclick="copyCmd('accordion')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="navigation">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">collapsible</span>
+              <span class="catalog-badge">Navigation</span>
+            </div>
+            <p class="catalog-desc">Simple disclosure trigger and expandable content block.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../collapsible</code>
+            <button class="copy-btn" onclick="copyCmd('collapsible')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="navigation">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">breadcrumb</span>
+              <span class="catalog-badge">Navigation</span>
+            </div>
+            <p class="catalog-desc">Navigation hierarchy with items, links, separators, and current page.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../breadcrumb</code>
+            <button class="copy-btn" onclick="copyCmd('breadcrumb')">Copy</button>
+          </div>
+        </div>
+
+        <!-- Overlays -->
+        <div class="catalog-item" data-category="overlays">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">dialog</span>
+              <span class="catalog-badge">Overlays</span>
+            </div>
+            <p class="catalog-desc">Modal dialog with scrim backdrop, focus trap, and escape key handling.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../dialog</code>
+            <button class="copy-btn" onclick="copyCmd('dialog')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="overlays">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">alert-dialog</span>
+              <span class="catalog-badge">Overlays</span>
+            </div>
+            <p class="catalog-desc">Confirmation dialog for destructive actions with Cancel and Action triggers.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../alert-dialog</code>
+            <button class="copy-btn" onclick="copyCmd('alert-dialog')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="overlays">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">sheet</span>
+              <span class="catalog-badge">Overlays</span>
+            </div>
+            <p class="catalog-desc">Slide-out drawer panel from left, right, top, or bottom edges.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../sheet</code>
+            <button class="copy-btn" onclick="copyCmd('sheet')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="overlays">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">popover</span>
+              <span class="catalog-badge">Overlays</span>
+            </div>
+            <p class="catalog-desc">Anchored floating overlay panel positioned relative to trigger.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../popover</code>
+            <button class="copy-btn" onclick="copyCmd('popover')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="overlays">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">dropdown-menu</span>
+              <span class="catalog-badge">Overlays</span>
+            </div>
+            <p class="catalog-desc">Contextual menu with items, submenus, checkboxes, radio groups, and shortcuts.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../dropdown-menu</code>
+            <button class="copy-btn" onclick="copyCmd('dropdown-menu')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="overlays">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">alert</span>
+              <span class="catalog-badge">Overlays</span>
+            </div>
+            <p class="catalog-desc">Feedback banner with solid indicator border: default, info, warning, destructive.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../alert</code>
+            <button class="copy-btn" onclick="copyCmd('alert')">Copy</button>
+          </div>
+        </div>
+
+        <div class="catalog-item" data-category="overlays">
+          <div>
+            <div class="catalog-item-header">
+              <span class="catalog-name">tooltip</span>
+              <span class="catalog-badge">Overlays</span>
+            </div>
+            <p class="catalog-desc">Instant contextual tooltip on dark elevated surface with 0px radius.</p>
+          </div>
+          <div class="catalog-cmd">
+            <code>npx shadcn add .../tooltip</code>
+            <button class="copy-btn" onclick="copyCmd('tooltip')">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design Foundations -->
+      <h2 class="section-title">Design Foundations</h2>
+      <div class="grid">
+        <a class="card" href="pages/colors-primary.html">
+          <div>
+            <h3 class="card-title">Primary & Semantics</h3>
+            <p class="card-desc">Signal green, operational status roles, and measured luminance ratios.</p>
+          </div>
+          <span class="card-foot">pages/colors-primary.html</span>
+        </a>
+        <a class="card" href="pages/colors-theme-dark.html">
+          <div>
+            <h3 class="card-title">Dark Theme Palette</h3>
+            <p class="card-desc">Full 0a0a0a dark scale, surfaces, borders, and overlays.</p>
+          </div>
+          <span class="card-foot">pages/colors-theme-dark.html</span>
+        </a>
+        <a class="card" href="pages/typography-specimens.html">
+          <div>
+            <h3 class="card-title">Typography Specimens</h3>
+            <p class="card-desc">Space Grotesk, Plus Jakarta Sans, and JetBrains Mono with Vietnamese glyphs.</p>
+          </div>
+          <span class="card-foot">pages/typography-specimens.html</span>
+        </a>
+        <a class="card" href="pages/spacing-tokens.html">
+          <div>
+            <h3 class="card-title">4px Spacing Grid</h3>
+            <p class="card-desc">4px modular scale, density rules, and component padding metrics.</p>
+          </div>
+          <span class="card-foot">pages/spacing-tokens.html</span>
+        </a>
+        <a class="card" href="pages/spacing-radius.html">
+          <div>
+            <h3 class="card-title">Square Geometry</h3>
+            <p class="card-desc">0px absolute border-radius policy and edge bevel limits.</p>
+          </div>
+          <span class="card-foot">pages/spacing-radius.html</span>
+        </a>
+        <a class="card" href="pages/icons.html">
+          <div>
+            <h3 class="card-title">System Icons</h3>
+            <p class="card-desc">24px grid, 1.5px stroke, butt caps and miter joins SVG sprite.</p>
+          </div>
+          <span class="card-foot">pages/icons.html</span>
+        </a>
+      </div>
+
+      <!-- Quality & Audits -->
+      <h2 class="section-title">Audits & Verification</h2>
+      <div class="grid">
+        <a class="card" href="pages/accessibility.html">
+          <div>
+            <h3 class="card-title">Accessibility & Contrast</h3>
+            <p class="card-desc">Measured WCAG AA/AAA luminance matrices and forced-colors high contrast.</p>
+          </div>
+          <span class="card-foot">pages/accessibility.html</span>
+        </a>
+        <a class="card" href="pages/brand-assets.html">
+          <div>
+            <h3 class="card-title">Brand & Provenance</h3>
+            <p class="card-desc">Font licenses, logo kits, archive SHA-256 digests, and package manifest.</p>
+          </div>
+          <span class="card-foot">pages/brand-assets.html</span>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <span>M.O.B Signal v2.0.0</span>
+      <span>Published under Proprietary / MIT Component License</span>
+    </footer>
+  </div>
+
+  <script>
+    function copyCmd(component) {
+      const cmd = `npx shadcn add https://raw.githubusercontent.com/dexter826/mob-design-system/main/registry/registry.json/${component}`;
+      navigator.clipboard.writeText(cmd).then(() => {
+        alert(`Copied installation command for ${component}`);
+      }).catch(() => {
+        prompt('Copy command:', cmd);
+      });
+    }
+
+    // Category filter logic
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const catalogItems = document.querySelectorAll('.catalog-item');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        catalogItems.forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

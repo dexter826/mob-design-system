@@ -1,35 +1,66 @@
 {
   "name": "mob-signal",
-  "version": "1.7.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "A dark, square UI system for engineering consoles, built around dense data, operational states, and one disciplined green signal.",
+  "description": "A dark, square design system for engineering consoles, built around dense data, operational states, and a single green signal.",
   "exports": {
-    ".": "./colors_and_type.css",
-    "./components.css": "./components.css",
-    "./overlays.css": "./overlays.css",
-    "./tailwind.css": "./tailwind.css"
+    ".": "./dist/colors_and_type.css",
+    "./components.css": "./dist/components.css",
+    "./overlays.css": "./dist/overlays.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./tokens/*": "./dist/tokens/*",
+    "./ui/*": "./registry/default/ui/*"
   },
   "scripts": {
-    "start": "node context/server.mjs",
-    "preview": "node context/server.mjs",
-    "build": "node context/build.mjs",
-    "contrast": "node context/contrast.mjs",
-    "design-md": "node context/design-md-from-brand.mjs",
-    "sync:engine": "node context/build.mjs",
-    "check:tokens": "node context/token-check.mjs",
+    "start": "node scripts/server.mjs",
+    "preview": "node scripts/server.mjs",
+    "build": "node scripts/build.mjs",
+    "contrast": "node scripts/contrast.mjs",
+    "design-md": "node scripts/design-md-from-brand.mjs",
+    "sync:engine": "node scripts/build.mjs",
+    "check:tokens": "node scripts/token-check.mjs",
+    "check:registry": "node scripts/validate-registry.mjs",
+    "typecheck": "tsc --noEmit",
     "lint:design": "designmd lint DESIGN.md",
-    "test": "node --test tests/package.test.mjs",
-    "test:browser": "node tests/browser.mjs"
+    "test:tokens": "node scripts/token-check.mjs",
+    "test:build": "node --test tests/package.test.mjs",
+    "test": "npm run test:tokens && npm run check:registry && npm run typecheck && npm run test:build && npm run lint:design"
   },
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.3.1",
+    "@radix-ui/react-alert-dialog": "^1.2.1",
+    "@radix-ui/react-aspect-ratio": "^1.2.0",
+    "@radix-ui/react-avatar": "^1.3.1",
+    "@radix-ui/react-checkbox": "^1.4.1",
+    "@radix-ui/react-collapsible": "^1.2.1",
+    "@radix-ui/react-dialog": "^1.3.1",
+    "@radix-ui/react-dropdown-menu": "^2.2.1",
+    "@radix-ui/react-label": "^2.1.17",
+    "@radix-ui/react-popover": "^1.3.1",
+    "@radix-ui/react-progress": "^1.2.1",
+    "@radix-ui/react-radio-group": "^1.5.1",
+    "@radix-ui/react-select": "^2.4.1",
+    "@radix-ui/react-separator": "^1.2.0",
+    "@radix-ui/react-slider": "^1.6.1",
+    "@radix-ui/react-slot": "^1.5.0",
+    "@radix-ui/react-switch": "^1.4.1",
+    "@radix-ui/react-tabs": "^1.2.1",
+    "@radix-ui/react-tooltip": "^1.4.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.70.0",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@google/design.md": "^0.4.0",
     "@resvg/resvg-js": "2.6.2",
+    "@types/node": "^26.6.6",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "esbuild": "0.25.12",
-    "playwright": "1.56.1"
+    "typescript": "^7.0.2"
   }
 }

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sharp, square, dark-mode product UI with one disciplined neon accent — from M.O.B Signal</title>
+    
+    <style>
+    :root {
+      --brand-color-primary: #00cc5c;
+      --brand-color-primary-bg: rgba(0, 204, 92, 0.1);
+      --brand-color-primary-bg-hover: rgba(0, 204, 92, 0.1);
+      --brand-color-primary-border: #383838;
+      --brand-color-primary-border-hover: #383838;
+      --brand-color-primary-hover: #00e065;
+      --brand-color-primary-active: #00b853;
+      --brand-color-primary-text: #00cc5c;
+      --brand-color-success: #00cc5c;
+      --brand-color-success-bg: rgba(0, 204, 92, 0.1);
+      --brand-color-success-border: #383838;
+      --brand-color-success-hover: #00e065;
+      --brand-color-success-active: #00b853;
+      --brand-color-warning: #f59e0b;
+      --brand-color-warning-bg: #121212;
+      --brand-color-warning-border: #383838;
+      --brand-color-warning-hover: #f59e0b;
+      --brand-color-warning-active: #f59e0b;
+      --brand-color-error: #ef4444;
+      --brand-color-error-bg: #121212;
+      --brand-color-error-border: #383838;
+      --brand-color-error-hover: #ef4444;
+      --brand-color-error-active: #ef4444;
+      --brand-color-info: #38bdf8;
+      --brand-color-info-bg: #121212;
+      --brand-color-info-border: #383838;
+      --brand-color-link: #38bdf8;
+      --brand-color-link-hover: #38bdf8;
+      --brand-color-link-active: #38bdf8;
+      --brand-color-text: #ededed;
+      --brand-color-text-secondary: #a1a1a1;
+      --brand-color-text-tertiary: #a1a1a1;
+      --brand-color-text-quaternary: #737373;
+      --brand-color-fill: #222222;
+      --brand-color-fill-secondary: #181818;
+      --brand-color-fill-tertiary: #121212;
+      --brand-color-fill-quaternary: #121212;
+      --brand-color-bg-layout: #0a0a0a;
+      --brand-color-bg-container: #121212;
+      --brand-color-bg-elevated: #202020;
+      --brand-color-border: #737373;
+      --brand-color-border-secondary: #181818;
+      --brand-font-family: Plus Jakarta Sans, Space Grotesk, system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      --brand-font-family-code: 'JetBrains Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      --brand-font-size: 16px;
+      --brand-font-size-sm: 14px;
+      --brand-font-size-lg: 20px;
+      --brand-font-size-xl: 24px;
+      --brand-font-size-heading-1: 44px;
+      --brand-font-size-heading-2: 36px;
+      --brand-font-size-heading-3: 30px;
+      --brand-font-size-heading-4: 24px;
+      --brand-font-size-heading-5: 20px;
+      --brand-line-height: 1.5;
+      --brand-line-height-heading: 1.2222222222222223;
+      --brand-font-weight-strong: 600;
+      --brand-size-xxs: 4px;
+      --brand-size-xs: 8px;
+      --brand-size-sm: 12px;
+      --brand-size: 16px;
+      --brand-size-md: 20px;
+      --brand-size-lg: 24px;
+      --brand-size-xl: 32px;
+      --brand-size-xxl: 48px;
+      --brand-border-radius-xs: 0px;
+      --brand-border-radius-sm: 0px;
+      --brand-border-radius: 0px;
+      --brand-border-radius-lg: 0px;
+      --brand-line-width: 1px;
+      --brand-control-height-xs: 16px;
+      --brand-control-height-sm: 24px;
+      --brand-control-height: 32px;
+      --brand-control-height-lg: 40px;
+      --brand-motion-duration-fast: 0.12s;
+      --brand-motion-duration-mid: 0.24s;
+      --brand-motion-duration-slow: 0.36s;
+      --brand-motion-ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+      --brand-motion-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+      --brand-primary-palette-1: #121212;
+      --brand-primary-palette-2: #181818;
+      --brand-primary-palette-3: #383838;
+      --brand-primary-palette-4: #383838;
+      --brand-primary-palette-5: #00b853;
+      --brand-primary-palette-6: #00cc5c;
+      --brand-primary-palette-7: #00e065;
+      --brand-primary-palette-8: #00e065;
+      --brand-primary-palette-9: #00cc5c;
+      --brand-primary-palette-10: #00cc5c
+    }
+      :root { --display-family: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif, var(--brand-font-family); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: var(--brand-font-family);
+        font-size: var(--brand-font-size);
+        line-height: var(--brand-line-height);
+        color: var(--brand-color-text);
+        background: var(--brand-color-bg-layout);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      a { color: var(--brand-color-link); text-decoration: none; }
+      h1, h2, h3, h4 {
+        margin: 0;
+        font-family: var(--display-family);
+        line-height: var(--brand-line-height-heading);
+        font-weight: var(--brand-font-weight-strong);
+        color: var(--brand-color-text);
+        overflow-wrap: break-word;
+      }
+      p { margin: 0; overflow-wrap: break-word; }
+      img, svg { max-width: 100%; display: block; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding-left: clamp(20px, 4vw, 40px); padding-right: clamp(20px, 4vw, 40px); }
+      .kicker {
+        display: block;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: var(--brand-font-size-sm);
+        font-weight: var(--brand-font-weight-strong);
+        color: var(--brand-color-primary);
+        margin-bottom: var(--brand-size-sm);
+      }
+      .clamp-2, .clamp-3 { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+      .clamp-2 { -webkit-line-clamp: 2; }
+      .clamp-3 { -webkit-line-clamp: 3; }
+      a[role="button"]{transition:filter .15s ease,transform .15s ease}
+a[role="button"]:hover{filter:brightness(1.07)}
+a[role="button"]:active{filter:brightness(.95);transform:translateY(0.5px)}
+input:focus,textarea:focus,select:focus{border-color:var(--brand-color-primary)!important;box-shadow:0 0 0 3px var(--brand-color-primary-bg);outline:none}
+details.kit-acc>summary{list-style:none;cursor:pointer}
+details.kit-acc>summary::-webkit-details-marker{display:none}
+details.kit-acc .kit-acc-icon{transition:transform .18s ease}
+details.kit-acc[open] .kit-acc-icon{transform:rotate(45deg)}
+      img{border:0;outline:none;text-decoration:none;}table{border-spacing:0;}
+    </style>
+  </head>
+  <body>
+    <!-- hidden preheader: earns the open, complements the subject, never repeats it -->
+    <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:var(--brand-color-bg-layout);opacity:0;">A dark-only web design system for engineering interfaces. Square geometry, a 4px spacing scale and dense tables use one green accent for actions, selection, focus and healthy status. Information uses blue; warning and failure use distinct semantic roles. Space Grotesk, Plus Jakarta Sans and JetBrains Mono are bundled locally with English and Vietnamese glyph coverage. Token values are defined in tokens.measured.json; CSS and compatibility exports are generated by the project build. Accessibility requirements are component-specific and supported by measured contrast, keyboard behavior and responsive tests.</div>
+    <!-- whitespace eater so the body copy does not leak into the inbox preview -->
+    <div style="display:none;max-height:0;overflow:hidden;">&#847;&#8204;&#160;&#847;&#8204;&#160;&#847;&#8204;&#160;&#847;&#8204;&#160;&#847;&#8204;&#160;&#847;&#8204;&#160;&#847;&#8204;&#160;</div>
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:var(--brand-color-bg-layout);margin:0;padding:0;">
+      <tr>
+        <td align="center" style="padding:var(--brand-size-xl) var(--brand-size-md);">
+          <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background:var(--brand-color-bg-container);border:var(--brand-line-width) solid var(--brand-color-border-secondary);border-radius:var(--brand-border-radius-lg);overflow:hidden;">
+
+            <!-- Header: logo only, generous whitespace, no nav -->
+            <tr>
+              <td style="padding:var(--brand-size-lg) var(--brand-size-xl);text-align:center;border-bottom:var(--brand-line-width) solid var(--brand-color-border-secondary);">
+                <span style="font-family:var(--display-family);font-weight:var(--brand-font-weight-strong);font-size:var(--brand-font-size-lg);letter-spacing:-0.01em;color:var(--brand-color-text);white-space:nowrap;">M.O.B Signal</span>
+              </td>
+            </tr>
+
+            <!-- Hero: inverted pyramid — conclusion first, then why it matters, then the one CTA -->
+            <tr>
+              <td style="padding:var(--brand-size-xxl) var(--brand-size-xl) var(--brand-size-lg);text-align:center;background:var(--brand-color-primary-bg);">
+                <p style="margin:0 0 var(--brand-size-sm);font-family:var(--brand-font-family);text-transform:uppercase;letter-spacing:0.16em;font-size:var(--brand-font-size-sm);font-weight:var(--brand-font-weight-strong);color:var(--brand-color-primary);">Precise</p>
+                <h1 style="margin:0 0 var(--brand-size-md);font-family:var(--display-family);font-size:var(--brand-font-size-heading-2);line-height:1.15;letter-spacing:-0.015em;color:var(--brand-color-text);">Sharp, square, dark-mode product UI with one disciplined neon accent.</h1>
+                <p style="margin:0 auto var(--brand-size-xl);max-width:46ch;font-family:var(--brand-font-family);font-size:var(--brand-font-size-lg);line-height:1.55;color:var(--brand-color-text-secondary);">A dark-only web design system for engineering interfaces. Square geometry, a 4px spacing scale and dense tables use one green accent for actions, selection, focus and healthy status. Information uses blue; warning and failure use distinct semantic roles. Space Grotesk, Plus Jakarta Sans and JetBrains Mono are bundled locally with English and Vietnamese glyph coverage. Token values are defined in tokens.measured.json; CSS and compatibility exports are generated by the project build. Accessibility requirements are component-specific and supported by measured contrast, keyboard behavior and responsive tests.</p>
+                <!-- the one primary CTA, above the fold -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;border-collapse:separate;line-height:100%;">
+                    <tr>
+                      <td align="center" bgcolor="var(--brand-color-primary)" style="border-radius:var(--brand-border-radius-lg);">
+                        <a href="#" target="_blank" style="display:inline-block;min-width:200px;padding:16px var(--brand-size-xl);font-family:var(--brand-font-family);font-size:var(--brand-font-size-lg);font-weight:var(--brand-font-weight-strong);line-height:1.1;color:#000000;text-decoration:none;text-align:center;border-radius:var(--brand-border-radius-lg);border:2px solid var(--brand-color-primary);">Get started with M.O.B Signal</a>
+                      </td>
+                    </tr>
+                  </table>
+              </td>
+            </tr>
+
+            <!-- Body: scannable, human, one idea per block -->
+            <tr>
+              <td style="padding:var(--brand-size-xl) var(--brand-size-xl) var(--brand-size-sm);">
+                <p style="margin:0 0 var(--brand-size-md);font-family:var(--brand-font-family);font-size:16px;line-height:1.6;color:var(--brand-color-text);">Hi there,</p>
+                <p style="margin:0 0 var(--brand-size-lg);font-family:var(--brand-font-family);font-size:16px;line-height:1.6;color:var(--brand-color-text-secondary);">Here is what M.O.B Signal gives your team from the first day — no migration project, no setup tax:</p>
+
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+<tr>
+                <td valign="top" style="width:40px;padding:var(--brand-size-sm) var(--brand-size-sm) var(--brand-size-sm) 0;"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="var(--brand-color-primary)" stroke-width="1.5" opacity="0.45"/><path d="M6 10.2l2.6 2.6L14.2 7.4" stroke="var(--brand-color-primary)" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/></svg></td>
+                <td valign="top" style="padding:var(--brand-size-sm) 0;">
+                  <p style="margin:0 0 4px;font-family:var(--brand-font-family);font-size:var(--brand-font-size-lg);font-weight:var(--brand-font-weight-strong);color:var(--brand-color-text);line-height:1.3;">One accent, used with intent - one green #00cc5c marks the action, the selection, the focus and the healthy state, and nothing else gets it. What separates an action from a state is the word, the shape and the icon, not a second shade of green.</p>
+                  <p style="margin:0;font-family:var(--brand-font-family);font-size:16px;color:var(--brand-color-text-secondary);line-height:1.55;">One accent, used with intent - one green #00cc5c marks the action, the selection, the focus and the healthy state, and nothing else gets it. What separates an action from a state is the word, the shape and the icon, not a second shade of green.</p>
+                </td>
+              </tr>
+<tr>
+                <td valign="top" style="width:40px;padding:var(--brand-size-sm) var(--brand-size-sm) var(--brand-size-sm) 0;"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="var(--brand-color-primary)" stroke-width="1.5" opacity="0.45"/><path d="M6 10.2l2.6 2.6L14.2 7.4" stroke="var(--brand-color-primary)" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/></svg></td>
+                <td valign="top" style="padding:var(--brand-size-sm) 0;">
+                  <p style="margin:0 0 4px;font-family:var(--brand-font-family);font-size:var(--brand-font-size-lg);font-weight:var(--brand-font-weight-strong);color:var(--brand-color-text);line-height:1.3;">Square architecture - strict 0px radius and 1px rules communicate precision; rounding anything reintroduces the generic SaaS look.</p>
+                  <p style="margin:0;font-family:var(--brand-font-family);font-size:16px;color:var(--brand-color-text-secondary);line-height:1.55;">Square architecture - strict 0px radius and 1px rules communicate precision; rounding anything reintroduces the generic SaaS look is built into M.O.B Signal from day one — not bolted on later.</p>
+                </td>
+              </tr>
+<tr>
+                <td valign="top" style="width:40px;padding:var(--brand-size-sm) var(--brand-size-sm) var(--brand-size-sm) 0;"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="var(--brand-color-primary)" stroke-width="1.5" opacity="0.45"/><path d="M6 10.2l2.6 2.6L14.2 7.4" stroke="var(--brand-color-primary)" stroke-width="1.6" stroke-linecap="butt" stroke-linejoin="miter"/></svg></td>
+                <td valign="top" style="padding:var(--brand-size-sm) 0;">
+                  <p style="margin:0 0 4px;font-family:var(--brand-font-family);font-size:var(--brand-font-size-lg);font-weight:var(--brand-font-weight-strong);color:var(--brand-color-text);line-height:1.3;">Density with breathing room - high-information tables and panels on a 4px grid, with contrast and focus states doing the work that shadows usually take.</p>
+                  <p style="margin:0;font-family:var(--brand-font-family);font-size:16px;color:var(--brand-color-text-secondary);line-height:1.55;">Density with breathing room - high-information tables and panels on a 4px grid, with contrast and focus states doing the work that shadows usually take is built into M.O.B Signal from day one — not bolted on later.</p>
+                </td>
+              </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- One named proof point: a person beats a paragraph of adjectives -->
+            <tr>
+              <td style="padding:0 var(--brand-size-xl) var(--brand-size-lg);">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="padding:var(--brand-size-lg);background:var(--brand-color-fill-quaternary);border-left:3px solid var(--brand-color-primary);border-radius:var(--brand-border-radius);">
+                      <p style="margin:0 0 var(--brand-size-sm);font-family:var(--brand-font-family);font-size:var(--brand-font-size-lg);line-height:1.55;color:var(--brand-color-text);">&ldquo;M.O.B Signal is the first tool here that actually feels precise. It was part of our daily flow inside a week.&rdquo;</p>
+                      <p style="margin:0;font-family:var(--brand-font-family);font-size:var(--brand-font-size-sm);color:var(--brand-color-text-tertiary);"><strong style="color:var(--brand-color-text);font-weight:var(--brand-font-weight-strong);">Maya Chen</strong> &middot; Head of Design, Northwind</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- CTA repeated once near the end — same single action -->
+            <tr>
+              <td style="padding:var(--brand-size-sm) var(--brand-size-xl) var(--brand-size-xl);text-align:center;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;border-collapse:separate;line-height:100%;">
+                    <tr>
+                      <td align="center" bgcolor="var(--brand-color-primary)" style="border-radius:var(--brand-border-radius-lg);">
+                        <a href="#" target="_blank" style="display:inline-block;min-width:200px;padding:16px var(--brand-size-xl);font-family:var(--brand-font-family);font-size:var(--brand-font-size-lg);font-weight:var(--brand-font-weight-strong);line-height:1.1;color:#000000;text-decoration:none;text-align:center;border-radius:var(--brand-border-radius-lg);border:2px solid var(--brand-color-primary);">Get started with M.O.B Signal</a>
+                      </td>
+                    </tr>
+                  </table>
+                <p style="margin:var(--brand-size-md) 0 0;font-family:var(--brand-font-family);font-size:var(--brand-font-size-sm);color:var(--brand-color-text-tertiary);line-height:1.5;">Questions? Just reply to this email — a real person reads every message.</p>
+              </td>
+            </tr>
+
+            <!-- Footer: working unsubscribe + physical address placeholder + brand -->
+<tr>
+            <td style="padding:var(--brand-size-xl) var(--brand-size-xl);background:var(--brand-color-fill-quaternary);border-top:var(--brand-line-width) solid var(--brand-color-border-secondary);text-align:center;">
+              <p style="margin:0 0 var(--brand-size-xs);font-family:var(--brand-font-family);font-size:var(--brand-font-size-sm);color:var(--brand-color-text-tertiary);line-height:1.5;">You are receiving this because you signed up to hear from M.O.B Signal.</p>
+              <p style="margin:0 0 var(--brand-size-xs);font-family:var(--brand-font-family);font-size:var(--brand-font-size-sm);color:var(--brand-color-text-tertiary);line-height:1.5;"><a href="#" target="_blank" style="color:var(--brand-color-text-tertiary);text-decoration:underline;">Update preferences</a> &nbsp;&middot;&nbsp; <a href="#" target="_blank" style="color:var(--brand-color-text-tertiary);text-decoration:underline;">Unsubscribe</a></p>
+              <p style="margin:0;font-family:var(--brand-font-family);font-size:var(--brand-font-size-sm);color:var(--brand-color-text-quaternary);line-height:1.5;">M.O.B Signal &middot; 100 Market Street, Suite 200 &middot; product</p>
+            </td>
+          </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+
+  </body>
+</html>

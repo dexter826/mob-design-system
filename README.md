@@ -6,7 +6,7 @@
 
 [![Node.js](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org)
 [![React](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://react.dev)
-[![Version](https://img.shields.io/badge/version-1.7.0-black.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-2.0.0-black.svg)](package.json)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
 <p>A dark, square design system for engineering consoles and data-dense interfaces.</p>
@@ -21,11 +21,11 @@ styles, overlays, local fonts, brand assets, and optional browser utilities.
 
 | Buttons & Actions | Form Controls |
 | :---: | :---: |
-| ![Buttons](preview/sections/01-buttons.png) | ![Form Controls](preview/sections/02-form-controls.png) |
+| ![Buttons](showcase/pages/sections/01-buttons.png) | ![Form Controls](showcase/pages/sections/02-form-controls.png) |
 | **Cards & Pricing** | **Navigation & Tabs** |
-| ![Cards & Pricing](preview/sections/03-cards.png) | ![Navigation](preview/sections/05-navigation.png) |
+| ![Cards & Pricing](showcase/pages/sections/03-cards.png) | ![Navigation](showcase/pages/sections/05-navigation.png) |
 | **Data Display & Tables** | **Color Palette** |
-| ![Data Display](preview/sections/06-data-display.png) | ![Color Palette](preview/sections/04-colors.png) |
+| ![Data Display](showcase/pages/sections/06-data-display.png) | ![Color Palette](showcase/pages/sections/04-colors.png) |
 
 ## Features
 
@@ -134,10 +134,12 @@ new interface patterns.
 | :--- | :--- |
 | [`BRAND.md`](BRAND.md) | Visual language, token roles, component behavior, accessibility, and asset usage |
 | [`tokens.measured.json`](tokens.measured.json) | Token source values and measurements |
-| `colors_and_type.css` | Foundation design-token custom properties |
-| `components.css` | Shared component styles |
-| `overlays.css` | Dialog, tooltip, and popover styles |
-| `tailwind.css` | Tailwind CSS v4 design tokens |
+| [`dist/colors_and_type.css`](dist/colors_and_type.css) | Foundation design-token custom properties |
+| [`dist/components.css`](dist/components.css) | Shared component styles |
+| [`dist/overlays.css`](dist/overlays.css) | Dialog, tooltip, and popover styles |
+| [`dist/tailwind.css`](dist/tailwind.css) | Tailwind CSS v4 design tokens |
+| [`registry/`](registry/) | shadcn/ui React components (Button, Input, Table, Badge, Dialog, Tabs) |
+| [`showcase/`](showcase/) | Design system showcase hub and preview pages |
 | `assets/components.js` | Framework-neutral tab navigation utility |
 | [`fonts/`](fonts/) | Bundled fonts, manifest, and licenses |
 | [`logos/`](logos/) | Vector and raster brand assets |
