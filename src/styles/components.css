@@ -1,0 +1,1918 @@
+/* Shared component recipes. Token authority: tokens.measured.json. */
+
+/* The source ships the square reset as a blanket `!important` rule. Reproduced
+   here at zero specificity with :where() so the sheet enforces 0px without
+   out-specifying a consumer, then stated inline on every control. */
+:where(*, *::before, *::after) {
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+/* Text selection is a browser affordance, not a brand signal, so it runs on the
+   neutral ramp rather than the accent: selection must not grab the accent. */
+::selection {
+  background-color: var(--mob-signal-surface-hover);
+  color: var(--mob-signal-foreground);
+}
+
+/* --------------------------------------------------------------------------
+   1. Measured primitives, carried so this sheet is self-sufficient
+   Transcribed from historical design input (not bundled)
+   Nothing new is added to these five recipes.
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mob-signal-space-2);
+  min-height: var(--mob-signal-control-height);
+  padding: var(--mob-signal-pad-button); /* 8px 16px, measured */
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 500;
+  line-height: 1;
+  border: var(--mob-signal-border-width) solid transparent;
+  border-radius: 0;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  text-decoration: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion),
+    color var(--mob-signal-motion);
+}
+
+.btn:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.btn-primary {
+  background-color: var(--mob-signal-primary);
+  border-color: var(--mob-signal-primary);
+  color: var(--mob-signal-text-on-primary);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: var(--mob-signal-primary-hover);
+  border-color: var(--mob-signal-primary-hover);
+}
+
+.btn-primary:active {
+  background-color: var(--mob-signal-primary-active);
+  border-color: var(--mob-signal-primary-active);
+}
+
+.btn-secondary {
+  background-color: var(--mob-signal-surface-subtle);
+  border-color: var(--mob-signal-border);
+  color: var(--mob-signal-foreground);
+}
+
+.btn-secondary:hover {
+  background-color: var(--mob-signal-surface-hover); /* #181818 -> #222222 */
+  border-color: var(--mob-signal-border-strong);
+}
+
+.btn-secondary:active {
+  background-color: var(--mob-signal-surface-elevated);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--mob-signal-text-secondary);
+}
+
+/* Verbatim from design-system.css. Recorded deviation, not a licence: this is
+   the one measured rule that brightens a label on hover, and BRAND.md §6 says
+   hover changes fill and border, not foreground. Kept because the source is the
+   authority on a recipe it defines; no authored recipe below copies it. */
+.btn-ghost:hover {
+  background-color: var(--mob-signal-surface-subtle);
+  color: var(--mob-signal-foreground);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.card {
+  padding: var(--mob-signal-pad-card);
+  background-color: var(--mob-signal-surface);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  box-shadow: var(--mob-signal-shadow-sm);
+}
+
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px; /* measured, off the 4px grid — kept verbatim per BRAND.md §10 */
+  font-family: var(--mob-signal-font-mono);
+  font-size: var(--mob-signal-text-xs);
+  line-height: 1;
+  color: var(--mob-signal-text-secondary);
+  background-color: var(--mob-signal-surface-subtle);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+/* DEVIATION, recorded not smoothed: design-system.css paints the kbd glyph with
+   --color-text-muted. #737373 measures 4.18:1 on canvas and 3.74:1 on this
+   chip's own #181818 fill, which fails AA at 12px, and context/contrast-
+   measured.md restricts muted to placeholder, disabled and 18px+ metadata. A
+   kbd chip is ordinary small text, so it renders at #a1a1a1 (6.87:1 here). */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--mob-signal-text-sm);
+  text-align: left;
+}
+
+.table th {
+  padding: 10px var(--mob-signal-space-4); /* measured, off-grid — verbatim */
+  font-size: var(--mob-signal-text-xs);
+  font-weight: 500;
+  color: var(--mob-signal-text-secondary);
+  background-color: var(--mob-signal-surface-subtle);
+  border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: var(--mob-signal-pad-cell); /* 12px 16px, measured */
+  color: var(--mob-signal-foreground);
+  border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  font-variant-numeric: tabular-nums;
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover td {
+  background-color: var(--mob-signal-row-hover);
+}
+
+/* --------------------------------------------------------------------------
+   2. Icon slot
+   The contract declares icon metrics as AUTHORED and names a sprite at
+   assets/icons/icons.svg that the archive never shipped, and this system bans
+   icon fonts and CDNs. So the glyph is drawn from 1px rules on a pseudo-element
+   in currentColor. Rotation here orients a static glyph; it is never animated
+   and never tied to aria-expanded.
+   -------------------------------------------------------------------------- */
+
+[data-icon] {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: var(--mob-signal-icon-sm);  /* 16px slot */
+  height: var(--mob-signal-icon-sm);
+  color: var(--mob-signal-text-secondary);
+}
+
+[data-icon]::before {
+  content: "";
+  /* 6px is a glyph metric inside the 16px slot, not layout spacing. */
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-radius: 0;
+}
+
+[data-icon="i-chevron-down"]::before,
+[data-icon="i-chevron-right"]::before {
+  border-right: var(--mob-signal-border-width) solid currentColor;
+  border-bottom: var(--mob-signal-border-width) solid currentColor;
+}
+
+[data-icon="i-chevron-up"]::before,
+[data-icon="i-chevron-left"]::before {
+  border-left: var(--mob-signal-border-width) solid currentColor;
+  border-top: var(--mob-signal-border-width) solid currentColor;
+}
+
+[data-icon="i-chevron-down"]::before,
+[data-icon="i-chevron-up"]::before {
+  transform: rotate(45deg);
+}
+
+[data-icon="i-chevron-right"]::before,
+[data-icon="i-chevron-left"]::before {
+  transform: rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   3. Field primitives — label, field, hint, error, required, disabled
+   .form-group / .form-label / .form-hint and the whole .input anatomy are
+   MEASURED. The error, required and disabled field states are AUTHORED
+   from the measured error hue and the measured button opacity, exactly as
+   BRAND.md §10 flags them.
+   -------------------------------------------------------------------------- */
+
+.field {
+  display: grid;
+  gap: var(--mob-signal-space-2); /* measured 8px between label, field, hint */
+}
+
+.field-label {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--mob-signal-space-2);
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 500;
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+}
+
+/* Required is a word, not a coloured asterisk: a hue alone may not carry state,
+   and #ef4444 would fail the copy rule as well. The browser's :required
+   pseudo-class is deliberately unstyled. */
+.field-note {
+  font-size: var(--mob-signal-text-xs);
+  font-weight: 400;
+  line-height: var(--mob-signal-line-xs);
+  color: var(--mob-signal-text-secondary);
+}
+
+.field-hint {
+  margin: 0;
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  font-weight: 400;
+  color: var(--mob-signal-text-secondary); /* #a1a1a1, never muted, at 12px */
+}
+
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: var(--mob-signal-space-2);
+  margin: 0;
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  color: var(--mob-signal-error);
+}
+
+/* The icon half of the invalid signal: a 12px square carrying a bang, drawn in
+   currentColor, plus the sentence that states the fix. WCAG 1.4.11 is met twice
+   over here — error hue clears 3:1 on canvas (5.26:1) and the words say it. */
+.field-error::before {
+  content: "!";
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: var(--mob-signal-space-3);
+  height: var(--mob-signal-space-3);
+  font-family: var(--mob-signal-font-mono);
+  font-size: var(--mob-signal-text-xs);
+  line-height: 1;
+  color: var(--mob-signal-error);
+  border: var(--mob-signal-border-width) solid currentColor;
+  border-radius: 0;
+}
+
+/* Field anatomy — MEASURED on .input, reused by every box-shaped control.
+   The field is #0a0a0a on a #121212 panel: fill plus border, so identification
+   does not rest on the 1.31:1 hairline alone. */
+.input,
+.input-field,
+.select__field,
+.date__field,
+.upload__field {
+  width: 100%;
+  min-height: var(--mob-signal-control-height);
+  padding: var(--mob-signal-pad-input);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+  background-color: var(--mob-signal-background);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  outline: none;
+  transition:
+    border-color var(--mob-signal-motion),
+    box-shadow var(--mob-signal-motion);
+}
+
+/* Hover on a text field steps the BORDER only. That is the measured .input
+   recipe; the fill half of the hover rule belongs to controls whose fill is
+   the identifier (box, radio, switch, segmented, accordion header). */
+.input:hover,
+.input-field:hover,
+.select__field:hover,
+.date__field:hover,
+.upload__field:hover {
+  border-color: var(--mob-signal-border-strong);
+}
+
+/* Focused text field: the OTHER documented recipe — accent border plus a 1px
+   ring, zero layout shift, and NOT the 2px/4px keyboard ring. Never mix them. */
+.input:focus-visible,
+.input-field:focus-visible,
+.select__field:focus-visible,
+.date__field:focus-visible,
+.upload__field:focus-visible,
+.input:focus,
+.input-field:focus,
+.select__field:focus,
+.date__field:focus,
+.upload__field:focus,
+.is-open > .select__field,
+.is-open > .date__field,
+[aria-expanded="true"].select__field,
+[aria-expanded="true"].date__field {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border-color: var(--mob-signal-border-focus);
+  box-shadow: 0 0 0 var(--mob-signal-border-width) var(--mob-signal-border-focus);
+}
+
+.input::placeholder,
+.input-field::placeholder,
+.date__field::placeholder {
+  color: var(--mob-signal-text-secondary);
+}
+
+/* Invalid field. Error hue on the border, paired with a .field-error message. */
+.input[aria-invalid="true"],
+.input-field[aria-invalid="true"],
+.select__field[aria-invalid="true"],
+.date__field[aria-invalid="true"],
+.upload__field[aria-invalid="true"],
+.upload__drop:has(.upload__field[aria-invalid="true"]) {
+  border-color: var(--mob-signal-error);
+}
+
+.input[aria-invalid="true"]:hover,
+.input-field[aria-invalid="true"]:hover,
+.select__field[aria-invalid="true"]:hover,
+.date__field[aria-invalid="true"]:hover,
+.upload__field[aria-invalid="true"]:hover {
+  border-color: var(--mob-signal-error);
+}
+
+/* Disabled field trio: opacity from the measured button rule, label and hint
+   drop to muted, which is legal because disabled text is a muted use. */
+.field.is-disabled .field-label,
+.field.is-disabled .field-note,
+.field.is-disabled .field-hint {
+  color: var(--mob-signal-muted);
+}
+
+.field.is-disabled .field-error {
+  color: var(--mob-signal-text-secondary);
+}
+
+.field.is-disabled .field-error::before {
+  color: var(--mob-signal-text-secondary);
+}
+
+.input:disabled,
+.input-field:disabled,
+.select__field:disabled,
+.date__field:disabled,
+.upload__field:disabled,
+fieldset:disabled .input,
+fieldset:disabled .input-field {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Optional size hooks on the documented module: 28 and 40 exist, 32 is default. */
+.is-sm {
+  min-height: var(--mob-signal-control-height-sm);
+  padding: var(--mob-signal-space-1) var(--mob-signal-space-2);
+  font-size: var(--mob-signal-text-xs);
+}
+
+.is-lg {
+  min-height: var(--mob-signal-control-height-lg);
+  padding: var(--mob-signal-space-3) var(--mob-signal-space-4);
+  font-size: var(--mob-signal-text-base);
+  line-height: var(--mob-signal-line-base);
+}
+
+/* --------------------------------------------------------------------------
+   4. Checkbox — AUTHORED except the 16px size and the accent reading
+   16px box, #0a0a0a fill, 1px #262626 border, square check drawn from two
+   strokes in #000000 on the accent fill (the measured button label recipe,
+   12.43:1). Indeterminate is a minus, never a tick at low opacity.
+   -------------------------------------------------------------------------- */
+
+.checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--mob-signal-space-2);
+  min-height: var(--mob-signal-target-min); /* 24px pointer box, WCAG 2.2.2 */
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+  cursor: pointer;
+}
+
+.checkbox__input {
+  position: relative;
+  flex: none;
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid;
+  place-content: center;
+  width: 16px;   /* measured */
+  height: 16px;  /* measured */
+  margin: 2px 0 0; /* optical centring on the 20px line */
+  background-color: var(--mob-signal-background);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.checkbox__input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: var(--mob-signal-target-min, 24px);
+  min-height: var(--mob-signal-target-min, 24px);
+}
+
+@media (pointer: coarse) {
+  .checkbox__input::before {
+    min-width: var(--mob-signal-target-touch, 44px);
+    min-height: var(--mob-signal-target-touch, 44px);
+  }
+}
+
+.checkbox__input::after {
+  content: "";
+  display: none;
+  box-sizing: border-box;
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid var(--mob-signal-text-on-primary);
+  border-bottom: 2px solid var(--mob-signal-text-on-primary);
+  border-radius: 0;
+  transform: rotate(-45deg) translate(1px, -2px);
+}
+
+.checkbox__input:hover:not(:disabled) {
+  background-color: var(--mob-signal-surface-subtle); /* canvas -> one step up */
+  border-color: var(--mob-signal-border-strong);
+}
+
+.checkbox__input:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.checkbox__input:active:not(:disabled) {
+  background-color: var(--mob-signal-surface-elevated);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.checkbox__input:checked,
+.checkbox__input:indeterminate,
+.checkbox__input.is-indeterminate {
+  background-color: var(--mob-signal-primary);
+  border-color: var(--mob-signal-primary);
+}
+
+.checkbox__input:checked::after,
+.checkbox__input:indeterminate::after,
+.checkbox__input.is-indeterminate::after {
+  display: block;
+}
+
+.checkbox__input:checked:hover:not(:disabled),
+.checkbox__input:indeterminate:hover:not(:disabled),
+.checkbox__input.is-indeterminate:hover:not(:disabled) {
+  background-color: var(--mob-signal-primary-hover);
+  border-color: var(--mob-signal-primary-hover);
+}
+
+.checkbox__input:checked:active:not(:disabled),
+.checkbox__input:indeterminate:active:not(:disabled),
+.checkbox__input.is-indeterminate:active:not(:disabled) {
+  background-color: var(--mob-signal-primary-active);
+  border-color: var(--mob-signal-primary-active);
+}
+
+/* Indeterminate replaces the tick with a minus on the same accent fill. The
+   DOM property .indeterminate needs script to set, so the class form mirrors it
+   for static review; :indeterminate stays in the selector list for real apps. */
+.checkbox__input:indeterminate::after,
+.checkbox__input.is-indeterminate::after {
+  width: 8px;
+  height: 2px;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--mob-signal-text-on-primary);
+  transform: none;
+}
+
+.checkbox__input[aria-invalid="true"] {
+  border-color: var(--mob-signal-error);
+}
+
+.checkbox__input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Disabled-and-on stays legible without the accent: the accent is for the live
+   selected state, so a locked box drops to the neutral ramp and its mark to
+   foreground. Same for the radio dot and the switch track. */
+.checkbox__input:disabled:checked,
+.checkbox__input:disabled:indeterminate,
+.checkbox__input.is-indeterminate:disabled {
+  background-color: var(--mob-signal-surface-elevated);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.checkbox__input:disabled:checked::after {
+  border-color: var(--mob-signal-foreground);
+}
+
+.checkbox__input:disabled:indeterminate::after,
+.checkbox__input.is-indeterminate:disabled::after {
+  background-color: var(--mob-signal-foreground);
+}
+
+.checkbox.is-disabled,
+.checkbox:has(.checkbox__input:disabled) {
+  color: var(--mob-signal-muted);
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   5. Radio — AUTHORED
+   A SQUARE control with a SQUARE dot. The source resets border-radius to 0 on
+   every element with !important, so the round radio is not available to this
+   brand; the square is the system's defining move, not a defect to repair.
+   -------------------------------------------------------------------------- */
+
+.radio-group {
+  display: grid;
+  gap: var(--mob-signal-space-2);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+}
+
+.radio-group__legend {
+  grid-column: 1 / -1;
+  padding: 0;
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 500;
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+}
+
+.radio {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--mob-signal-space-2);
+  min-height: var(--mob-signal-target-min);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+  cursor: pointer;
+}
+
+.radio__input {
+  position: relative;
+  flex: none;
+  appearance: none;
+  -webkit-appearance: none;
+  display: grid;
+  place-content: center;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  background-color: var(--mob-signal-background);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.radio__input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: var(--mob-signal-target-min, 24px);
+  min-height: var(--mob-signal-target-min, 24px);
+}
+
+@media (pointer: coarse) {
+  .radio__input::before {
+    min-width: var(--mob-signal-target-touch, 44px);
+    min-height: var(--mob-signal-target-touch, 44px);
+  }
+}
+
+.radio__input::after {
+  content: "";
+  display: none;
+  width: 8px;
+  height: 8px;
+  background-color: var(--mob-signal-primary);
+  border-radius: 0;
+}
+
+.radio__input:hover:not(:disabled) {
+  background-color: var(--mob-signal-surface-subtle);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.radio__input:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.radio__input:active:not(:disabled) {
+  background-color: var(--mob-signal-surface-elevated);
+}
+
+.radio__input:checked {
+  border-color: var(--mob-signal-primary); /* selected border is accent */
+}
+
+.radio__input:checked::after {
+  display: block;
+}
+
+.radio__input:checked:hover:not(:disabled),
+.radio__input:checked:active:not(:disabled) {
+  background-color: var(--mob-signal-surface-subtle);
+  border-color: var(--mob-signal-primary-hover);
+}
+
+.radio__input[aria-invalid="true"] {
+  border-color: var(--mob-signal-error);
+}
+
+.radio__input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.radio__input:disabled:checked::after {
+  background-color: var(--mob-signal-foreground);
+}
+
+.radio__input:disabled:checked {
+  border-color: var(--mob-signal-border-strong);
+}
+
+.radio.is-disabled,
+.radio:has(.radio__input:disabled) {
+  color: var(--mob-signal-muted);
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   6. Switch — AUTHORED
+   40x20 SQUARE track, 14px SQUARE thumb. Off = #181818 track + #383838 border,
+   on = accent track. The thumb inverts with the track so it clears 3:1 against
+   it in both states: #ededed on #181818 is 15.17:1, #000000 on the accent is
+   12.43:1. The thumb does not travel on a transition — the source allows motion
+   on background-color, border-color and color only, so it lands instantly.
+   -------------------------------------------------------------------------- */
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--mob-signal-space-2);
+  min-height: var(--mob-signal-target-min);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+  cursor: pointer;
+}
+
+.switch__input {
+  position: relative;
+  flex: none;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;  /* --space-10 */
+  height: 20px; /* --space-5 */
+  margin: 0;
+  background-color: var(--mob-signal-surface-subtle);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border-strong);
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.switch__input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 40px;
+  min-height: var(--mob-signal-target-min, 24px);
+}
+
+@media (pointer: coarse) {
+  .switch__input::before {
+    min-height: var(--mob-signal-target-touch, 44px);
+  }
+}
+
+.switch__input::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--mob-signal-foreground);
+  border-radius: 0;
+  transition: background-color var(--mob-signal-motion);
+}
+
+.switch__input:hover:not(:disabled) {
+  background-color: var(--mob-signal-surface-hover); /* #181818 -> #222222 */
+}
+
+.switch__input:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.switch__input:active:not(:disabled) {
+  background-color: var(--mob-signal-surface-elevated);
+}
+
+.switch__input:checked {
+  background-color: var(--mob-signal-primary);
+  border-color: var(--mob-signal-primary);
+}
+
+.switch__input:checked::after {
+  left: 22px; /* 40 - 2px border - 2 x 2px inset - 14px thumb; instant, not animated */
+  background-color: var(--mob-signal-text-on-primary);
+}
+
+.switch__input:checked:hover:not(:disabled) {
+  background-color: var(--mob-signal-primary-hover);
+  border-color: var(--mob-signal-primary-hover);
+}
+
+.switch__input:checked:active:not(:disabled) {
+  background-color: var(--mob-signal-primary-active);
+  border-color: var(--mob-signal-primary-active);
+}
+
+.switch__input[aria-invalid="true"] {
+  border-color: var(--mob-signal-error);
+}
+
+.switch__input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.switch__input:disabled:checked {
+  background-color: var(--mob-signal-surface-elevated);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.switch__input:disabled:checked::after {
+  background-color: var(--mob-signal-foreground);
+}
+
+.switch.is-disabled,
+.switch:has(.switch__input:disabled) {
+  color: var(--mob-signal-muted);
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   7. Slider — AUTHORED
+   1px rail, square thumb, value stated as text. The filled run left of the
+   thumb is NOT drawn: a two-tone rail needs a gradient stop fed by script, and
+   this brand bans gradients and bans script in a recipe. So the value lives in
+   the tabular-figures readout, and the thumb is identified by fill and a 1px
+   foreground edge (16.91:1 on canvas), never by the 1.31:1 hairline alone.
+   -------------------------------------------------------------------------- */
+
+.slider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--mob-signal-space-3);
+  align-items: center;
+}
+
+.slider__input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: var(--mob-signal-control-height); /* 32px hit area around a 1px rail */
+  margin: 0;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.slider__input::-webkit-slider-runnable-track {
+  height: var(--mob-signal-border-width);
+  background-color: var(--mob-signal-border-strong);
+  border: 0;
+  border-radius: 0;
+  transition: background-color var(--mob-signal-motion);
+}
+
+.slider__input::-moz-range-track {
+  height: var(--mob-signal-border-width);
+  background-color: var(--mob-signal-border-strong);
+  border: 0;
+  border-radius: 0;
+  transition: background-color var(--mob-signal-motion);
+}
+
+.slider__input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px; /* centres the square on the 1px rail */
+  background-color: var(--mob-signal-surface-elevated);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-foreground);
+  border-radius: 0;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.slider__input::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: var(--mob-signal-surface-elevated);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-foreground);
+  border-radius: 0;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.slider__input:hover:not(:disabled)::-webkit-slider-thumb {
+  background-color: var(--mob-signal-surface-hover);
+}
+
+.slider__input:hover:not(:disabled)::-moz-range-thumb {
+  background-color: var(--mob-signal-surface-hover);
+}
+
+.slider__input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.slider__input:focus-visible::-moz-range-thumb {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+/* Pressed: the thumb fills in. No scale, no grow — a fill swap only. */
+.slider__input:active:not(:disabled)::-webkit-slider-thumb {
+  background-color: var(--mob-signal-foreground);
+}
+
+.slider__input:active:not(:disabled)::-moz-range-thumb {
+  background-color: var(--mob-signal-foreground);
+}
+
+.slider__input[aria-invalid="true"]::-webkit-slider-thumb {
+  border-color: var(--mob-signal-error);
+}
+
+.slider__input[aria-invalid="true"]::-moz-range-thumb {
+  border-color: var(--mob-signal-error);
+}
+
+.slider__input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.slider__value {
+  min-width: 5ch;
+  font-family: var(--mob-signal-font-mono);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--mob-signal-foreground);
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   8. Select — field anatomy MEASURED, opened menu AUTHORED
+   The native <select> carries the field recipe and a 32px chevron slot. CSS
+   cannot see the operating system's popup, so an app that needs the brand menu
+   authors a listbox on surface-elevated #202020 — that fill is documented for
+   popups in BRAND.md §1 — with #181818 hover and a 2px accent leading edge on
+   the selected option. The primary-subtle tint that often travels with a
+   selection is 1.16:1 on surface (context/contrast-measured.md), so it is
+   decoration: the 2px edge carries the state.
+   -------------------------------------------------------------------------- */
+
+.select {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.select__field {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: var(--mob-signal-space-8); /* 32px chevron slot */
+  cursor: pointer;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion),
+    box-shadow var(--mob-signal-motion);
+}
+
+.select__chevron,
+.date__chevron {
+  position: absolute;
+  top: 50%;
+  right: var(--mob-signal-space-3);
+  transform: translateY(-50%); /* static placement, not an animated rotation */
+  pointer-events: none;
+}
+
+.select__field:active:not(:disabled) {
+  border-color: var(--mob-signal-border-strong);
+}
+
+.select__field:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.select-menu {
+  z-index: var(--mob-signal-z-dropdown);
+  display: grid;
+  gap: 0;
+  min-width: 220px;
+  margin: var(--mob-signal-space-1) 0 0;
+  padding: var(--mob-signal-space-1) 0;
+  list-style: none;
+  background-color: var(--mob-signal-surface-elevated);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border-strong);
+  border-radius: 0;
+  box-shadow: var(--mob-signal-shadow-lg);
+}
+
+.select-menu__option {
+  display: flex;
+  align-items: center;
+  gap: var(--mob-signal-space-2);
+  min-height: var(--mob-signal-control-height);
+  padding: var(--mob-signal-pad-input);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+  background-color: transparent;
+  border: 0;
+  border-left: var(--mob-signal-border-width-thick) solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  text-align: left;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.select-menu__option:hover,
+.select-menu__option:focus-visible {
+  background-color: var(--mob-signal-surface-subtle); /* #181818 */
+}
+
+.select-menu__option:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.select-menu__option:active {
+  background-color: var(--mob-signal-surface-hover);
+}
+
+.select-menu__option[aria-selected="true"] {
+  border-left-color: var(--mob-signal-primary);
+  background-color: var(--mob-signal-primary-subtle);
+  font-weight: 500;
+}
+
+.select-menu__option:disabled,
+.select-menu__option[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.select-menu__group {
+  padding: var(--mob-signal-space-2) var(--mob-signal-space-3);
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  color: var(--mob-signal-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   9. Date picker — AUTHORED
+   Field + panel on #202020, seven-column month grid, square cells. Today is
+   marked with the WORD "Today" plus a 1px border-strong ring on its cell —
+   never with the accent, which is not a "today" marker in this system, and
+   never with a hue alone. Selected day is the accent fill with #000000 text,
+   the measured button recipe. The cells are real radios, so arrow keys move a
+   day at a time with no script.
+   -------------------------------------------------------------------------- */
+
+.date {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.date__field {
+  padding-right: var(--mob-signal-space-8);
+  font-family: var(--mob-signal-font-mono);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.date-panel {
+  z-index: var(--mob-signal-z-popover);
+  display: grid;
+  gap: var(--mob-signal-space-3);
+  width: 280px;
+  margin: var(--mob-signal-space-1) 0 0;
+  padding: var(--mob-signal-space-3);
+  background-color: var(--mob-signal-surface-elevated);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border-strong);
+  border-radius: 0;
+  box-shadow: var(--mob-signal-shadow-lg);
+}
+
+.date-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mob-signal-space-2);
+}
+
+.date-panel__month {
+  font-family: var(--mob-signal-font-display);
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 600;
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+}
+
+.date-panel__nav {
+  display: inline-grid;
+  place-items: center;
+  width: var(--mob-signal-control-height-sm);
+  height: var(--mob-signal-control-height-sm);
+  padding: 0;
+  background-color: transparent;
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.date-panel__nav:hover:not(:disabled) {
+  background-color: var(--mob-signal-surface-hover);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.date-panel__nav:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.date-panel__nav:active:not(:disabled) {
+  background-color: var(--mob-signal-background);
+}
+
+.date-panel__nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--mob-signal-space-1);
+}
+
+.date-grid__weekday {
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  color: var(--mob-signal-text-secondary);
+  text-align: center;
+}
+
+.date-cell {
+  position: relative;
+  display: grid;
+  cursor: pointer;
+}
+
+/* The native control covers its face: fully clickable, fully focusable, never
+   clipped, so it keeps both a 24px+ target and a visible ring. */
+.date-cell__source {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.date-cell__face {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  height: var(--mob-signal-control-height);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--mob-signal-foreground);
+  background-color: transparent;
+  border: var(--mob-signal-border-width) solid transparent;
+  border-radius: 0;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.date-cell.is-out .date-cell__face {
+  color: var(--mob-signal-text-secondary); /* muted would fail AA at 14px */
+}
+
+.date-cell__source:hover:not(:disabled) + .date-cell__face {
+  background-color: var(--mob-signal-surface-subtle);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.date-cell__source:focus-visible + .date-cell__face {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.date-cell:active .date-cell__face {
+  background-color: var(--mob-signal-surface-hover);
+}
+
+.date-cell[aria-current="date"] .date-cell__face,
+.date-cell__source[aria-current="date"] + .date-cell__face {
+  /* Today: a border plus the word in the legend below. Not the accent. */
+  border-color: var(--mob-signal-border-strong);
+  font-weight: 600;
+}
+
+.date-cell__source:checked + .date-cell__face {
+  color: var(--mob-signal-text-on-primary);
+  background-color: var(--mob-signal-primary);
+  border-color: var(--mob-signal-primary);
+  font-weight: 600;
+}
+
+.date-cell__source:checked:hover:not(:disabled) + .date-cell__face {
+  background-color: var(--mob-signal-primary-hover);
+  border-color: var(--mob-signal-primary-hover);
+}
+
+.date-cell__source:checked:active + .date-cell__face {
+  background-color: var(--mob-signal-primary-active);
+  border-color: var(--mob-signal-primary-active);
+}
+
+.date-cell__source:disabled + .date-cell__face {
+  opacity: 0.4;
+  color: var(--mob-signal-muted);
+}
+
+.date-panel__legend {
+  display: flex;
+  align-items: center;
+  gap: var(--mob-signal-space-2);
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  color: var(--mob-signal-text-secondary);
+}
+
+.date-panel__swatch {
+  flex: none;
+  width: var(--mob-signal-space-4);
+  height: var(--mob-signal-space-4);
+  background-color: transparent;
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border-strong);
+  border-radius: 0;
+}
+
+.date-panel__stamp {
+  font-family: var(--mob-signal-font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--mob-signal-foreground);
+}
+
+/* --------------------------------------------------------------------------
+   10. File upload — AUTHORED
+   Solid 1px border, no dashes: the source defines one hairline and one weight,
+   and a dashed rule is a pattern the brand never uses. So the drop target is
+   identified by its fill (#0a0a0a on the #121212 panel), its solid border, and
+   a corner label instead of a caption across the middle.
+   -------------------------------------------------------------------------- */
+
+.upload {
+  display: grid;
+  gap: var(--mob-signal-space-3);
+}
+
+.upload__drop {
+  position: relative;
+  display: grid;
+  gap: var(--mob-signal-space-2);
+  padding: var(--mob-signal-space-6);
+  background-color: var(--mob-signal-background);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.upload__drop:hover {
+  border-color: var(--mob-signal-border-strong);
+}
+
+.upload__drop.is-open {
+  border-color: var(--mob-signal-border-focus);
+  box-shadow: 0 0 0 var(--mob-signal-border-width) var(--mob-signal-border-focus);
+}
+
+.upload__drop:has(.upload__field:disabled) {
+  opacity: 0.4;
+}
+
+/* Corner label — 4px 8px stays on the spacing grid. */
+.upload__corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: var(--mob-signal-space-1) var(--mob-signal-space-2);
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  font-weight: 500;
+  color: var(--mob-signal-text-secondary);
+  background-color: var(--mob-signal-surface-subtle);
+  border-left: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+}
+
+.upload__lead {
+  max-width: 44ch;
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-text-secondary);
+}
+
+/* The 32px module is broken here on purpose: the measured button sits inside the
+   measured field padding, which makes the row 48px. That is the file input's
+   anatomy, not a new control size. */
+.upload__field {
+  font-family: var(--mob-signal-font-mono);
+  font-size: var(--mob-signal-text-xs);
+  color: var(--mob-signal-foreground);
+  cursor: pointer;
+}
+
+/* Written twice, never grouped: a selector list drops the WHOLE block in an
+   engine that fails to parse one of the two pseudos, so Firefox would lose the
+   button entirely if ::-webkit-file-upload-button shared the list with
+   ::file-selector-button. */
+.upload__field::file-selector-button {
+  margin-right: var(--mob-signal-space-2);
+  padding: var(--mob-signal-pad-button);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--mob-signal-foreground);
+  background-color: var(--mob-signal-surface-subtle);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion),
+    color var(--mob-signal-motion);
+}
+
+.upload__field::-webkit-file-upload-button {
+  margin-right: var(--mob-signal-space-2);
+  padding: var(--mob-signal-pad-button);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--mob-signal-foreground);
+  background-color: var(--mob-signal-surface-subtle);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion),
+    color var(--mob-signal-motion);
+}
+
+.upload__field:hover::file-selector-button {
+  background-color: var(--mob-signal-surface-hover);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.upload__field:hover::-webkit-file-upload-button {
+  background-color: var(--mob-signal-surface-hover);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.upload__field:disabled::file-selector-button,
+.upload__field:disabled::-webkit-file-upload-button {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.upload__field:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border-color: var(--mob-signal-border-focus);
+  box-shadow: 0 0 0 var(--mob-signal-border-width) var(--mob-signal-border-focus);
+}
+
+.upload__field:disabled {
+  cursor: not-allowed;
+}
+
+.upload__list {
+  display: grid;
+  gap: var(--mob-signal-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.upload__file {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: var(--mob-signal-space-3);
+  align-items: center;
+  padding: var(--mob-signal-space-2) var(--mob-signal-space-3);
+  background-color: var(--mob-signal-surface-subtle);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+}
+
+.upload__name {
+  overflow: hidden;
+  font-family: var(--mob-signal-font-mono); /* filename in mono */
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  color: var(--mob-signal-foreground);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload__size {
+  font-family: var(--mob-signal-font-mono);
+  font-size: var(--mob-signal-text-xs);
+  line-height: var(--mob-signal-line-xs);
+  font-variant-numeric: tabular-nums; /* size in tabular figures */
+  color: var(--mob-signal-text-secondary);
+}
+
+.upload__remove {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--mob-signal-target-min);
+  min-height: var(--mob-signal-target-min);
+  padding: var(--mob-signal-space-1) var(--mob-signal-space-2);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-xs);
+  font-weight: 500;
+  line-height: var(--mob-signal-line-xs);
+  color: var(--mob-signal-text-secondary);
+  background-color: transparent;
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion),
+    color var(--mob-signal-motion);
+}
+
+.upload__remove:hover:not(:disabled) {
+  background-color: var(--mob-signal-surface-hover);
+  border-color: var(--mob-signal-border-strong);
+}
+
+.upload__remove:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.upload__remove:active:not(:disabled) {
+  background-color: var(--mob-signal-surface-elevated);
+}
+
+.upload__remove:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   11. Tabs — MEASURED
+   .app-tabs / .app-tab, design-system-preview.html lines 438-463: container is
+   flex with a 4px gap; item is padding 6px 12px, 12px/weight 500, text-secondary
+   label, no background, no border except a 2px bottom edge that stays
+   transparent until the tab is active; hover adds the measured white-alpha wash;
+   ACTIVE TAB = 2px solid accent bottom edge. The 1px container underline below
+   is the only authored part, and so is the recorded deviation on hover colour.
+   -------------------------------------------------------------------------- */
+
+.app-tabs {
+  display: flex;
+  gap: var(--mob-signal-space-1);
+  border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+}
+
+.app-tab {
+  padding: 6px var(--mob-signal-space-3);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-xs);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--mob-signal-text-secondary);
+  background: none;
+  border: 0;
+  border-bottom: var(--mob-signal-border-width-thick) solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  outline: none;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion),
+    color var(--mob-signal-motion);
+}
+
+/* DEVIATION, recorded not smoothed: the source also steps the hovered label
+   #a1a1a1 -> #ededed. BRAND.md §6 forbids changing foreground on hover, so the
+   wash is kept verbatim (white-alpha hover form, measured) and the label stays
+   put. The active tab is still #ededed. */
+.app-tab:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.app-tab:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.app-tab:active:not(:disabled) {
+  background-color: var(--mob-signal-surface-subtle);
+}
+
+.app-tab[aria-selected="true"],
+.app-tab[aria-current="page"],
+.app-tab.active {
+  color: var(--mob-signal-foreground);
+  border-bottom-color: var(--mob-signal-primary);
+}
+
+.app-tab:disabled,
+.app-tab[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.app-tab-panel {
+  padding: var(--mob-signal-space-4) 0 0;
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   12. Segmented control — AUTHORED
+   Single-select, so the segments are radios in a fieldset: the browser gives
+   arrow-key movement and one-of-n selection for free. Selected segment takes a
+   2px accent bottom edge, reusing the measured navigation formula rather than
+   inventing a filled pill.
+   -------------------------------------------------------------------------- */
+
+.segmented {
+  display: inline-flex;
+  align-items: stretch;
+  min-width: 0;
+  padding: 0;
+  background-color: var(--mob-signal-surface-subtle);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+}
+
+.segmented__item {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+}
+
+.segmented__item + .segmented__item .segmented__face {
+  border-left: var(--mob-signal-border-width) solid var(--mob-signal-border);
+}
+
+.segmented__source {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.segmented__face {
+  display: grid;
+  place-items: center;
+  min-height: var(--mob-signal-control-height-sm); /* 28px + 2px container = 30px */
+  padding: var(--mob-signal-space-1) var(--mob-signal-space-3);
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 500;
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-text-secondary);
+  background-color: transparent;
+  border-bottom: var(--mob-signal-border-width-thick) solid transparent;
+  border-radius: 0;
+  white-space: nowrap;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion),
+    color var(--mob-signal-motion);
+}
+
+.segmented__source:hover:not(:disabled) + .segmented__face {
+  background-color: var(--mob-signal-surface-hover); /* one step up from #181818 */
+}
+
+.segmented__source:focus-visible + .segmented__face {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.segmented__item:active .segmented__face,
+.segmented__source:active + .segmented__face {
+  background-color: var(--mob-signal-surface-elevated);
+}
+
+.segmented__source:checked + .segmented__face {
+  color: var(--mob-signal-foreground);
+  background-color: var(--mob-signal-surface-elevated);
+  border-bottom-color: var(--mob-signal-primary);
+}
+
+.segmented__source:disabled + .segmented__face {
+  opacity: 0.4;
+  color: var(--mob-signal-muted);
+}
+
+.segmented:has(.segmented__source:disabled) .segmented__item {
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   13. Accordion — AUTHORED
+   1px rules, no rounded corner anywhere, and the disclosure indicator SWAPS
+   GLYPHS. Animating `transform: rotate()` on aria-expanded is banned: the
+   source allows motion on background-color, border-color and color only, so a
+   turning chevron is a bug against this system. <details> / <summary> is the
+   native, no-script control.
+   -------------------------------------------------------------------------- */
+
+.accordion {
+  display: grid;
+  background-color: var(--mob-signal-surface);
+  border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+}
+
+.accordion__item {
+  border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+  border-radius: 0;
+}
+
+.accordion__item:last-child {
+  border-bottom: 0;
+}
+
+.accordion__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--mob-signal-space-3);
+  padding: var(--mob-signal-space-3) var(--mob-signal-space-4);
+  font-size: var(--mob-signal-text-sm);
+  font-weight: 500;
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+  cursor: pointer;
+  list-style: none;
+  outline: none;
+  transition:
+    background-color var(--mob-signal-motion),
+    border-color var(--mob-signal-motion);
+}
+
+.accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion__summary:hover {
+  background-color: var(--mob-signal-surface-subtle); /* one step up from #121212 */
+}
+
+.accordion__summary:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.accordion__summary:active {
+  background-color: var(--mob-signal-surface-hover);
+}
+
+.accordion__item[open] > .accordion__summary {
+  border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+}
+
+.accordion__title {
+  flex: 1 1 auto;
+}
+
+/* Glyph swap: the up chevron exists only inside an open item. */
+.accordion__glyph--up,
+.accordion__item[open] .accordion__glyph--down {
+  display: none;
+}
+
+.accordion__item[open] .accordion__glyph--up {
+  display: inline-grid;
+}
+
+.accordion__body {
+  padding: var(--mob-signal-space-4);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-text-secondary);
+}
+
+.accordion__item[disabled],
+.accordion__item.is-disabled {
+  opacity: 0.4;
+}
+
+.accordion__item[disabled] .accordion__summary,
+.accordion__item.is-disabled .accordion__summary {
+  color: var(--mob-signal-muted);
+  cursor: not-allowed;
+}
+
+.accordion__item[disabled] .accordion__summary:hover,
+.accordion__item.is-disabled .accordion__summary:hover {
+  background-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   14. Progress bar — AUTHORED
+   DETERMINATE ONLY. An indeterminate barber-pole is banned: the source allows
+   motion on background-color, border-color and color, and nothing else, so an
+   animated indicator has no legal form here. Always ship a number. The 4px
+   track at #181818 is 1.06:1 on a #121212 panel, which is fine — it is
+   decoration; the accessible value is the tabular-figures text beside it.
+   -------------------------------------------------------------------------- */
+
+.progress {
+  display: grid;
+  gap: var(--mob-signal-space-2);
+}
+
+.progress__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--mob-signal-space-3);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-text-secondary);
+}
+
+.progress__value {
+  font-family: var(--mob-signal-font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--mob-signal-foreground);
+}
+
+.progress__track {
+  height: var(--mob-signal-space-1); /* 4px */
+  background-color: var(--mob-signal-surface-subtle);
+  border: 0;
+  border-radius: 0;
+}
+
+.progress__bar {
+  display: block;
+  height: 100%;
+  width: 0;
+  background-color: var(--mob-signal-primary);
+  border-radius: 0;
+  transition: width var(--mob-signal-motion-progress);
+}
+
+/* Native <progress> form, for markup that carries its own value. The browser
+   paints the value box, so it cannot transition width — the authored bar above
+   is the animated form, this is the semantic one. */
+progress.mob-progress {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  height: var(--mob-signal-space-1);
+  background-color: var(--mob-signal-surface-subtle);
+  border: 0;
+  border-radius: 0;
+}
+
+progress.mob-progress::-webkit-progress-bar {
+  background-color: var(--mob-signal-surface-subtle);
+  border-radius: 0;
+}
+
+progress.mob-progress::-webkit-progress-value {
+  background-color: var(--mob-signal-primary);
+  border-radius: 0;
+}
+
+progress.mob-progress::-moz-progress-bar {
+  background-color: var(--mob-signal-primary);
+  border-radius: 0;
+}
+
+.progress.is-error .progress__bar,
+progress.mob-progress.is-error::-webkit-progress-value,
+progress.mob-progress.is-error::-moz-progress-bar {
+  background-color: var(--mob-signal-error);
+}
+
+.progress.is-disabled,
+progress.mob-progress:disabled {
+  opacity: 0.4;
+}
+
+/* --------------------------------------------------------------------------
+   15. Tooltip trigger — AUTHORED
+   Nothing of the sort exists in the archive. This sheet owns only the INLINE
+   TERM: a real button with a 1px rule under it; hover adds a fill step and
+   never touches the label. The floating bubble is owned by overlays.css
+   (.tooltip-anchor + .tooltip, revealed on hover, on focus-within, or with
+   data-open="true") so that loading both sheets cannot produce two recipes for
+   one component. Load overlays.css wherever a tooltip appears.
+   -------------------------------------------------------------------------- */
+
+.tooltip-trigger {
+  padding: 0;
+  font-family: var(--mob-signal-font-sans);
+  font-size: var(--mob-signal-text-sm);
+  line-height: var(--mob-signal-line-sm);
+  color: var(--mob-signal-foreground);
+  background-color: transparent;
+  border: 0;
+  border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border-strong);
+  border-radius: 0;
+  cursor: help;
+  outline: none;
+  transition: background-color var(--mob-signal-motion);
+}
+
+/* No pressed state: the trigger is not an action, it is a question. */
+.tooltip-trigger:hover,
+.tooltip-trigger:focus-visible {
+  background-color: var(--mob-signal-surface-subtle);
+}
+
+.tooltip-trigger:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: var(--mob-signal-shadow-focus);
+}
+
+.tooltip-trigger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Essential boundaries use a measured 3:1 neutral; dividers remain decorative. */
+.btn-secondary, .input, .input-field, .select, .select-trigger, .checkbox, .radio, .switch, select, textarea {
+  border-color: var(--color-control-border);
+}
+.input:hover, .input-field:hover, .select:hover, .select-trigger:hover, .btn-secondary:hover { border-color: var(--color-text-secondary); }
+.field-error, .field-hint.error { color: var(--color-error-text); }
+.field-error::before { color: var(--color-error); }
+.badge-error { color: var(--color-text); }
+.badge-error .badge-dot { background: var(--color-error); }
+.input::placeholder, .input-field::placeholder, textarea::placeholder { color: var(--color-text-secondary); opacity: 1; }
+.input:focus, .input-field:focus, select:focus-visible, textarea:focus-visible { outline: 2px solid transparent; outline-offset: 2px; border-color: var(--color-primary); box-shadow: var(--shadow-focus); }
+.btn-compact { padding: 4px 8px; min-height: var(--target-min); }
+.numeric { text-align: right; font-variant-numeric: tabular-nums; }
+.btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+.btn-danger { color: var(--color-text); border-color: var(--color-error); background: var(--color-surface); }
+.btn-danger:hover { background: var(--surface-hover); }
+.badge { display: inline-flex; align-items: center; gap: 8px; padding: 4px 8px; font: 500 var(--mob-signal-text-xs)/1.5 var(--font-family); color: var(--color-text-secondary); background: var(--color-surface-subtle); border: 1px solid var(--color-border); }
+.badge-dot { width: 6px; height: 6px; background: currentColor; flex: none; }
+.badge-success { color: var(--color-text); background: var(--color-success-subtle); }
+.badge-success .badge-dot { background: var(--color-success); }
+.badge-warning .badge-dot { background: var(--color-warning); }
+.badge-info .badge-dot { background: var(--color-info); }
+.badge-neutral .badge-dot { background: none; border: 1px solid currentColor; }
+.checkbox__input:not(:checked):not(:disabled), .radio__input:not(:checked):not(:disabled), .switch__input:not(:checked):not(:disabled), .select__trigger, .date__field, .upload__dropzone { border-color: var(--color-control-border); }
+.app-tab, .segmented__face { padding: 8px 12px; }
+.btn-secondary:active { border-color: var(--color-control-border); }
+.checkbox__input[aria-invalid="true"], .radio__input[aria-invalid="true"], .switch__input[aria-invalid="true"] { border-color: var(--color-error); }
+.commit-hash { font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); overflow-wrap: anywhere; }
+[hidden] { display: none !important; }
+@media (pointer: coarse) {
+  .btn, .app-tab, .console-nav-tab, .input, .input-field, select, .select-trigger { min-height: var(--target-touch); }
+  .btn::before, .app-tab::before { content: none; }
+  .checkbox, .radio, .switch, .segmented__item { min-height: var(--target-touch); }
+}

@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Controls</title>
+  <!-- The real contract, then the recipe sheet. No token is re-declared here. -->
+  <link rel="stylesheet" href="../../dist/colors_and_type.css" />
+  <link rel="stylesheet" href="../../dist/components.css" />
+  <style>
+    /* Page chrome for the review card only. Every value below is a variable from
+       colors_and_type.css; the specimen styling itself lives in components.css. */
+    *, *::before, *::after { margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background-color: var(--mob-signal-background);
+      color: var(--mob-signal-foreground);
+      font: 400 var(--mob-signal-text-base)/var(--mob-signal-line-base) var(--mob-signal-font-sans);
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      display: grid;
+      gap: var(--mob-signal-space-8);
+      width: min(var(--mob-signal-container-prose), calc(100vw - 96px));
+      margin: var(--mob-signal-space-12) auto;
+    }
+    h1, h2, h3 {
+      font-family: var(--mob-signal-font-display);
+      font-weight: 600;
+      letter-spacing: var(--mob-signal-tracking-display);
+      color: var(--mob-signal-foreground);
+    }
+    h1 { font-size: var(--mob-signal-text-3xl); line-height: var(--mob-signal-line-3xl); }
+    h2 { font-size: var(--mob-signal-text-xl); line-height: var(--mob-signal-line-xl); }
+    h3 { font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); }
+    .eyebrow {
+      color: var(--mob-signal-primary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      font-weight: 500;
+    }
+    .lead, .note {
+      max-width: 70ch;
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-sm);
+      line-height: var(--mob-signal-line-sm);
+    }
+    .lead { font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); }
+    .section { display: grid; gap: var(--mob-signal-space-3); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--mob-signal-space-4);
+    }
+    .spec {
+      display: grid;
+      gap: var(--mob-signal-space-3);
+      align-content: start;
+    }
+    .spec.wide { grid-column: 1 / -1; }
+    .stage {
+      display: grid;
+      gap: var(--mob-signal-space-3);
+      align-content: center;
+      min-height: 48px;
+    }
+    .stage.row { align-items: center; grid-auto-flow: column; grid-auto-columns: max-content; }
+    /* 14px sentence-case caption naming the state under each specimen. */
+    .caption {
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-sm);
+      line-height: var(--mob-signal-line-sm);
+    }
+    .caption strong {
+      display: block;
+      font-family: var(--mob-signal-font-display);
+      font-weight: 600;
+      color: var(--mob-signal-foreground);
+    }
+    .stack { display: grid; gap: var(--mob-signal-space-2); }
+    /* Hover step, made visible without a pointer. */
+    .swatch {
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 32px;
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      color: var(--mob-signal-text-secondary);
+      background-color: var(--mob-signal-background);
+      border: 1px solid var(--mob-signal-border);
+    }
+    .swatch.hover {
+      background-color: var(--mob-signal-surface-subtle);
+      border-color: var(--mob-signal-border-strong);
+    }
+    .swatch.subtle { background-color: var(--mob-signal-surface-subtle); }
+    .swatch.subtle.hover { background-color: var(--mob-signal-surface-hover); }
+    .keys { display: flex; flex-wrap: wrap; gap: var(--mob-signal-space-1); align-items: center; }
+    .table caption {
+      padding: var(--mob-signal-space-3) var(--mob-signal-space-4);
+      text-align: left;
+    }
+    code {
+      font-family: var(--mob-signal-font-mono);
+      font-size: var(--mob-signal-text-xs);
+      color: var(--mob-signal-text-secondary);
+    }
+  </style>
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+</head>
+<body>
+<main>
+  <header class="stack">
+    <p class="eyebrow">Components</p>
+    <h1>Controls</h1>
+    <p class="lead">The control half of the component contract, which the source archive never shipped. Recipes live in <code>components.css</code> and load from <code>colors_and_type.css</code>; this card holds no colour of its own and runs with no script.</p>
+    <p class="note">Measured: text field anatomy and the tab bar (including the 2px bottom edge on the active tab — its geometry is the archive's, its colour is the corrected accent), plus the checkbox's 16px box and its accent reading. Everything else on this page is authored from the tokens and is this system's own spec — do not cite it as a source fact. Every specimen sits on a #121212 card, because an #0a0a0a control fill on the #0a0a0a canvas would leave a 1.31:1 hairline as the only thing identifying it, and WCAG 1.4.11 fails that.</p>
+  </header>
+
+  <section class="section" aria-labelledby="invariants">
+    <h2 id="invariants">Shared invariants</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage row">
+          <span class="swatch">idle</span>
+          <span class="swatch hover">hover</span>
+        </div>
+        <p class="caption"><strong>Hover on canvas</strong>Fill #0a0a0a to #181818, border #262626 to #383838. Text colour does not move: hover changes fill and border, never foreground.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage row">
+          <span class="swatch subtle">idle</span>
+          <span class="swatch subtle hover">hover</span>
+        </div>
+        <p class="caption"><strong>Hover on a subtle fill</strong>#181818 to #222222. One step up the ramp per interaction, 0.12s cubic-bezier(0.16, 1, 0.3, 1) on background-color, border-color and colour only.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="keys"><kbd class="kbd">Tab</kbd><span class="caption">to this field</span></div>
+          <input class="input-field" type="text" value="payments-api" aria-label="Field that takes the text-field focus recipe" />
+        </div>
+        <p class="caption"><strong>Two focus recipes, never mixed</strong>Button-class controls take 0 0 0 2px canvas then 0 0 0 4px accent, the token <code>--mob-signal-shadow-focus</code>. A focused text field, like the one above, takes the accent border plus <code>0 0 0 1px</code> instead, with no layout shift.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage row">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" checked aria-label="Square geometry example" /><span>Selected</span></label>
+          <label class="radio"><input class="radio__input" type="radio" name="shape-demo" checked /><span>Square dot</span></label>
+        </div>
+        <p class="caption"><strong>Radius 0px, including the radio</strong>The source resets <code>border-radius: 0 !important</code> on every element, so a radio here is a square control with a square dot. That is the brand's whole point, not a missing token.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="checkbox">
+    <h2 id="checkbox">Checkbox</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-idle" /><span>Fail over on health check</span></label>
+        </div>
+        <p class="caption"><strong>Default</strong>16px square, fill #0a0a0a, 1px #262626 border, label 14px #ededed with an 8px gap.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-on" checked /><span>Fail over on health check</span></label>
+        </div>
+        <p class="caption"><strong>Checked</strong>Accent fill with a black tick, drawn from two strokes, never a glyph font. 9.79:1 #000000 on #00cc5c, AAA.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input is-indeterminate" type="checkbox" id="cb-mixed" /><span>Three regions, mixed selection</span></label>
+        </div>
+        <p class="caption"><strong>Indeterminate</strong>Accent fill with a minus. The DOM property needs script, so this specimen uses the <code>.is-indeterminate</code> class; <code>:indeterminate</code> is styled identically.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-hover" /><span>Hover the box</span></label>
+        </div>
+        <p class="caption"><strong>Hover, pointer state</strong>Move the pointer onto the box: fill to #181818, border to #383838. A checked box takes #00e065 instead.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-focus" /><span>Focus the box</span></label>
+        </div>
+        <p class="caption"><strong>Keyboard focus</strong>Press <kbd class="kbd">Tab</kbd> to reach the box. Ring 0 0 0 2px canvas + 0 0 0 4px accent, no layout shift.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-press" /><span>Hold the box down</span></label>
+        </div>
+        <p class="caption"><strong>Active, pressed</strong>Press and hold: fill steps once more to #202020. A pressed checked box takes #00b853. No scale, no bounce.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-off-disabled" disabled /><span>Locked off</span></label>
+        </div>
+        <p class="caption"><strong>Disabled</strong>Opacity 0.4 with <code>cursor: not-allowed</code>, the measured button rule. Label drops to #737373, legal for disabled text only.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-on-disabled" checked disabled /><span>Locked on</span></label>
+        </div>
+        <p class="caption"><strong>Disabled and checked</strong>The accent is released: fill #202020, border #383838, tick in #ededed. A disabled state must not grab the accent.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="checkbox"><input class="checkbox__input" type="checkbox" id="cb-error" aria-invalid="true" aria-describedby="cb-error-msg" /><span>Bill on retained replicas</span></label>
+            <p class="field-error" id="cb-error-msg">Confirm the billing change to enable this option.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Error</strong>Border #ef4444 plus an icon and words. The hue never carries the state alone.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="radio">
+    <h2 id="radio">Radio</h2>
+    <div class="grid">
+      <article class="card spec wide">
+        <fieldset class="radio-group">
+          <legend class="radio-group__legend">Routing mode</legend>
+          <label class="radio"><input class="radio__input" type="radio" name="routing" value="weighted" checked /><span>Weighted, 80 to stable</span></label>
+          <label class="radio"><input class="radio__input" type="radio" name="routing" value="canary" /><span>Canary, 10 percent</span></label>
+          <label class="radio"><input class="radio__input" type="radio" name="routing" value="bluegreen" disabled /><span>Blue-green, unavailable on this plan</span></label>
+        </fieldset>
+        <p class="caption"><strong>Group, selected and unselected and disabled</strong>16px square box, 8px square dot in the accent, selected border #00cc5c. Off the selected item the border stays #262626, so selection is carried by the dot and the edge together.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="radio"><input class="radio__input" type="radio" name="r2" checked /><span>Hover the box</span></label>
+        </div>
+        <p class="caption"><strong>Hover, pointer state</strong>Fill #0a0a0a to #181818, border #262626 to #383838; the dot does not change size.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="radio"><input class="radio__input" type="radio" name="r3" checked /><span>Focus the box</span></label>
+        </div>
+        <p class="caption"><strong>Keyboard focus</strong><kbd class="kbd">Tab</kbd> enters the group, <kbd class="kbd">&uarr;</kbd> <kbd class="kbd">&darr;</kbd> move inside it.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <fieldset class="radio-group" aria-describedby="r-error-msg">
+              <legend class="radio-group__legend">Region</legend>
+              <label class="radio"><input class="radio__input" type="radio" name="r4" aria-invalid="true" /><span>fra-east-1</span></label>
+            </fieldset>
+            <p class="field-error" id="r-error-msg">Choose a region before deploying.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Error</strong>Invalid group: border #ef4444 on the control, message with icon and words beneath it.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="switch">
+    <h2 id="switch">Switch</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <label class="switch"><input class="switch__input" type="checkbox" role="switch" id="sw-off" /><span>Maintenance mode</span></label>
+        </div>
+        <p class="caption"><strong>Off</strong>40x20 square track, #181818 fill, 1px #383838 border, 14px square thumb in #ededed.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="switch"><input class="switch__input" type="checkbox" role="switch" id="sw-on" checked /><span>Maintenance mode</span></label>
+        </div>
+        <p class="caption"><strong>On</strong>Accent track, thumb inverts to #000000 so it keeps 3:1 against the fill it sits on. The thumb lands instantly; only the track transitions.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="switch"><input class="switch__input" type="checkbox" role="switch" id="sw-hover" /><span>Hover the track</span></label>
+        </div>
+        <p class="caption"><strong>Hover, pointer state</strong>Off takes #222222. On takes #00e065, the hover recomputed against the live base #00cc5c rather than inherited from the archive. #000000 on it measures 11.85:1, and the step clears 1.21:1 against #00cc5c — the floor for a state change on a control this size.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="switch"><input class="switch__input" type="checkbox" role="switch" id="sw-focus" /><span>Focus the track</span></label>
+        </div>
+        <p class="caption"><strong>Keyboard focus</strong><kbd class="kbd">Tab</kbd> then <kbd class="kbd">Space</kbd>. Ring on the track, not on the thumb.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <label class="switch"><input class="switch__input" type="checkbox" role="switch" id="sw-disabled" disabled /><span>Locked off</span></label>
+          <label class="switch"><input class="switch__input" type="checkbox" role="switch" id="sw-disabled-on" checked disabled /><span>Locked on</span></label>
+        </div>
+        <p class="caption"><strong>Disabled</strong>Opacity 0.4. A locked-on switch gives up the accent and takes #202020 with a #383838 border.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="slider">
+    <h2 id="slider">Slider</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <div class="slider">
+            <input class="slider__input" type="range" id="sl-idle" min="0" max="100" value="48" aria-label="Traffic to canary" />
+            <output class="slider__value" for="sl-idle">48%</output>
+          </div>
+        </div>
+        <p class="caption"><strong>Default</strong>1px rail in #383838, 16px square thumb in #202020 with a 1px #ededed edge, value in tabular figures.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="slider">
+            <input class="slider__input" type="range" id="sl-hover" min="0" max="100" value="24" aria-label="Hover the thumb" />
+            <output class="slider__value" for="sl-hover">24%</output>
+          </div>
+        </div>
+        <p class="caption"><strong>Hover, pointer state</strong>Thumb fill steps to #222222. No run is painted left of the thumb: that needs a gradient, and this brand bans gradients.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="slider">
+            <input class="slider__input" type="range" id="sl-focus" min="0" max="100" value="65" aria-label="Focus the slider" />
+            <output class="slider__value" for="sl-focus">65%</output>
+          </div>
+        </div>
+        <p class="caption"><strong>Keyboard focus</strong><kbd class="kbd">Tab</kbd>, then <kbd class="kbd">&larr;</kbd> <kbd class="kbd">&rarr;</kbd> by one step and <kbd class="kbd">Home</kbd> <kbd class="kbd">End</kbd> to the ends.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="slider">
+            <input class="slider__input" type="range" id="sl-press" min="0" max="100" value="80" aria-label="Press the thumb" />
+            <output class="slider__value" for="sl-press">80%</output>
+          </div>
+        </div>
+        <p class="caption"><strong>Active, pressed</strong>Hold the thumb: it fills solid #ededed. It never grows.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="slider">
+            <input class="slider__input" type="range" id="sl-disabled" min="0" max="100" value="35" disabled aria-label="Locked slider" />
+            <output class="slider__value" for="sl-disabled">35%</output>
+          </div>
+        </div>
+        <p class="caption"><strong>Disabled</strong>Opacity 0.4, <code>cursor: not-allowed</code>. The readout stays legible so the locked value is still readable.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <div class="slider">
+              <input class="slider__input" type="range" id="sl-error" min="1" max="10" value="1" aria-invalid="true" aria-describedby="sl-error-msg" aria-label="Replicas below minimum" />
+              <output class="slider__value" for="sl-error">1</output>
+            </div>
+            <p class="field-error" id="sl-error-msg">Set at least 2 replicas for a paid service.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Error</strong>Thumb edge takes #ef4444 and the message repeats the rule in words.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="select">
+    <h2 id="select">Select</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="se-idle">Instance class</label>
+            <div class="select">
+              <select class="select__field" id="se-idle">
+                <option>cpu-2x / 4 GB</option>
+                <option>mem-4x / 32 GB</option>
+                <option>gpu-1x / 8 GB</option>
+              </select>
+              <span class="select__chevron" data-icon="i-chevron-down" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <p class="caption"><strong>Default</strong>Field anatomy, 32px, with a 32px slot for the <code>i-chevron-down</code> icon. The chevron is drawn from 1px rules in currentColor: no icon font, no sprite, no CDN.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="se-open">Instance class, opened</label>
+            <div class="select is-open">
+              <select class="select__field" id="se-open" aria-expanded="true">
+                <option>mem-4x / 32 GB</option>
+              </select>
+              <span class="select__chevron" data-icon="i-chevron-up" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <p class="caption"><strong>Opened</strong>Accent border plus <code>0 0 0 1px</code> — the field recipe. The glyph swaps to the up chevron; nothing rotates.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="se-focus">Instance class</label>
+            <div class="select">
+              <select class="select__field" id="se-focus">
+                <option>gpu-1x / 8 GB</option>
+              </select>
+              <span class="select__chevron" data-icon="i-chevron-down" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <p class="caption"><strong>Keyboard focus and hover</strong><kbd class="kbd">Tab</kbd> here for the accent border; hover takes #383838.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="se-disabled">Instance class</label>
+            <div class="select">
+              <select class="select__field" id="se-disabled" disabled>
+                <option>gpu-1x / 8 GB</option>
+              </select>
+              <span class="select__chevron" data-icon="i-chevron-down" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <p class="caption"><strong>Disabled</strong>Opacity 0.4, no accent anywhere in the disabled state.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="se-error">Build target<span class="field-note">required</span></label>
+            <div class="select">
+              <select class="select__field" id="se-error" aria-invalid="true" aria-describedby="se-error-msg">
+                <option value="">Choose a build target</option>
+              </select>
+              <span class="select__chevron" data-icon="i-chevron-down" aria-hidden="true"></span>
+            </div>
+            <p class="field-error" id="se-error-msg">Select the image the pipeline publishes.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Error and required</strong>Required is a word, not a coloured asterisk; invalid adds #ef4444 plus the icon and the fix.</p>
+      </article>
+      <article class="card spec wide">
+        <div class="stage">
+          <ul class="select-menu" role="listbox" aria-label="Instance class">
+            <li class="select-menu__group" role="presentation">Shared</li>
+            <li class="select-menu__option" role="option" tabindex="0">cpu-2x / 4 GB</li>
+            <li class="select-menu__option" role="option" tabindex="0" aria-selected="true">mem-4x / 32 GB</li>
+            <li class="select-menu__group" role="presentation">Dedicated</li>
+            <li class="select-menu__option" role="option" tabindex="0">gpu-1x / 8 GB</li>
+            <li class="select-menu__option" role="option" aria-disabled="true" tabindex="0">fpga-2x / 64 GB</li>
+          </ul>
+        </div>
+        <p class="caption"><strong>Menu, shown open</strong>#202020 panel with a 1px #262626 border and the measured large black shadow, which BRAND.md §1 documents for dropdowns and modals; option hover #181818; selected option takes a 2px accent leading edge. The accent tint that rides with it, rgba(0, 204, 92,.1), measures 1.16:1 against surface, under the 3:1 non-text floor, so the edge is the indicator and the tint is decoration.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="date">
+    <h2 id="date">Date picker</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="dt-idle">Rollout date</label>
+            <div class="date">
+              <input class="date__field" type="text" id="dt-idle" value="2003-06-14" />
+              <span class="date__chevron" data-icon="i-chevron-down" aria-hidden="true"></span>
+            </div>
+            <p class="field-hint">ISO form, tabular figures, no shift on focus.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Field, closed</strong>Same anatomy as the text input, mono value, chevron slot.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="dt-open">Rollout date, opened</label>
+            <div class="date is-open">
+              <input class="date__field" type="text" id="dt-open" value="2003-06-14" aria-expanded="true" />
+              <span class="date__chevron" data-icon="i-chevron-up" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <p class="caption"><strong>Field, open</strong>Accent border plus the 1px ring, and the glyph swaps rather than turns.</p>
+      </article>
+      <article class="card spec wide">
+        <div class="stage">
+          <div class="date-panel">
+            <div class="date-panel__head">
+              <button class="date-panel__nav" type="button" aria-label="Previous month"><span data-icon="i-chevron-left" aria-hidden="true"></span></button>
+              <span class="date-panel__month">June 2003</span>
+              <button class="date-panel__nav" type="button" aria-label="Next month"><span data-icon="i-chevron-right" aria-hidden="true"></span></button>
+            </div>
+            <div class="date-grid" role="radiogroup" aria-label="Day in June 2003">
+              <span class="date-grid__weekday">Sun</span>
+              <span class="date-grid__weekday">Mon</span>
+              <span class="date-grid__weekday">Tue</span>
+              <span class="date-grid__weekday">Wed</span>
+              <span class="date-grid__weekday">Thu</span>
+              <span class="date-grid__weekday">Fri</span>
+              <span class="date-grid__weekday">Sat</span>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-01" /><span class="date-cell__face">1</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-02" /><span class="date-cell__face">2</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-03" /><span class="date-cell__face">3</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-04" /><span class="date-cell__face">4</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-05" /><span class="date-cell__face">5</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-06" /><span class="date-cell__face">6</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-07" /><span class="date-cell__face">7</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-08" aria-current="date" /><span class="date-cell__face">8</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-09" /><span class="date-cell__face">9</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-10" /><span class="date-cell__face">10</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-11" /><span class="date-cell__face">11</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-12" /><span class="date-cell__face">12</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-13" /><span class="date-cell__face">13</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-14" checked /><span class="date-cell__face">14</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-15" /><span class="date-cell__face">15</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-16" /><span class="date-cell__face">16</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-17" /><span class="date-cell__face">17</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-18" /><span class="date-cell__face">18</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-19" /><span class="date-cell__face">19</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-20" /><span class="date-cell__face">20</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-21" /><span class="date-cell__face">21</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-22" /><span class="date-cell__face">22</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-23" /><span class="date-cell__face">23</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-24" /><span class="date-cell__face">24</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-25" /><span class="date-cell__face">25</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-26" /><span class="date-cell__face">26</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-27" /><span class="date-cell__face">27</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-28" /><span class="date-cell__face">28</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-29" /><span class="date-cell__face">29</span></label>
+              <label class="date-cell"><input class="date-cell__source" type="radio" name="pick-date" value="2003-06-30" /><span class="date-cell__face">30</span></label>
+              <label class="date-cell is-out"><input class="date-cell__source" type="radio" name="pick-date" value="2003-07-01" disabled /><span class="date-cell__face">1</span></label>
+              <label class="date-cell is-out"><input class="date-cell__source" type="radio" name="pick-date" value="2003-07-02" disabled /><span class="date-cell__face">2</span></label>
+              <label class="date-cell is-out"><input class="date-cell__source" type="radio" name="pick-date" value="2003-07-03" disabled /><span class="date-cell__face">3</span></label>
+              <label class="date-cell is-out"><input class="date-cell__source" type="radio" name="pick-date" value="2003-07-04" disabled /><span class="date-cell__face">4</span></label>
+              <label class="date-cell is-out"><input class="date-cell__source" type="radio" name="pick-date" value="2003-07-05" disabled /><span class="date-cell__face">5</span></label>
+            </div>
+            <p class="date-panel__legend"><span class="date-panel__swatch" aria-hidden="true"></span>Today <span class="date-panel__stamp">2003-06-08</span></p>
+          </div>
+        </div>
+        <p class="caption"><strong>Panel, shown open</strong>#202020 on a 1px #262626 border, seven columns, 32px square cells, 4px gaps. Today is a #383838 border plus the word "Today" in the legend — no accent on today. Selected day is the accent fill with #000000 text. Trailing July days are #a1a1a1 and disabled, because #737373 at 14px would fail AA.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="upload">
+    <h2 id="upload">File upload</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <div class="upload">
+            <div class="upload__drop">
+              <span class="upload__corner">Bundle</span>
+              <p class="upload__lead">Solid 1px border, no dashes, corner label instead of a caption in the middle.</p>
+              <input class="upload__field" type="file" id="up-idle" aria-label="Service bundle" />
+            </div>
+          </div>
+        </div>
+        <p class="caption"><strong>Idle</strong>#0a0a0a fill against the #121212 card, so the control is not identified by its hairline alone.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="upload__drop is-open">
+            <span class="upload__corner">Release</span>
+            <p class="upload__lead">Drag-over or opened: accent border plus the 1px ring.</p>
+            <input class="upload__field" type="file" id="up-open" aria-label="Release archive" />
+          </div>
+        </div>
+        <p class="caption"><strong>Open, drag-over</strong>The field recipe, not the keyboard ring.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <ul class="upload__list">
+            <li class="upload__file">
+              <span class="upload__name">payments-3.2.1.tar</span>
+              <span class="upload__size">18.4 MB</span>
+              <button class="upload__remove" type="button" aria-label="Remove payments-3.2.1.tar">Remove</button>
+            </li>
+            <li class="upload__file">
+              <span class="upload__name">edge-config.json</span>
+              <span class="upload__size">4.1 KB</span>
+              <button class="upload__remove" type="button" aria-label="Remove edge-config.json">Remove</button>
+            </li>
+          </ul>
+        </div>
+        <p class="caption"><strong>Chosen files, remove action</strong>Filename in mono, size in tabular figures, verb-first remove button with 24px target.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="upload">
+            <div class="upload__drop">
+              <span class="upload__corner">Locked</span>
+              <input class="upload__field" type="file" id="up-disabled" disabled aria-label="Locked upload" />
+            </div>
+            <p class="field-hint">The pipeline is running, so the bundle is locked.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Disabled</strong>Opacity 0.4 over the whole target; the hint stays #a1a1a1.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="upload">
+            <div class="upload__drop">
+              <span class="upload__corner">Bundle</span>
+              <input class="upload__field" type="file" id="up-error" aria-invalid="true" aria-describedby="up-error-msg" />
+            </div>
+            <p class="field-error" id="up-error-msg">The bundle is over the 40 MB limit. Compress it and upload again.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Error</strong>Border #ef4444, icon and words in the message.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tabs">
+    <h2 id="tabs">Tabs — measured anatomy</h2>
+    <div class="grid">
+      <article class="card spec wide">
+        <div class="stage">
+          <div class="app-tabs" role="tablist" aria-label="Service views">
+            <button class="app-tab" type="button" role="tab" aria-selected="true">Overview</button>
+            <button class="app-tab" type="button" role="tab" aria-selected="false">Deployments</button>
+            <button class="app-tab" type="button" role="tab" aria-selected="false">Edge clusters</button>
+            <button class="app-tab" type="button" role="tab" aria-selected="false" disabled>Audit logs</button>
+          </div>
+        </div>
+        <p class="caption"><strong>Active, default and disabled</strong>Anatomy transcribed from the archive: <code>.app-tabs</code> is flex with a 4px gap; <code>.app-tab</code> is 8px 12px, 12px weight 500, #a1a1a1 on transparent; the active tab carries a 2px solid bottom edge and #ededed text. The archive drew that edge in #10e569; selection is an accent role, so the edge is the corrected #00cc5c. The container's 1px underline is the only authored part.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="app-tabs" role="tablist" aria-label="Hover example">
+            <button class="app-tab" type="button" role="tab" aria-selected="false">Metrics</button>
+          </div>
+        </div>
+        <p class="caption"><strong>Hover, pointer state</strong>The measured white-alpha wash, <code>rgba(255, 255, 255, 0.04)</code>. The label stays #a1a1a1: the source brightens it to #ededed, and this system's hover rule forbids moving foreground, so the deviation is recorded in the sheet rather than copied.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="app-tabs" role="tablist" aria-label="Focus example">
+            <button class="app-tab" type="button" role="tab" aria-selected="false">Traces</button>
+          </div>
+        </div>
+        <p class="caption"><strong>Keyboard focus and pressed</strong><kbd class="kbd">Tab</kbd> for the ring, hold <kbd class="kbd">Space</kbd> to see #181818.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="segmented">
+    <h2 id="segmented">Segmented control</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <div class="segmented" role="radiogroup" aria-label="Table density">
+            <label class="segmented__item"><input class="segmented__source" type="radio" name="density" value="compact" /><span class="segmented__face">Compact</span></label>
+            <label class="segmented__item"><input class="segmented__source" type="radio" name="density" value="comfortable" checked /><span class="segmented__face">Comfortable</span></label>
+            <label class="segmented__item"><input class="segmented__source" type="radio" name="density" value="roomy" disabled /><span class="segmented__face">Roomy</span></label>
+          </div>
+        </div>
+        <p class="caption"><strong>Selected, idle and disabled</strong>28px segments in a 1px #262626 container on #181818, 1px dividers, #202020 fill and #ededed label on the selected one, with the 2px accent bottom edge borrowed from the measured navigation rule — never a filled pill.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="segmented" role="radiogroup" aria-label="Time range">
+            <label class="segmented__item"><input class="segmented__source" type="radio" name="range" value="1h" checked /><span class="segmented__face">1 hour</span></label>
+            <label class="segmented__item"><input class="segmented__source" type="radio" name="range" value="24h" /><span class="segmented__face">24 hours</span></label>
+            <label class="segmented__item"><input class="segmented__source" type="radio" name="range" value="7d" /><span class="segmented__face">7 days</span></label>
+          </div>
+        </div>
+        <p class="caption"><strong>Hover and keyboard focus</strong>Hover steps #181818 to #222222; <kbd class="kbd">Tab</kbd> then <kbd class="kbd">&larr;</kbd> <kbd class="kbd">&rarr;</kbd> moves the selection, because the segments are real radios.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="accordion">
+    <h2 id="accordion">Accordion</h2>
+    <div class="grid">
+      <article class="card spec wide">
+        <div class="accordion">
+          <details class="accordion__item" open>
+            <summary class="accordion__summary">
+              <span class="accordion__glyph--down" data-icon="i-chevron-down" aria-hidden="true"></span>
+              <span class="accordion__glyph--up" data-icon="i-chevron-up" aria-hidden="true"></span>
+              <span class="accordion__title">Health checks</span>
+            </summary>
+            <div class="accordion__body">
+              <p>Opened item. The 1px rule closes the header off from the body, the glyph swaps to the up chevron, and nothing turns: an animated <code>transform: rotate()</code> on <code>aria-expanded</code> is banned, because the source allows motion on background-color, border-color and colour only.</p>
+            </div>
+          </details>
+          <details class="accordion__item">
+            <summary class="accordion__summary">
+              <span class="accordion__glyph--down" data-icon="i-chevron-down" aria-hidden="true"></span>
+              <span class="accordion__glyph--up" data-icon="i-chevron-up" aria-hidden="true"></span>
+              <span class="accordion__title">Secrets</span>
+            </summary>
+            <div class="accordion__body">
+              <p>Closed item. Hover lifts the header to #181818 and holds the label at #ededed. <kbd class="kbd">Enter</kbd> or <kbd class="kbd">Space</kbd> on the summary toggles it with no script.</p>
+            </div>
+          </details>
+          <details class="accordion__item is-disabled">
+            <summary class="accordion__summary">
+              <span class="accordion__glyph--down" data-icon="i-chevron-down" aria-hidden="true"></span>
+              <span class="accordion__glyph--up" data-icon="i-chevron-up" aria-hidden="true"></span>
+              <span class="accordion__title">Autoscaling, locked</span>
+            </summary>
+            <div class="accordion__body">
+              <p>Disabled item at opacity 0.4 with the label at #737373, which is permitted for disabled text only.</p>
+            </div>
+          </details>
+        </div>
+        <p class="caption"><strong>Open, closed and disabled</strong>Stack of 1px #262626 rules, no rounded corner, no shadow, last item bare.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="progress">
+    <h2 id="progress">Progress bar</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <div class="progress">
+            <div class="progress__head"><span>Build</span><span class="progress__value">32%</span></div>
+            <div class="progress__track" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" aria-label="Build progress"><span class="progress__bar" style="width: 32%"></span></div>
+          </div>
+        </div>
+        <p class="caption"><strong>Determinate</strong>4px track in #181818, accent fill, width transition on <code>--mob-signal-motion-progress</code>. The number beside it is the accessible value; the track is decoration.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="progress">
+            <div class="progress__head"><span>Rollout</span><span class="progress__value">62%</span></div>
+            <div class="progress__track" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="Rollout progress"><span class="progress__bar" style="width: 62%"></span></div>
+          </div>
+        </div>
+        <p class="caption"><strong>Mid flight</strong>Same recipe at a different value. No stripe, no pulse, no shimmer.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <progress class="mob-progress" value="100" max="100" aria-label="Migration progress">100%</progress>
+          <p class="field-hint">Native element, value 100 of 100.</p>
+        </div>
+        <p class="caption"><strong>Native element, complete</strong>The browser paints the value box, so it cannot transition width; use the authored bar when the fill has to move.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="progress is-error">
+            <div class="progress__head"><span>Publish</span><span class="progress__value">Failed at 45%</span></div>
+            <div class="progress__track" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" aria-label="Publish progress, failed"><span class="progress__bar" style="width: 45%"></span></div>
+          </div>
+        </div>
+        <p class="caption"><strong>Error</strong>Fill takes #ef4444 and the state is named in words — a stopped bar and a spinning one look the same without the sentence.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="progress is-disabled">
+            <div class="progress__head"><span>Queue</span><span class="progress__value">18%</span></div>
+            <div class="progress__track" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" aria-label="Queue progress, disabled"><span class="progress__bar" style="width: 18%"></span></div>
+          </div>
+        </div>
+        <p class="caption"><strong>Disabled</strong>Opacity 0.4, accent left in place because the fill still reports a live measurement, not a state.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <p class="caption">Indeterminate is banned. The source gives one duration on three properties and no animated indicator, so a barber-pole or a spinner has no legal form here — always ship a determinate bar with a number.</p>
+        </div>
+        <p class="caption"><strong>No indeterminate variant</strong>Deliberate gap, recorded rather than filled.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tooltip">
+    <h2 id="tooltip">Tooltip trigger</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <button class="tooltip-trigger" type="button">Retain replicas</button>
+          <button class="tooltip-trigger" type="button">Rollback window</button>
+          <button class="tooltip-trigger" type="button" disabled>Edge cluster</button>
+        </div>
+        <p class="caption"><strong>Idle, hover, disabled</strong>This sheet owns only the inline term: a real button carrying a 1px <code>#383838</code> rule underneath. Hover adds the <code>#181818</code> fill and never moves the label; a disabled term keeps <code>opacity .4</code> and receives no pointer events.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <p>The floating bubble is specified once, in <code>overlays.css</code> as <code>.tooltip-anchor</code> + <code>.tooltip</code>, and demonstrated in <code>preview/components-overlays.html</code>. A tooltip is an overlay, so the overlay sheet owns it and this card does not duplicate it.</p>
+        </div>
+        <p class="caption"><strong>One recipe, one owning sheet</strong>On <code>#202020</code>, 12px text, capped at <code>tooltip-max</code>, no caret, opacity-only reveal on hover, on focus-within, or with <code>data-open="true"</code>.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="fieldstates">
+    <h2 id="fieldstates">Field trio — invalid, required, disabled</h2>
+    <div class="grid">
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="fd-hint">Service name</label>
+            <input class="input-field" id="fd-hint" type="text" value="payments-api" />
+            <p class="field-hint">Lowercase letters, digits and dashes.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Default and hint</strong>Label 14px weight 500, hint 12px #a1a1a1, 8px between the three. Focus sets the accent border and a 1px ring with zero layout shift.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="fd-req">Replica count<span class="field-note">required</span></label>
+            <input class="input-field" id="fd-req" type="text" value="3" required />
+            <p class="field-hint">Required is stated in words, never as a coloured asterisk.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Required</strong>The browser's <code>:required</code> pseudo is deliberately unstyled; a hue may not carry state alone.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="fd-err">API endpoint</label>
+            <input class="input-field" id="fd-err" type="text" value="api" aria-invalid="true" aria-describedby="fd-err-msg" />
+            <p class="field-error" id="fd-err-msg">Enter the full host, for example api.mobsignal.dev.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Invalid</strong>Authored from the measured error hue: border #ef4444, message 12px #ef4444 with a square bang icon. Focus keeps the accent ring, which the source records as a deviation, not a mistake.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field is-disabled">
+            <label class="field-label" for="fd-dis">Region</label>
+            <input class="input-field" id="fd-dis" type="text" value="fra-east-1" disabled />
+            <p class="field-hint">Locked while the deployment runs.</p>
+          </div>
+        </div>
+        <p class="caption"><strong>Disabled</strong>Opacity 0.4 on the field from the measured button rule, label and hint at #737373, which is a legal muted use.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage">
+          <div class="field">
+            <label class="field-label" for="fd-empty">Notes<span class="field-note">optional</span></label>
+            <input class="input-field" id="fd-empty" type="text" placeholder="Add a note for the audit log" />
+          </div>
+        </div>
+        <p class="caption"><strong>Placeholder</strong>#737373 is allowed here, and only here, on disabled text and on qualifying large text at 24px regular or 18.667px bold.</p>
+      </article>
+      <article class="card spec">
+        <div class="stage row">
+          <button class="btn btn-primary" type="button">Save changes</button>
+          <button class="btn btn-secondary" type="button">Discard</button>
+        </div>
+        <p class="caption"><strong>Actions beside the fields</strong>Measured button anatomy, carried into the shared sheet, so a field's action is the same button recipe as everywhere else.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="keyboard">
+    <h2 id="keyboard">Keyboard operation</h2>
+    <p class="note">Every control on this page is reachable with <kbd class="kbd">Tab</kbd> and <kbd class="kbd">Shift</kbd> + <kbd class="kbd">Tab</kbd> and shows the 2px/4px ring. Escape closes a layer that has focus and does nothing else; no control on this page is dismissed by a hue or a hover alone.</p>
+    <div class="table-container">
+      <table class="table">
+        <caption class="caption">Keys per control</caption>
+        <thead>
+          <tr><th scope="col">Control</th><th scope="col">Move</th><th scope="col">Toggle or open</th><th scope="col">Adjust</th><th scope="col">Cancel</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Checkbox</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd><kbd class="kbd">Shift</kbd> + <kbd class="kbd">Tab</kbd></span></td>
+            <td><kbd class="kbd">Space</kbd></td>
+            <td><span class="keys">None, it is one option</span></td>
+            <td><kbd class="kbd">Escape</kbd> closes the sheet that holds it</td>
+          </tr>
+          <tr>
+            <td>Radio</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> into the group, <kbd class="kbd">&uarr;</kbd> <kbd class="kbd">&darr;</kbd> inside it</span></td>
+            <td><kbd class="kbd">Space</kbd> selects</td>
+            <td><kbd class="kbd">&rarr;</kbd> <kbd class="kbd">&larr;</kbd> same axis</td>
+            <td><span class="keys">No cancel: a selection always stands</span></td>
+          </tr>
+          <tr>
+            <td>Switch</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> <kbd class="kbd">Shift</kbd> + <kbd class="kbd">Tab</kbd></span></td>
+            <td><kbd class="kbd">Space</kbd></td>
+            <td><span class="keys">None</span></td>
+            <td><span class="keys">None</span></td>
+          </tr>
+          <tr>
+            <td>Slider</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd></span></td>
+            <td><span class="keys">No open state</span></td>
+            <td><span class="keys"><kbd class="kbd">&larr;</kbd> <kbd class="kbd">&rarr;</kbd> one step, <kbd class="kbd">Home</kbd> <kbd class="kbd">End</kbd> to the ends</span></td>
+            <td><kbd class="kbd">Escape</kbd> restores the value the slider had on focus — a spec requirement, not a browser default</td>
+          </tr>
+          <tr>
+            <td>Select</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd></span></td>
+            <td><span class="keys"><kbd class="kbd">Space</kbd> or <kbd class="kbd">Enter</kbd> opens</span></td>
+            <td><span class="keys"><kbd class="kbd">&uarr;</kbd> <kbd class="kbd">&darr;</kbd> moves, <kbd class="kbd">Home</kbd> <kbd class="kbd">End</kbd> first and last, a letter jumps to it</span></td>
+            <td><kbd class="kbd">Escape</kbd> closes with the value unchanged</td>
+          </tr>
+          <tr>
+            <td>Date picker</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> field, then <kbd class="kbd">Tab</kbd> into the panel</span></td>
+            <td><span class="keys"><kbd class="kbd">Space</kbd> or <kbd class="kbd">Enter</kbd> opens the panel</span></td>
+            <td><span class="keys"><kbd class="kbd">&uarr;</kbd> <kbd class="kbd">&darr;</kbd> by week, <kbd class="kbd">&larr;</kbd> <kbd class="kbd">&rarr;</kbd> by day, <kbd class="kbd">PageUp</kbd> <kbd class="kbd">PageDown</kbd> by month</span></td>
+            <td><kbd class="kbd">Escape</kbd> closes and keeps the written date</td>
+          </tr>
+          <tr>
+            <td>File upload</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> button, then each <kbd class="kbd">Tab</kbd> to a remove action</span></td>
+            <td><span class="keys"><kbd class="kbd">Enter</kbd> or <kbd class="kbd">Space</kbd> opens the picker</span></td>
+            <td><span class="keys">None</span></td>
+            <td><kbd class="kbd">Escape</kbd> in the system picker selects nothing</td>
+          </tr>
+          <tr>
+            <td>Tabs</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> reaches the first tab only</span></td>
+            <td><span class="keys"><kbd class="kbd">Space</kbd> or <kbd class="kbd">Enter</kbd> activates</span></td>
+            <td><span class="keys"><kbd class="kbd">&larr;</kbd> <kbd class="kbd">&rarr;</kbd> roving focus, <kbd class="kbd">Home</kbd> <kbd class="kbd">End</kbd> ends</span></td>
+            <td><span class="keys">None: a tab is not a layer</span></td>
+          </tr>
+          <tr>
+            <td>Segmented control</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> reaches the checked segment</span></td>
+            <td><span class="keys"><kbd class="kbd">Space</kbd> selects</span></td>
+            <td><span class="keys"><kbd class="kbd">&larr;</kbd> <kbd class="kbd">&rarr;</kbd> native radio movement</span></td>
+            <td><span class="keys">None</span></td>
+          </tr>
+          <tr>
+            <td>Accordion</td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> between summaries</span></td>
+            <td><span class="keys"><kbd class="kbd">Enter</kbd> or <kbd class="kbd">Space</kbd> toggles the item</span></td>
+            <td><span class="keys">None</span></td>
+            <td><span class="keys">None</span></td>
+          </tr>
+          <tr>
+            <td>Progress, tooltip</td>
+            <td><span class="keys">Progress is not focusable</span></td>
+            <td><span class="keys"><kbd class="kbd">Tab</kbd> to the trigger</span></td>
+            <td><span class="keys">None</span></td>
+            <td><kbd class="kbd">Escape</kbd> hides the bubble</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="provenance">
+    <h2 id="provenance">Recipe provenance</h2>
+    <p class="note">What the archive can be cited for, and what it cannot. An authored recipe is this system's own spec: it must not appear in brand guidance, decks or prompts as a source fact.</p>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">Control</th><th scope="col">Verdict</th><th scope="col">Evidence, or the gap</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Text field</td><td>Measured</td><td><code>design-system.css</code> <code>.input</code>: fill, border, padding 8px 12px, hover border, focus accent border plus 1px ring, placeholder colour.</td></tr>
+          <tr><td>Tabs</td><td>Measured, colour corrected</td><td><code>design-system-preview.html</code> lines 438-463 and BRAND.md §4: 8px 12px, 12px/500, 2px bottom edge on the active tab. The archive drew that edge in the volt; the edge takes the corrected accent #00cc5c. Container underline and pressed fill are authored.</td></tr>
+          <tr><td>Tab hover label</td><td>Measured, deviated</td><td>Source brightens the label on hover; BRAND.md §6 forbids moving foreground, so only the white-alpha wash is kept.</td></tr>
+          <tr><td>Checkbox</td><td>Mixed</td><td>16px box and the accent reading come from line 785 of the preview; box fill, border, tick and minus are authored.</td></tr>
+          <tr><td>Radio, switch, slider, segmented, accordion, progress, tooltip, file upload, date picker</td><td>Authored</td><td>No recipe exists in the archive. Built from the measured tokens: 0px radius, 1px rules, 32px module, the two focus recipes, the hover step, the black-on-accent label.</td></tr>
+          <tr><td>Select field</td><td>Mixed</td><td>Field anatomy measured; the chevron slot and the opened menu are authored, except the #202020 panel fill, which BRAND.md §1 documents for dropdowns.</td></tr>
+          <tr><td>Invalid field</td><td>Authored</td><td>BRAND.md §10: error border from the measured hue plus the standard focus ring. Flagged in <code>preview/components-inputs.html</code>.</td></tr>
+          <tr><td>Disabled control</td><td>Authored</td><td>BRAND.md §10: opacity 0.4 lifted from the measured button rule.</td></tr>
+          <tr><td>Icon slot</td><td>Authored</td><td>The contract labels the icon metrics as authored and names a sprite the archive never shipped, so glyphs are drawn from 1px rules. No icon font, no CDN.</td></tr>
+          <tr><td>Indeterminate progress</td><td>Banned</td><td>The source allows motion on three properties and no animated indicator, so no spinner and no barber-pole are published.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">No script runs on this page. The checkbox, radio group, switch, slider, select, date cells, segmented control, accordion, file input and buttons are native controls; the opened menu and the date panel are shown open because a real popup sits outside CSS.</p>
+  </section>
+</main>
+<script src="../../assets/components.js" defer></script>
+</body>
+</html>

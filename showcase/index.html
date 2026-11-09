@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>M.O.B Signal — Design System Hub</title>
+  <link rel="stylesheet" href="../fonts/fonts.css" />
+  <link rel="stylesheet" href="../dist/colors_and_type.css" />
+  <link rel="stylesheet" href="../dist/components.css" />
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-background, #0a0a0a);
+      color: var(--color-foreground, #ededed);
+      font-family: var(--font-body, 'Plus Jakarta Sans', system-ui, sans-serif);
+      -webkit-font-smoothing: antialiased;
+    }
+    .hub-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .hub-header {
+      border-bottom: 1px solid var(--color-border, #262626);
+      padding-bottom: 32px;
+      margin-bottom: 40px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 2px 8px;
+      background: var(--color-surface-subtle, #181818);
+      border: 1px solid var(--color-border, #262626);
+      color: var(--color-primary, #00cc5c);
+      margin-bottom: 16px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--color-primary, #00cc5c);
+    }
+    h1 {
+      font-family: var(--font-display, 'Space Grotesk', sans-serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+      color: #ffffff;
+    }
+    .lead {
+      font-size: 1.125rem;
+      color: var(--color-text-secondary, #a1a1a1);
+      max-width: 720px;
+      line-height: 1.6;
+      margin: 0 0 24px;
+    }
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      text-decoration: none;
+      transition: background 0.15s ease;
+      border: 1px solid transparent;
+    }
+    .btn-primary {
+      background: var(--color-primary, #00cc5c);
+      color: #000000;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-hover, #00e065);
+    }
+    .btn-secondary {
+      background: var(--color-surface-subtle, #181818);
+      color: var(--color-foreground, #ededed);
+      border-color: var(--color-border, #262626);
+    }
+    .btn-secondary:hover {
+      background: var(--color-surface-hover, #222222);
+    }
+    .section-title {
+      font-family: var(--font-display, 'Space Grotesk', sans-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 40px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 16px;
+      background: var(--color-primary, #00cc5c);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--color-surface, #121212);
+      border: 1px solid var(--color-border, #262626);
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .card:hover {
+      border-color: var(--color-primary, #00cc5c);
+      background: var(--color-surface-subtle, #181818);
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 15px;
+      margin: 0 0 6px;
+      color: #ffffff;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--color-text-secondary, #a1a1a1);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .card-foot {
+      font-family: var(--font-mono, monospace);
+      font-size: 11px;
+      color: var(--color-muted, #737373);
+      margin-top: 16px;
+    }
+    footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-border, #262626);
+      font-size: 13px;
+      color: var(--color-muted, #737373);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="hub-container">
+    <header class="hub-header">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>Version 2.0.0 · shadcn/ui Registry</span>
+      </div>
+      <h1>M.O.B Signal</h1>
+      <p class="lead">
+        A dark-only, square web design system for engineering consoles. 0px border-radius, dense data tables, and one disciplined neon green signal for primary actions, focus, and healthy states.
+      </p>
+      <div class="quick-links">
+        <a class="btn btn-primary" href="app/index.html">Launch Service Console</a>
+        <a class="btn btn-secondary" href="../DESIGN.md">View DESIGN.md Spec</a>
+        <a class="btn btn-secondary" href="../dist/tailwind.css">Tailwind v4 Theme</a>
+      </div>
+    </header>
+
+    <main>
+      <h2 class="section-title">Design Foundations</h2>
+      <div class="grid">
+        <a class="card" href="pages/colors-primary.html">
+          <div>
+            <h3 class="card-title">Primary & Semantics</h3>
+            <p class="card-desc">Signal green, operational status roles, and measured luminance ratios.</p>
+          </div>
+          <span class="card-foot">pages/colors-primary.html</span>
+        </a>
+        <a class="card" href="pages/colors-theme-dark.html">
+          <div>
+            <h3 class="card-title">Dark Theme Palette</h3>
+            <p class="card-desc">Full 0a0a0a dark scale, surfaces, borders, and overlays.</p>
+          </div>
+          <span class="card-foot">pages/colors-theme-dark.html</span>
+        </a>
+        <a class="card" href="pages/typography-specimens.html">
+          <div>
+            <h3 class="card-title">Typography Specimens</h3>
+            <p class="card-desc">Space Grotesk, Plus Jakarta Sans, and JetBrains Mono with Vietnamese glyphs.</p>
+          </div>
+          <span class="card-foot">pages/typography-specimens.html</span>
+        </a>
+        <a class="card" href="pages/spacing-tokens.html">
+          <div>
+            <h3 class="card-title">4px Spacing Grid</h3>
+            <p class="card-desc">4px modular scale, density rules, and component padding metrics.</p>
+          </div>
+          <span class="card-foot">pages/spacing-tokens.html</span>
+        </a>
+        <a class="card" href="pages/spacing-radius.html">
+          <div>
+            <h3 class="card-title">Square Geometry</h3>
+            <p class="card-desc">0px absolute border-radius policy and edge bevel limits.</p>
+          </div>
+          <span class="card-foot">pages/spacing-radius.html</span>
+        </a>
+        <a class="card" href="pages/icons.html">
+          <div>
+            <h3 class="card-title">System Icons</h3>
+            <p class="card-desc">24px grid, 1.5px stroke, butt caps and miter joins SVG sprite.</p>
+          </div>
+          <span class="card-foot">pages/icons.html</span>
+        </a>
+      </div>
+
+      <h2 class="section-title">Component Showcase</h2>
+      <div class="grid">
+        <a class="card" href="pages/components-buttons.html">
+          <div>
+            <h3 class="card-title">Buttons & Actions</h3>
+            <p class="card-desc">Primary signal, secondary subtle, ghost, danger, and fine touch targets.</p>
+          </div>
+          <span class="card-foot">pages/components-buttons.html</span>
+        </a>
+        <a class="card" href="pages/components-inputs.html">
+          <div>
+            <h3 class="card-title">Form Inputs</h3>
+            <p class="card-desc">Text inputs, selects, field labels, high-contrast focus rings, and hints.</p>
+          </div>
+          <span class="card-foot">pages/components-inputs.html</span>
+        </a>
+        <a class="card" href="pages/components-controls.html">
+          <div>
+            <h3 class="card-title">Controls & Toggles</h3>
+            <p class="card-desc">Checkboxes, radio groups, switches, and coarse-pointer standard targets.</p>
+          </div>
+          <span class="card-foot">pages/components-controls.html</span>
+        </a>
+        <a class="card" href="pages/components-overlays.html">
+          <div>
+            <h3 class="card-title">Dialogs & Modals</h3>
+            <p class="card-desc">Elevated surfaces, dark backdrops, focus trap, and escape key handling.</p>
+          </div>
+          <span class="card-foot">pages/components-overlays.html</span>
+        </a>
+        <a class="card" href="pages/data-viz.html">
+          <div>
+            <h3 class="card-title">Data Visualisation</h3>
+            <p class="card-desc">Series colors, chart axes, selected markers, and tooltip cards.</p>
+          </div>
+          <span class="card-foot">pages/data-viz.html</span>
+        </a>
+        <a class="card" href="app/index.html">
+          <div>
+            <h3 class="card-title">Service Console (React)</h3>
+            <p class="card-desc">Live interactive console showing dense tables, tabs, filtering, and dialogs.</p>
+          </div>
+          <span class="card-foot">app/index.html</span>
+        </a>
+      </div>
+
+      <h2 class="section-title">Audits & Verification</h2>
+      <div class="grid">
+        <a class="card" href="pages/accessibility.html">
+          <div>
+            <h3 class="card-title">Accessibility & Contrast</h3>
+            <p class="card-desc">Measured WCAG AA/AAA luminance matrices and forced-colors high contrast.</p>
+          </div>
+          <span class="card-foot">pages/accessibility.html</span>
+        </a>
+        <a class="card" href="pages/brand-assets.html">
+          <div>
+            <h3 class="card-title">Brand & Provenance</h3>
+            <p class="card-desc">Font licenses, logo kits, archive SHA-256 digests, and package manifest.</p>
+          </div>
+          <span class="card-foot">pages/brand-assets.html</span>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <span>M.O.B Signal v2.0.0</span>
+      <span>Published under Proprietary / MIT Component License</span>
+    </footer>
+  </div>
+</body>
+</html>

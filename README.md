@@ -6,7 +6,7 @@
 
 [![Node.js](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org)
 [![React](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://react.dev)
-[![Version](https://img.shields.io/badge/version-1.7.0-black.svg)](package.json)
+[![Version](https://img.shields.io/badge/version-2.0.0-black.svg)](package.json)
 [![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
 
 <p>A dark, square design system for engineering consoles and data-dense interfaces.</p>

@@ -1,0 +1,44 @@
+/* Generated from tokens.measured.json. Run npm run build. */
+@theme {
+  /* Semantic Colors */
+  --color-primary: #00cc5c;
+  --color-primary-hover: #00e065;
+  --color-primary-active: #00b853;
+  --color-primary-subtle: rgba(0, 204, 92, 0.1);
+  --color-accent-secondary: #38bdf8;
+  --color-text-on-primary: #000000;
+  --color-background: #0a0a0a;
+  --color-surface: #121212;
+  --color-surface-subtle: #181818;
+  --color-surface-elevated: #202020;
+  --color-surface-hover: #222222;
+  --color-border: #262626;
+  --color-border-strong: #383838;
+  --color-border-focus: #00cc5c;
+  --color-foreground: #ededed;
+  --color-text-secondary: #a1a1a1;
+  --color-muted: #737373;
+  --color-success: #00cc5c;
+  --color-success-subtle: rgba(0, 204, 92, 0.1);
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #38bdf8;
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, monospace;
+
+  /* Spacing Scale (4px base) */
+  --spacing: 4px;
+
+  /* Geometry Brand Trait: Reset all radius to 0px */
+  --radius-*: initial;
+  --radius-none: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-full: 0px;
+  --radius: 0px;
+}

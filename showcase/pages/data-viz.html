@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data visualisation</title>
+  <link rel="stylesheet" href="../../dist/colors_and_type.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--color-background);
+      color: var(--color-text);
+      font: 400 var(--mob-signal-text-base)/var(--mob-signal-line-base) var(--font-family);
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { width: min(var(--container-prose), calc(100vw - var(--gutter) * 2)); margin: var(--space-12) auto; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); color: var(--color-text); }
+    h1 { margin: 0 0 var(--space-4); font-size: var(--mob-signal-text-3xl); line-height: var(--mob-signal-line-3xl); }
+    h2 { margin: var(--space-8) 0 var(--space-4); font-size: var(--mob-signal-text-xl); line-height: var(--mob-signal-line-xl); }
+    h3 { font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); }
+    p { max-width: 70ch; color: var(--color-text-secondary); }
+    .eyebrow { margin: 0 0 var(--space-2); color: var(--color-text-secondary); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); font-weight: 500; }
+    .lead { margin-bottom: var(--space-6); font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); }
+    code, .mono { font-family: var(--code-font-family); font-variant-numeric: tabular-nums; }
+    code { font-size: var(--mob-signal-text-xs); color: var(--color-text-secondary); }
+    .note { margin: var(--space-3) 0 0; max-width: 70ch; color: var(--color-text-secondary); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); }
+    .card { padding: var(--mob-signal-pad-card); background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .axis-caption { display: flex; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-3); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); color: var(--color-text-secondary); }
+    .axis-caption b { font-weight: 500; color: var(--color-text); }
+
+    svg.chart { display: block; width: 100%; height: auto; }
+    .grid { stroke: var(--mob-signal-chart-grid); stroke-width: var(--mob-signal-border-width); }
+    .axis { stroke: var(--mob-signal-chart-axis); stroke-width: var(--mob-signal-border-width); }
+    .tick { fill: var(--mob-signal-chart-label); font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); font-variant-numeric: tabular-nums; }
+    .cat { fill: var(--mob-signal-chart-label); font-family: var(--font-family); font-size: var(--mob-signal-text-xs); }
+    .s1 { stroke: var(--chart-series-1); }
+    .s2 { stroke: var(--chart-series-2); }
+    .sel { stroke: var(--chart-series-selected); }
+    .series { fill: none; stroke-width: var(--mob-signal-chart-line); stroke-linejoin: miter; stroke-linecap: butt; }
+    .mk-sel { fill: var(--chart-series-selected); stroke: none; width: var(--mob-signal-chart-marker); height: var(--mob-signal-chart-marker); }
+    .mk-s1 { fill: var(--chart-series-1); stroke: none; width: var(--mob-signal-chart-marker); height: var(--mob-signal-chart-marker); }
+    .area { fill: var(--mob-signal-chart-area-fill); stroke: none; }
+    .thresh { stroke: var(--color-error); stroke-width: var(--mob-signal-chart-line); stroke-dasharray: var(--mob-signal-chart-dash-2); }
+    .thresh-lbl { fill: var(--color-error); font-family: var(--font-family); font-size: var(--mob-signal-text-xs); }
+    .l-sel { fill: var(--chart-series-selected); }
+    .l-s1 { fill: var(--chart-series-1); }
+    .l-s2 { fill: var(--chart-series-2); }
+    .bar { fill: var(--chart-series-1); }
+    .bar-sel { fill: var(--chart-series-selected); }
+    .val { fill: var(--mob-signal-chart-label); font-family: var(--code-font-family); font-size: var(--mob-signal-text-xs); font-variant-numeric: tabular-nums; }
+    .spark-s1 { stroke: var(--chart-series-1); }
+    .spark-sel { stroke: var(--chart-series-selected); }
+
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--color-border); }
+    .legend span { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); color: var(--color-text-secondary); }
+    .legend i { width: calc(var(--mob-signal-chart-marker) * 4); height: var(--mob-signal-chart-line); background: var(--chart-series-1); }
+    .legend i.s2 { background: var(--chart-series-2); }
+    .legend i.sel { background: var(--chart-series-selected); }
+    .legend i.dash { height: 0; background: none; border-top: var(--mob-signal-chart-line) dashed var(--color-error); }
+    .stat-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
+    .stat-cell { padding: var(--space-4); background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); }
+    .stat-label { color: var(--color-text-secondary); font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); }
+    .stat-number { margin-top: var(--space-1); font-family: var(--font-display); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); font-size: var(--mob-signal-text-2xl); line-height: var(--mob-signal-line-2xl); font-variant-numeric: tabular-nums; }
+    .stat-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-2); }
+    .delta { font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); color: var(--color-warning); font-variant-numeric: tabular-nums; }
+    .delta.neutral { color: var(--color-text-secondary); }
+    svg.spark { display: block; width: calc(var(--mob-signal-sparkline-height) * 5); height: var(--mob-signal-sparkline-height); }
+
+    .table-wrap { margin-top: var(--space-4); border: 1px solid var(--color-border); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: var(--mob-signal-text-sm); }
+    caption { text-align: left; padding: var(--space-3) var(--space-4); background: var(--color-surface); color: var(--color-text); font-family: var(--font-display); font-size: var(--mob-signal-text-base); line-height: var(--mob-signal-line-base); font-weight: 600; letter-spacing: var(--mob-signal-tracking-display); border-bottom: 1px solid var(--color-border); }
+    th { background: var(--color-surface-subtle); color: var(--color-text-secondary); font-weight: 500; font-size: var(--mob-signal-text-xs); line-height: var(--mob-signal-line-xs); text-align: left; padding: 10px var(--space-4); border-bottom: 1px solid var(--color-border); white-space: nowrap; }
+    td { padding: var(--mob-signal-pad-cell); border-bottom: 1px solid var(--color-border); color: var(--color-text); vertical-align: top; font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); }
+    td.num { text-align: right; font-family: var(--code-font-family); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    td code { font-size: var(--mob-signal-text-xs); }
+    tr:last-child td { border-bottom: none; }
+    .provenance { margin-top: var(--space-8); padding: var(--space-4); background: var(--color-surface-subtle); border: 1px solid var(--color-border); font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); color: var(--color-text-secondary); }
+    @media (max-width: 768px) { .stat-row { grid-template-columns: 1fr; } }
+  </style>
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+</head>
+<body><main>
+  <p class="eyebrow">Data visualisation</p>
+  <h1>Charts</h1>
+  <p class="lead">Four series tokens, one reserved accent, 1px gridlines and mono tabular figures. The selected series is green; ordinary series are blue and neutral, so the brand's accent rule survives inside a plot. Everything below is inline SVG painted from <code>colors_and_type.css</code> — no canvas, no chart library, no CDN.</p>
+
+  <h2>Multi-series line chart with a threshold</h2>
+  <div class="card">
+    <div class="axis-caption"><span><b>p95 latency</b> by region, last 24 hours</span><span>y: p95 latency (ms) · x: time (UTC, 3 h buckets)</span></div>
+    <svg class="chart" viewBox="0 0 620 232" role="img" aria-label="Line chart of p95 latency for three regions against a 250 millisecond service objective. ap-southeast-1 is selected and rises from 148 to 271 milliseconds, crossing the objective late in the window. us-east-1 stays near 90 milliseconds and eu-west-1 near 135 milliseconds.">
+      <g class="grid">
+        <line x1="52" y1="20" x2="432" y2="20" />
+        <line x1="52" y1="80" x2="432" y2="80" />
+        <line x1="52" y1="140" x2="432" y2="140" />
+      </g>
+      <g class="tick" text-anchor="end">
+        <text x="44" y="24">300</text>
+        <text x="44" y="84">200</text>
+        <text x="44" y="144">100</text>
+        <text x="44" y="204">0</text>
+      </g>
+      <polygon class="area" points="52,142.4 106,147.2 161,138.8 215,145.4 269,149.6 323,141.8 378,146 432,148.4 432,200 52,200" />
+      <g class="thresh" aria-hidden="true"><line x1="52" y1="50" x2="432" y2="50" /></g>
+      <text class="thresh-lbl" x="56" y="42">SLO 250 ms</text>
+      <polyline class="series s1" stroke="var(--chart-series-1)" points="52,142.4 106,147.2 161,138.8 215,145.4 269,149.6 323,141.8 378,146 432,148.4" />
+      <polyline class="series s2" stroke="var(--chart-series-2)" points="52,123.2 106,115.4 161,120.2 215,128.6 269,117.8 323,124.4 378,113.6 432,116.6" />
+      <polyline class="series sel" stroke="var(--chart-series-selected)" points="52,111.2 106,102.2 161,97.4 215,82.4 269,71.6 323,60.2 378,45.2 432,37.4" />
+      <g class="mk-sel">
+        <rect x="50" y="109.2" width="4" height="4" />
+        <rect x="104" y="100.2" width="4" height="4" />
+        <rect x="159" y="95.4" width="4" height="4" />
+        <rect x="213" y="80.4" width="4" height="4" />
+        <rect x="267" y="69.6" width="4" height="4" />
+        <rect x="321" y="58.2" width="4" height="4" />
+        <rect x="376" y="43.2" width="4" height="4" />
+        <rect x="430" y="35.4" width="4" height="4" />
+      </g>
+      <g class="axis">
+        <line x1="52" y1="200" x2="432" y2="200" />
+        <line x1="52" y1="20" x2="52" y2="200" />
+      </g>
+      <g class="tick" text-anchor="middle">
+        <text x="52" y="218">00</text>
+        <text x="161" y="218">06</text>
+        <text x="269" y="218">12</text>
+        <text x="378" y="218">18</text>
+      </g>
+      <g class="tick">
+        <text class="l-sel" x="440" y="41.4" fill="var(--chart-series-selected)">ap-southeast-1 271 ms</text>
+        <text class="l-s2" x="440" y="120.6" fill="var(--chart-series-2)">eu-west-1 139 ms</text>
+        <text class="l-s1" x="440" y="152.4" fill="var(--chart-series-1)">us-east-1 86 ms</text>
+      </g>
+    </svg>
+    <div class="legend">
+      <span><i class="sel"></i>ap-southeast-1 — selected</span>
+      <span><i class="s2"></i>eu-west-1</span>
+      <span><i></i>us-east-1</span>
+      <span><i class="dash"></i>SLO 250 ms</span>
+    </div>
+    <p class="note">Three series is the documented shape: two ordinary ones on <code>--chart-series-1</code> and <code>--chart-series-2</code>, one selected on <code>--chart-series-selected</code>. Markers are 4px squares on the selected line only, so a hue is never the only cue — every line ends in its own name, and the legend repeats it. The flat fill under <code>us-east-1</code> uses <code>--chart-area-fill</code>, which is registered in the series-1 hue, so it may only sit under that series. The dashed objective is error-coloured and labelled "SLO 250 ms": the hue carries meaning only because the word is there, and the sentence would still read with the line drawn in grey.</p>
+  </div>
+
+  <h2>Bar chart</h2>
+  <div class="card">
+    <div class="axis-caption"><span><b>Deploys</b> per day, this week</span><span>y: deploys (count) · x: weekday</span></div>
+    <svg class="chart" viewBox="0 0 620 204" role="img" aria-label="Bar chart of deploys per day: Mon 4, Tue 7, Wed 3, Thu 9, Fri 12, Sat 6, Sun 5. Friday is selected.">
+      <g class="grid">
+        <line x1="52" y1="40" x2="512" y2="40" />
+        <line x1="52" y1="83.3" x2="512" y2="83.3" />
+        <line x1="52" y1="126.7" x2="512" y2="126.7" />
+      </g>
+      <g class="tick" text-anchor="end">
+        <text x="44" y="44">12</text>
+        <text x="44" y="87.3">8</text>
+        <text x="44" y="130.7">4</text>
+        <text x="44" y="174">0</text>
+      </g>
+      <rect class="bar" fill="var(--chart-series-1)" x="64" y="126.7" width="40" height="43.3" />
+      <rect class="bar" fill="var(--chart-series-1)" x="128" y="94.2" width="40" height="75.8" />
+      <rect class="bar" fill="var(--chart-series-1)" x="192" y="137.5" width="40" height="32.5" />
+      <rect class="bar" fill="var(--chart-series-1)" x="256" y="72.5" width="40" height="97.5" />
+      <rect class="bar-sel" fill="var(--chart-series-selected)" x="320" y="40" width="40" height="130" />
+      <rect class="bar" fill="var(--chart-series-1)" x="384" y="105" width="40" height="65" />
+      <rect class="bar" fill="var(--chart-series-1)" x="448" y="115.8" width="40" height="54.2" />
+      <line class="axis" x1="52" y1="170" x2="512" y2="170" stroke="var(--mob-signal-chart-axis)" />
+      <g class="val" text-anchor="end">
+        <text x="104" y="118.7">4</text>
+        <text x="168" y="86.2">7</text>
+        <text x="232" y="129.5">3</text>
+        <text x="296" y="64.5">9</text>
+        <text x="360" y="32">12</text>
+        <text x="424" y="97">6</text>
+        <text x="488" y="107.8">5</text>
+      </g>
+      <text class="val" x="360" y="18" text-anchor="end">Selected</text>
+      <g class="cat" text-anchor="middle">
+        <text x="84" y="188">Mon</text>
+        <text x="148" y="188">Tue</text>
+        <text x="212" y="188">Wed</text>
+        <text x="276" y="188">Thu</text>
+        <text x="404" y="188">Sat</text>
+        <text x="468" y="188">Sun</text>
+      </g>
+      <text class="cat" x="340" y="188" fill="var(--color-text)">Fri</text>
+    </svg>
+    <p class="note">Bars are square — radius 0px, no rounded cap, no gradient. The gap between bars is 24px and the floor is 4px: below that a bar stops being separable from its neighbour at 100% zoom. Counts sit above each bar right-aligned to its edge in JetBrains Mono with <code>tabular-nums</code>; the axis states the unit once, so the ticks are bare digits. Friday is the selected day: the bar takes <code>--chart-series-selected</code> and the word "Selected" is printed above it, because a green bar on its own would only read as "success".</p>
+  </div>
+
+  <h2>Sparkline inside a stat cell</h2>
+  <div class="stat-row">
+    <div class="stat-cell">
+      <p class="stat-label">p95 latency, ap-southeast-1, 24 h</p>
+      <p class="stat-number">271 ms</p>
+      <div class="stat-foot">
+        <svg class="spark" viewBox="0 0 120 24" role="img" aria-label="Sparkline rising from 148 to 271 milliseconds">
+          <polyline class="series spark-s1" stroke="var(--chart-series-1)" points="2,20.7 12.4,20.1 22.7,21 33.1,19.3 43.5,18.6 53.8,19 64.2,17.8 74.5,17.4 84.9,15.8 95.3,13.8 105.6,11.2 116,3" />
+          <rect class="mk-s1" fill="var(--chart-series-1)" x="114" y="1" width="4" height="4" />
+        </svg>
+        <p class="delta">↑ 18 ms slower</p>
+      </div>
+    </div>
+    <div class="stat-cell">
+      <p class="stat-label">Deploy success rate, selected metric</p>
+      <p class="stat-number">99.4%</p>
+      <div class="stat-foot">
+        <svg class="spark" viewBox="0 0 120 24" role="img" aria-label="Sparkline holding between 98.8 and 99.4 percent">
+          <polyline class="series spark-sel" stroke="var(--chart-series-selected)" points="2,6 12.4,21 22.7,9 33.1,15 43.5,6 53.8,9 64.2,3 74.5,6 84.9,6 95.3,3 105.6,9 116,3" />
+          <rect class="mk-sel" fill="var(--chart-series-selected)" x="114" y="1" width="4" height="4" />
+        </svg>
+        <p class="delta neutral">↑ 0.3 pts higher</p>
+      </div>
+    </div>
+  </div>
+  <p class="note">A sparkline is 24px tall (<code>--sparkline-height</code>), has no axis, no gridline, no tick and no label of its own — the stat cell already names the metric and prints the current figure. It ends in one 4px square marker at the latest point. The delta is a signed number plus an arrow glyph plus a word; never a colour on its own. The first cell draws an ordinary metric in <code>--chart-series-1</code>, the second is the selected metric and takes the accent, so each cell holds at most one accent element: here the line carries the selection, which is why its delta text stays neutral rather than also turning green.</p>
+
+  <h2>Rules</h2>
+  <div class="table-wrap">
+    <table>
+      <caption>Chart contract</caption>
+      <thead>
+        <tr><th scope="col">Rule</th><th scope="col">Value</th><th scope="col">Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Series cap</td><td class="num">4</td><td><code>--chart-series-1…4</code> is the whole ramp. A fifth series aggregates into "other" or facets into small multiples; it does not add a hue, because the palette has no fifth registered colour and an invented one breaks dark-only consistency.</td></tr>
+        <tr><td>What the accent may mean</td><td class="num">2 uses</td><td>Inside a chart the accent marks the <em>selected series</em> or a <em>threshold crossing</em> — never both at once, never a default line colour, never a background wash. Ordinary series take <code>#38bdf8</code> plus the neutral ramp.</td></tr>
+        <tr><td>Threshold</td><td class="num">1 label</td><td>Dashed <code>--chart-dash-2</code> (8px 4px) in <code>--color-error</code>, labelled with the target and the number ("SLO 250 ms"). A dashed line without a word is decoration.</td></tr>
+        <tr><td>Ticks</td><td class="num">≤ 4</td><td><code>--chart-y-ticks</code> is 4. No minor gridlines, no second axis on the same face — facet instead. The state below is the whole set: 0, 100, 200, 300.</td></tr>
+        <tr><td>Figures</td><td class="num">mono</td><td>JetBrains Mono with <code>font-variant-numeric: tabular-nums</code>, right-aligned in a column or on an axis, so digits do not jitter when a value updates. Units live in the axis label, not on every tick.</td></tr>
+        <tr><td>Marker geometry</td><td class="num">4px sq</td><td><code>--chart-marker</code> is a 4px square; <code>--chart-line</code> is 2px. No circles, no rounded caps, no mitered glow — the same square architecture the rest of the system uses.</td></tr>
+        <tr><td>Fill</td><td class="num">flat</td><td>One flat <code>--chart-area-fill</code> under one series. No gradient, no 3D, no drop shadow under a line, no glow, no blur, no second fill.</td></tr>
+        <tr><td>Labelling</td><td class="num">direct</td><td>End-of-line labels beat a legend, because the reader never has to carry a hue across the plot. A legend is kept only where the swatch pairs with the region name; a swatch alone is not a label.</td></tr>
+        <tr><td>Line contrast</td><td class="num">≥ 3:1</td><td>All four series tokens clear 3:1 against the card surface <code>#121212</code>. The weakest is <code>--chart-series-3</code> (<code>#737373</code>) at 3.95:1 — above the data-line floor, below the 4.5:1 text floor, so it never carries an axis label. Axis text uses <code>--chart-label</code> (<code>#a1a1a1</code>).</td></tr>
+        <tr><td>Structural rules</td><td class="num">decorative</td><td>Gridlines are 1px <code>#181818</code> on <code>#121212</code>, and a 1px <code>#262626</code> border is 1.31:1 on canvas: neither reaches the 3:1 floor. They are scaffolding and must never be the sole carrier of meaning; the baseline uses <code>--chart-axis</code> (<code>#383838</code>) instead.</td></tr>
+        <tr><td>Reduced motion</td><td class="num">0.01ms</td><td>A chart never animates in this system — no draw-on, no staggered bars, no dash-march, no value count-up. So <code>prefers-reduced-motion</code> changes nothing here; the chart is already the reduced-motion state. Hover only steps the card border to <code>--color-border-strong</code> at 0.12s.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">Alias coverage: the contract publishes public aliases for <code>--chart-series-1…4</code> and <code>--chart-series-selected</code> only. Grid, axis, label, area fill, line width, marker size, dash patterns, sparkline height and the tick count exist solely under the <code>--mob-signal-*</code> prefix, so this card resolves them by their full names — <code>--mob-signal-chart-grid</code>, <code>--mob-signal-chart-axis</code>, <code>--mob-signal-chart-label</code>, <code>--mob-signal-chart-area-fill</code>, <code>--mob-signal-chart-line</code>, <code>--mob-signal-chart-marker</code>, <code>--mob-signal-chart-dash-2</code>, <code>--mob-signal-sparkline-height</code> — and the short names used in the table above are the alias forms to register in the contract.</p>
+
+  <p class="provenance">Provenance: <code>historical design input (not bundled)</code> ships no chart, no sparkline, no series ramp and no axis colour — only component CSS. Every value on this card is therefore authored from the registered palette in <code>design-tokens.json</code> plus the 2px/1px border arithmetic, not measured from a rendered reference. The two measured anchors it inherits are the 24px/32px type steps and the 4px spacing grid.</p>
+</main></body>
+</html>

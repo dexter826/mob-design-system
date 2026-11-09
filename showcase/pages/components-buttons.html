@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buttons</title>
+  <style>
+
+    :root {
+      color-scheme: dark;
+      --bg: var(--color-background);
+      --surface: var(--color-surface);
+      --surface-subtle: var(--color-surface-subtle);
+      --surface-elevated: var(--color-surface-elevated);
+      --surface-hover: var(--color-surface-hover);
+      --fg: var(--color-text);
+      --fg-secondary: var(--color-text-secondary);
+      --muted: var(--color-text-muted);
+      --border: var(--color-border);
+      --border-strong: var(--color-border-strong);
+      --accent: var(--color-primary);
+      --accent-hover: var(--color-primary-hover);
+      --accent-active: var(--color-primary-active);
+      --accent-subtle: rgba(0, 204, 92, 0.1);
+      --success: var(--color-primary);
+      --success-subtle: rgba(0, 204, 92, 0.1);
+      --on-accent: var(--color-text-on-primary);
+      --info: var(--color-info);
+      --warning: var(--color-warning);
+      --error: var(--color-error);
+      --radius: 0px;
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
+      --focus-ring: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
+      --motion: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+      --font-display: 'Space Grotesk', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; border-radius: 0; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg); font: 16px/1.5 var(--font-body); font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum"; -webkit-font-smoothing: antialiased; }
+    main { width: min(920px, calc(100vw - 100px)); margin: 48px auto; }
+    h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
+    h1 { margin: 0 0 16px; font-size: 32px; line-height: 36px; }
+    h2 { margin: 32px 0 16px; font-size: 20px; line-height: 28px; }
+    h3 { font-size: 18px; line-height: 28px; }
+    p { margin: 0; max-width: 70ch; color: var(--fg-secondary); }
+    .lead { max-width: 70ch; font-size: 18px; line-height: 28px; }
+    .eyebrow { margin: 0 0 8px; color: var(--color-text-secondary); font-size: 12px; line-height: 16px; font-weight: 500; }
+    code { font-family: var(--font-mono); font-size: 12px; color: var(--fg-secondary); }
+
+button:focus-visible { box-shadow: var(--focus-ring); }
+
+button.primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+button.secondary { background: var(--surface-subtle); border-color: var(--border); color: var(--fg); }
+
+button.ghost { background: transparent; border-color: transparent; color: var(--fg-secondary); }
+
+button.danger { background: transparent; border-color: rgba(239, 68, 68, 0.3); color: var(--error); }
+
+button:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+    .component-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+    .component-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 32px 0; }
+    .component-grid > article, .section-list li { display: grid; gap: 8px; align-content: start; padding: 24px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .component-grid > article > button { justify-self: start; }
+    article > span, .section-list li > span { max-width: 70ch; color: var(--fg-secondary); font-size: 14px; line-height: 20px; }
+    .section-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 32px 0; padding: 0; list-style: none; }
+    .section-list strong { font-family: var(--font-display); font-size: 18px; line-height: 28px; font-weight: 600; letter-spacing: -0.02em; color: var(--fg); }
+    @media (max-width: 768px) { .component-grid, .section-list { grid-template-columns: 1fr; } }
+  </style>
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../dist/colors_and_type.css">
+<link rel="stylesheet" href="../../dist/components.css">
+</head>
+<body><main>
+      <p class="eyebrow">Components</p>
+      <h1>Button</h1>
+      <p class="lead">Five documented variants plus the keyboard focus ring. Padding 8px 16px, control height 32px, radius 0px, label at 14px weight 500, one 0.12s transition on background-color, border-color and color.</p>
+      <section class="component-grid">
+        <article>
+          <h3>Primary</h3>
+          <button class="primary btn btn-primary" type="button">Deploy new service</button>
+          <span>Fill #00cc5c, text #000000 at 9.79:1 (AAA), label weight 600. Hover #00e065 at 11.85:1, active #00b853 at 7.98:1 — each step clears 1.21:1 against the base, the floor for a state change a viewer can actually see on a 32px fill. Black is the only label color an accent fill takes — #ededed on #00cc5c measures 1.83:1 and fails. One primary action per view.</span>
+        </article>
+        <article>
+          <h3>Secondary</h3>
+          <button class="secondary btn btn-secondary" type="button">Save changes</button>
+          <span>Fill #181818, text #ededed, 1px #262626 border. Hover lifts the fill to #222222 and the border to #383838.</span>
+        </article>
+        <article>
+          <h3>Ghost</h3>
+          <button class="ghost btn btn-ghost" type="button">View audit log</button>
+          <span>Transparent fill, text #a1a1a1. Hover sets the fill to #181818 and the text to #ededed. The text never gets lighter than #ededed.</span>
+        </article>
+        <article>
+          <h3>Danger</h3>
+          <button class="danger btn btn-danger" type="button">Delete project</button>
+          <span>Transparent fill, text #ef4444, 1px rgba(239, 68, 68, 0.3) border. Hover adds rgba(239, 68, 68, 0.1) and moves the border to #ef4444.</span>
+        </article>
+        <article>
+          <h3>Disabled</h3>
+          <button class="primary btn btn-primary" type="button" disabled>Rollback</button>
+          <span>Opacity 0.4, cursor not-allowed, pointer-events none. The same rule applies to every variant and keeps the label readable in place.</span>
+        </article>
+        <article>
+          <h3>Keyboard focus</h3>
+          <button class="secondary btn btn-secondary" type="button">Retry deployment</button>
+          <span>Tab to this button. The ring is 0 0 0 2px #0a0a0a, 0 0 0 4px #00cc5c and adds no layout shift. On this card's #121212 fill the accent ring measures 8.73:1, well above the 3:1 non-text floor.</span>
+        </article>
+      </section>
+      <h2>Copy</h2>
+      <p>Labels are sentence case and verb-first: "Deploy new service", "Save changes", "View audit log", "Delete project". No all-caps text, no noun-only labels, no marketing superlatives.</p>
+      <ul class="section-list">
+        <li><strong>Geometry</strong><span>Radius is 0px on every variant. Height is 32px from the source arithmetic: 8px + 14px line + 8px + 2px border. The source defines one control size, not a small/large scale.</span></li>
+        <li><strong>Variants in the source</strong><span>design-tokens.json documents primary, secondary and ghost. design-system.css adds the danger variant and the disabled rule. Nothing beyond these five states is defined, so no spinner, link or split-button style is claimed here.</span></li>
+        <li><strong>Saturation, not light</strong><span>The primary fill is the corrected neon accent #00cc5c, not a glow. At 100% chroma it halates, so the accent never carries text below 14px, and the 14px label above sits exactly at that floor. It is never used as a large background wash and never gets a glow, bloom or colored shadow. State change is the one 0.12s transition on fill, border and color.</span></li>
+        <li><strong>Success is not a button</strong><span>No variant takes a green fill to report a state. Operational now shares the accent's green, so a healthy result is a sentence with a 6px square and an icon in a toast or a badge — never a second green button competing with the action button beside it. A destructive action keeps the error hue, as above.</span></li>
+      </ul>
+    </main></body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brand assets</title>
+  <style>
+
+    :root {
+      color-scheme: dark;
+      --bg: var(--color-background);
+      --surface: var(--color-surface);
+      --surface-subtle: var(--color-surface-subtle);
+      --fg: var(--color-text);
+      --fg-2: var(--color-text-secondary);
+      --muted: var(--color-text-muted);
+      --border: var(--color-border);
+      --border-strong: var(--color-border-strong);
+      --accent: var(--color-primary);
+      --accent-subtle: rgba(0, 204, 92, 0.1);
+      --success: var(--color-primary);
+      --success-subtle: rgba(0, 204, 92, 0.1);
+      --info: var(--color-info);
+      --error: var(--color-error);
+      --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+      --motion: 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--fg);
+      font: 16px/1.5 var(--font-body);
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+    }
+    main { width: min(960px, calc(100vw - 96px)); margin: 48px auto; }
+    h1 { font-family: var(--font-display); font-size: 32px; line-height: 1.125; font-weight: 600; letter-spacing: -0.02em; }
+    h2 { font-family: var(--font-display); font-size: 20px; line-height: 1.4; font-weight: 600; letter-spacing: -0.02em; margin: 40px 0 4px; }
+    h3 { font-size: 14px; line-height: 1.25; font-weight: 600; color: var(--fg); }
+    p { color: var(--fg-2); max-width: 70ch; }
+    .eyebrow { color: var(--color-text-secondary); font-size: 12px; font-weight: 500; margin-bottom: 8px; }
+    .lead { font-size: 16px; line-height: 1.5; max-width: 70ch; margin-top: 8px; }
+    .note { font-size: 14px; line-height: 1.5; margin-top: 8px; }
+    code, .mono { font-family: var(--font-mono); font-size: 13px; color: var(--fg-2); }
+    .frame {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-top: 16px;
+    }
+    .frame svg { display: block; width: 320px; max-width: 100%; height: auto; }
+    .frame-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+    .status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; font-weight: 500; line-height: 1.25; padding: 2px 8px; border: 1px solid var(--border); background: var(--surface-subtle); color: var(--fg-2); }
+    .status i { width: 6px; height: 6px; background: currentColor; }
+    .status.absent { color: var(--error); border-color: rgba(239, 68, 68, 0.25); background: rgba(239, 68, 68, 0.1); }
+    .status.present { color: var(--success); border-color: rgba(0, 204, 92, 0.25); background: var(--success-subtle); }
+    .status.info { color: var(--info); border-color: rgba(56, 189, 248, 0.25); background: rgba(56, 189, 248, 0.1); }
+    .table-container { border: 1px solid var(--border); overflow-x: auto; margin-top: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+    th { background: var(--surface-subtle); color: var(--fg-2); font-size: 12px; font-weight: 500; padding: 10px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--fg); font-variant-numeric: tabular-nums; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    td.numeric, th.numeric { text-align: right; }
+    td .sub { display: block; color: var(--color-text-secondary); font-size: 12px; }
+    .lockup { display: flex; align-items: center; gap: 12px; }
+    .lockup .mark { width: 18px; height: 18px; background: var(--accent); flex: none; }
+    .lockup .name { font-family: var(--font-display); font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    a { color: var(--info); text-decoration: none; }
+    a:focus-visible, button:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+    button {
+      font: 500 14px/1 var(--font-body);
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      background: var(--surface-subtle);
+      color: var(--fg);
+      cursor: pointer;
+      transition: background-color var(--motion), border-color var(--motion), color var(--motion);
+    }
+    button:hover { background: var(--color-surface-hover); border-color: var(--border-strong); }
+    .kbd { display: inline-flex; align-items: center; padding: 1px 5px; font-family: var(--font-mono); font-size: 12px; color: var(--color-text-secondary); background: var(--surface-subtle); border: 1px solid var(--border); line-height: 1; }
+    @media (max-width: 768px) { main { width: min(100vw - 48px, 960px); margin: 24px auto; } .frame-grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { * { transition-duration: 1ms !important; } }
+      .asset-stage { margin-top:16px; padding:24px; background:var(--bg); display:flex; align-items:center; justify-content:center; }
+    .asset-stage-light { background:var(--fg); }
+    .asset-stage img { display:block; width:100%; max-width:400px; height:auto; }
+    .eyebrow { color:var(--fg-2); }
+  </style>
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+<link rel="stylesheet" href="../../dist/colors_and_type.css">
+</head>
+<body><main>
+  <p class="eyebrow">Brand assets</p>
+  <h1>M.O.B Signal</h1>
+  <p class="lead">Supplied M.O.B identity assets, local font files and the authored icon family for M.O.B Signal.</p>
+
+  <h2>Logo</h2>
+  <p class="status present"><i></i>Supplied identity kit</p>
+  <p class="note">The supplied artwork spells M.O.B. The product name remains M.O.B Signal. Use these original vector files without reconstructing the wordmark or adding letters to it.</p>
+  <div class="frame-grid"><div class="frame"><h3>Horizontal on dark</h3><div class="asset-stage"><img src="../../logos/mob-logo/vectors/mob-lockup-dark.svg" width="884" height="256" alt="Supplied M.O.B horizontal on dark" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/mob-lockup-dark.svg" download>Download mob-lockup-dark.svg</a></p></div>
+<div class="frame"><h3>Horizontal on light</h3><div class="asset-stage asset-stage-light"><img src="../../logos/mob-logo/vectors/mob-lockup-light.svg" width="884" height="256" alt="Supplied M.O.B horizontal on light" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/mob-lockup-light.svg" download>Download mob-lockup-light.svg</a></p></div>
+<div class="frame"><h3>Monochrome black</h3><div class="asset-stage asset-stage-light"><img src="../../logos/mob-logo/vectors/mob-lockup-mono-black.svg" width="884" height="256" alt="Supplied M.O.B monochrome black" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/mob-lockup-mono-black.svg" download>Download mob-lockup-mono-black.svg</a></p></div>
+<div class="frame"><h3>Monochrome white</h3><div class="asset-stage"><img src="../../logos/mob-logo/vectors/mob-lockup-mono-white.svg" width="884" height="256" alt="Supplied M.O.B monochrome white" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/mob-lockup-mono-white.svg" download>Download mob-lockup-mono-white.svg</a></p></div>
+<div class="frame"><h3>Stacked</h3><div class="asset-stage"><img src="../../logos/mob-logo/vectors/mob-lockup-stacked.svg" width="644" height="512" alt="Supplied M.O.B stacked" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/mob-lockup-stacked.svg" download>Download mob-lockup-stacked.svg</a></p></div>
+<div class="frame"><h3>Symbol</h3><div class="asset-stage"><img src="../../logos/mob-logo/vectors/mob-symbol.svg" width="256" height="256" alt="Supplied M.O.B symbol" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/mob-symbol.svg" download>Download mob-symbol.svg</a></p></div>
+<div class="frame"><h3>Outlined wordmark</h3><div class="asset-stage"><img src="../../logos/mob-logo/vectors/mob-wordmark.svg" width="644" height="200" alt="Supplied M.O.B outlined wordmark" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/mob-wordmark.svg" download>Download mob-wordmark.svg</a></p></div>
+<div class="frame"><h3>Social cover</h3><div class="asset-stage"><img src="../../logos/mob-logo/vectors/og-cover.svg" width="1200" height="630" alt="Supplied M.O.B social cover" loading="lazy"></div><p class="note"><a href="../../logos/mob-logo/vectors/og-cover.svg" download>Download og-cover.svg</a></p></div></div>
+  <h2>Usage rules</h2>
+  <div class="table-container"><table><thead><tr><th>Rule</th><th>Supplied guidance</th></tr></thead><tbody>
+  <tr><td>Clear space</td><td>One pillar width: 40 source units on the 256-unit symbol grid, scaled with the artwork.</td></tr>
+  <tr><td>Minimum screen width</td><td>Symbol 16px; horizontal lockup 96px; stacked lockup 64px.</td></tr>
+  <tr><td>Minimum print size</td><td>Symbol 6mm; horizontal lockup 25mm.</td></tr>
+  <tr><td>Geometry</td><td>Preserve natural proportions, flat fills and square geometry. No crop, distortion, glow, shadow, gradients or substituted typography.</td></tr>
+  <tr><td>Monochrome</td><td>Use the supplied black or white artwork. Pure white is permitted in supplied logo assets; application tokens remain unchanged.</td></tr>
+  <tr><td>Web icons</td><td>ICO and SVG favicon; PNG 16, 32, 48; Apple 180; PWA 192 and 512; maskable 512.</td></tr>
+  </tbody></table></div>
+  <h2>Export limitations</h2>
+  <p class="note">All five supplied PNG exports in png/ measure 1200 x 1200, including the horizontal lockups and social cover. The SVG social cover is correctly sized at 1200 x 630. Use SVG or the full-frame PNG exports in logos/exports/. A print master, proof sheets and redistribution licence were not included.</p>
+  <p class="note"><a href="../../logos/manifest.json">View the complete supplied file inventory</a> ? <a href="../../logos/site.webmanifest">View the local web manifest</a></p>
+
+  <h2>Icons</h2>
+  <p class="status present"><i></i>authored for this system</p>
+  <p class="note">The archive supplied no icon and no icon font, so the family in <a href="../../assets/icons/icons.svg"><code>assets/icons/icons.svg</code></a> was drawn for this package: a 24×24 grid, 1.5px stroke, butt caps, miter joins, orthogonal geometry plus 45° diagonals only, and <code>currentColor</code> throughout. It is labelled authored brand work — part of the system, but never citable as a source measurement. The <span class="status present"><i></i>present</span> chip is filled with the success tint rgba(0, 204, 92,.1) and the accent word #00cc5c: an availability or health marker takes the same green as the accent, and the square plus the word is what says so. Gallery and pairing rules: <a href="icons.html"><code>preview/icons.html</code></a>.</p>
+
+  <h2>Typography</h2>
+  <p class="note">Three local variable WOFF2 families include English and Vietnamese glyphs. Each family uses one binary across its supported weights. Sources, hashes and glyph counts are recorded in the font manifest.</p>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr><th scope="col">Family</th><th scope="col">Role</th><th scope="col">Weights</th><th class="numeric" scope="col">Files</th><th scope="col">Subset</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span style="font-family: var(--font-display); font-weight: 600">Space Grotesk</span><span class="sub">display, headings, numerals</span></td>
+          <td>Display</td><td>500, 600, 700</td><td class="numeric">1</td><td class="mono">English / Vietnamese</td>
+        </tr>
+        <tr>
+          <td><span style="font-family: var(--font-body); font-weight: 500">Plus Jakarta Sans</span><span class="sub">body, UI, buttons</span></td>
+          <td>Body</td><td>400, 500, 600, 700</td><td class="numeric">1</td><td class="mono">English / Vietnamese</td>
+        </tr>
+        <tr>
+          <td><span style="font-family: var(--font-mono)">JetBrains Mono</span><span class="sub">code, hashes, metrics</span></td>
+          <td>Mono</td><td>400, 500, 600</td><td class="numeric">1</td><td class="mono">English / Vietnamese</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Local faces: <a href="../../fonts/fonts.css"><code>fonts/fonts.css</code></a> &middot; sources and byte counts: <a href="../../fonts/manifest.json"><code>fonts/manifest.json</code></a>. All live pages load the local font stylesheet; no runtime font CDN is required.</p>
+
+  <h2>Imagery</h2>
+  <p class="status info"><i></i>none, by policy</p>
+  <p class="note">The system excludes photography and illustration. Interest comes from type, 1px rules and status colour, so no hero or background imagery is published and none is substituted.</p>
+
+  <h2>Source evidence</h2>
+  <div class="table-container">
+    <table>
+      <thead><tr><th scope="col">Path</th><th scope="col">What it proves</th></tr></thead>
+      <tbody>
+        <tr><td>Original compressed input</td><td>Not bundled. Its SHA-256 remains a historical provenance record; extracted reference files are not bundled.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Licences and version</h2>
+  <p class="note">All three faces are Google Fonts builds of upstream projects under the <strong>SIL Open Font License 1.1</strong>, and the licence text travels with the bundle: <a href="../../fonts/licenses/spacegrotesk.OFL.txt"><code>spacegrotesk.OFL.txt</code></a>, <a href="../../fonts/licenses/plusjakartasans.OFL.txt"><code>plusjakartasans.OFL.txt</code></a>, <a href="../../fonts/licenses/jetbrainsmono.OFL.txt"><code>jetbrainsmono.OFL.txt</code></a>. OFL requires the notice to ship beside the font files, which is why they are stored rather than linked. Manifest: <a href="../../fonts/licenses.json"><code>fonts/licenses.json</code></a>.</p>
+  <div class="table-container">
+    <table>
+      <thead><tr><th scope="col">Field</th><th scope="col">Value</th></tr></thead>
+      <tbody>
+        <tr><td>Package version</td><td class="mono">2.0.0 <span class="sub">Standard 4-Tier Architecture & shadcn/ui Registry</span></td></tr>
+        <tr><td>Source version</td><td class="mono">4.0.0 <span class="sub">design-tokens.json meta.version, unchanged</span></td></tr>
+        <tr><td>Registered id</td><td class="mono">user:product</td></tr>
+        <tr><td>Archive digest (sha256)</td><td class="mono" style="word-break:break-all">8d9e46cb6d28432e8b6808417b0770b227f81a2f425d9a1601993f06a25c50d1</td></tr>
+        <tr><td>Measured token source</td><td class="mono">tokens.measured.json</td></tr>
+        <tr><td>Contrast report</td><td class="mono">scripts/contrast-measured.md</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">The digest fixes the exact source every measured value derives from. If it changes, each measured value in the package has to be re-derived against the new archive.</p>
+
+<h2>Corrected raster exports</h2><p class="note"><a href="../../logos/exports/og-cover.png" download>Download OG PNG ? 1200 ? 630</a> ? <a href="../../logos/exports/mob-lockup-dark.png" download>Download horizontal PNG ? full frame</a>. Original supplied files remain unchanged.</p></main></body>
+</html>

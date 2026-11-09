@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Content patterns</title>
+  <!-- The real contract, then the recipe sheet. No token is re-declared here and no colour
+       literal is written on this page: every colour resolves to a variable published by
+       colors_and_type.css. Badge, field, button, table and kbd recipes come from
+       components.css; the live geometry of a modal, toast, tooltip bubble or empty state is
+       owned by overlays.css, which this card does not load — it shows the copy in the panels
+       the loaded sheets already ship. -->
+  <link rel="stylesheet" href="../../dist/colors_and_type.css" />
+  <link rel="stylesheet" href="../../dist/components.css" />
+  <style>
+    /* Page chrome for the review card only. */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0; }
+    body {
+      min-height: 100vh;
+      background-color: var(--mob-signal-background);
+      color: var(--mob-signal-foreground);
+      font: 400 var(--mob-signal-text-base)/var(--mob-signal-line-base) var(--mob-signal-font-sans);
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      display: grid;
+      gap: var(--mob-signal-space-8);
+      align-content: start;
+      width: min(var(--mob-signal-container-prose), calc(100vw - var(--mob-signal-space-12)));
+      margin: var(--mob-signal-space-12) auto;
+    }
+    h1, h2, h3 {
+      font-family: var(--mob-signal-font-display);
+      font-weight: 600;
+      letter-spacing: var(--mob-signal-tracking-display);
+      color: var(--mob-signal-foreground);
+    }
+    h1 { font-size: var(--mob-signal-text-3xl); line-height: var(--mob-signal-line-3xl); }
+    h2 { font-size: var(--mob-signal-text-xl); line-height: var(--mob-signal-line-xl); }
+    h3 { font-size: var(--mob-signal-text-lg); line-height: var(--mob-signal-line-lg); }
+    .eyebrow {
+      color: var(--mob-signal-primary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      font-weight: 500;
+    }
+    .lead {
+      max-width: 70ch;
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-lg);
+      line-height: var(--mob-signal-line-lg);
+    }
+    .note {
+      max-width: 70ch;
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-sm);
+      line-height: var(--mob-signal-line-sm);
+    }
+    .note strong { color: var(--mob-signal-foreground); font-weight: 600; }
+    code, .mono {
+      font-family: var(--mob-signal-font-mono);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      color: var(--mob-signal-foreground);
+    }
+
+    /* Layout scaffolding */
+    .section { display: grid; gap: var(--mob-signal-space-4); }
+    .stack { display: grid; gap: var(--mob-signal-space-3); }
+    .rules { display: grid; gap: var(--mob-signal-space-4); list-style: none; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--mob-signal-space-4); }
+    .spec { display: grid; gap: var(--mob-signal-space-2); }
+    .caption {
+      max-width: 70ch;
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+    }
+    .caption strong { color: var(--mob-signal-foreground); font-weight: 600; }
+
+    /* Specimen stages. A panel that floats above the page takes surface-elevated plus
+       border-strong, per the measured toast recipe; a stage inside the page is a .card. */
+    .stage {
+      display: grid;
+      gap: var(--mob-signal-space-3);
+      padding: var(--mob-signal-pad-card);
+      background-color: var(--mob-signal-surface-elevated);
+      border: var(--mob-signal-border-width) solid var(--mob-signal-border-strong);
+    }
+    .fragment-title {
+      font-family: var(--mob-signal-font-display);
+      font-size: var(--mob-signal-text-lg);
+      line-height: var(--mob-signal-line-lg);
+      font-weight: 600;
+      letter-spacing: var(--mob-signal-tracking-display);
+      color: var(--mob-signal-foreground);
+    }
+    .fragment-text {
+      max-width: 70ch;
+      color: var(--mob-signal-foreground);
+      font-size: var(--mob-signal-text-sm);
+      line-height: var(--mob-signal-line-sm);
+    }
+    .line { display: flex; align-items: flex-start; gap: var(--mob-signal-space-2); }
+    .line--center { align-items: center; }
+    .actions { display: flex; flex-wrap: wrap; gap: var(--mob-signal-space-2); }
+
+    /* Status marker: the 6px square of BRAND.md 5.2. Solid where the state is happening,
+       outline where it has not happened yet. It rides currentColor, so it is always the
+       same token as the word it pairs with — or the documented muted exception. */
+    .marker {
+      flex: none;
+      width: var(--mob-signal-status-dot);
+      height: var(--mob-signal-status-dot);
+      background-color: currentColor;
+      border: var(--mob-signal-border-width) solid transparent;
+    }
+    /* Direct children only: a marker inside a badge in a .line belongs to the badge. */
+    .line > .marker,
+    .pair > .marker,
+    .donts li > .marker {
+      /* optically centred on the first 14px/20px line */
+      margin-block-start: calc((var(--mob-signal-line-sm) - var(--mob-signal-status-dot)) / 2);
+    }
+    .marker--outline { background-color: transparent; border-color: currentColor; }
+    .marker--secondary { color: var(--mob-signal-text-secondary); }
+    .marker--muted { color: var(--mob-signal-muted); }
+    .marker--error { color: var(--mob-signal-error); }
+    .marker--success { color: var(--mob-signal-success); }
+
+    /* Badge anatomy is BRAND.md 4: padding 2px 8px, 12px/500, 1px border, square, the hue
+       at 10% behind the word and 25% in the border. The contract publishes a subtle token
+       for the accent and for success; the warning, error and info fills are that same 10%
+       mix taken from their own token — no new value, no raw literal. Operational rides the
+       same green as the accent: the word on its own 10% tint. */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--mob-signal-space-2);
+      padding: 2px var(--mob-signal-space-2); /* 2px vertical is the 4 anatomy, off-grid, verbatim */
+      font-size: var(--mob-signal-text-xs);
+      line-height: 1.25;
+      font-weight: 500;
+      border: var(--mob-signal-border-width) solid transparent;
+      white-space: nowrap;
+    }
+    .badge--operational {
+      color: var(--mob-signal-success);
+      background-color: var(--mob-signal-success-subtle);
+      border-color: color-mix(in srgb, var(--mob-signal-success) 25%, transparent);
+    }
+    .badge--degraded {
+      color: var(--mob-signal-warning);
+      background-color: color-mix(in srgb, var(--mob-signal-warning) 10%, transparent);
+      border-color: color-mix(in srgb, var(--mob-signal-warning) 25%, transparent);
+    }
+    .badge--failed {
+      color: var(--mob-signal-error);
+      background-color: color-mix(in srgb, var(--mob-signal-error) 10%, transparent);
+      border-color: color-mix(in srgb, var(--mob-signal-error) 25%, transparent);
+    }
+    .badge--neutral {
+      color: var(--mob-signal-text-secondary);
+      background-color: var(--mob-signal-surface-subtle);
+      border-color: var(--mob-signal-border);
+    }
+
+    /* Destructive action. Measured 4 anatomy, applied the way overlays.css applies it in a
+       confirm footer: error on the border and the word, transparent fill, never the accent. */
+    .btn-danger {
+      background-color: transparent;
+      color: var(--mob-signal-error);
+      border-color: var(--mob-signal-error);
+      font-weight: 600;
+    }
+    .btn-danger:hover {
+      background-color: var(--mob-signal-surface-hover);
+      border-color: var(--mob-signal-error);
+      color: var(--mob-signal-error);
+    }
+
+    /* Status map items. Each badge sits on the measured card fill var(--color-surface), which is the
+       substrate every ratio printed beside it was computed against. */
+    .status-item { display: grid; gap: var(--mob-signal-space-2); align-content: start; }
+    .status-meta {
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      max-width: 70ch;
+    }
+    .status-ratio {
+      font-family: var(--mob-signal-font-mono);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      color: var(--mob-signal-foreground);
+      max-width: 70ch;
+    }
+
+    /* Selected is an edge, not a dot, so its sample is a row. The edge reserves its 2px in
+       the unselected state, so selecting it shifts nothing. */
+    .rowline {
+      display: grid;
+      gap: var(--mob-signal-space-1);
+      padding: var(--mob-signal-pad-cell);
+      background-color: var(--mob-signal-surface-subtle);
+      border: var(--mob-signal-border-width) solid var(--mob-signal-border);
+      border-inline-start: var(--mob-signal-border-width-thick) solid transparent;
+    }
+    .rowline.is-selected {
+      background-color: var(--mob-signal-primary-subtle);
+      border-inline-start-color: var(--mob-signal-primary);
+    }
+    .rowline .row-sub {
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+    }
+
+    /* Worked pairs */
+    .pair { display: flex; align-items: flex-start; gap: var(--mob-signal-space-2); }
+    .pair-label {
+      flex: none;
+      width: 5ch;
+      font-family: var(--mob-signal-font-mono);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-sm);
+      color: var(--mob-signal-text-secondary);
+    }
+    .pair p { max-width: 70ch; font-size: var(--mob-signal-text-sm); line-height: var(--mob-signal-line-sm); }
+    .pair--wants p { color: var(--mob-signal-foreground); }
+    .pair--never p { color: var(--mob-signal-text-secondary); }
+    .pair--never .pair-label { color: var(--mob-signal-error); }
+    .rule-index {
+      font-family: var(--mob-signal-font-mono);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      color: var(--mob-signal-text-secondary);
+    }
+
+    /* Formatting table extras */
+    .table-container { background-color: var(--mob-signal-background); }
+    .table-caption {
+      padding: var(--mob-signal-space-3) var(--mob-signal-space-4);
+      background-color: var(--mob-signal-surface-subtle);
+      border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      text-align: left;
+    }
+    /* Row heads read as cells, not as a second header band. */
+    .table tbody th {
+      padding: var(--mob-signal-pad-cell);
+      background-color: transparent;
+      color: var(--mob-signal-foreground);
+      font-size: var(--mob-signal-text-sm);
+      font-weight: 500;
+      white-space: normal;
+      border-bottom: var(--mob-signal-border-width) solid var(--mob-signal-border);
+      vertical-align: middle;
+    }
+    .table tbody tr:last-child th { border-bottom: none; }
+    .hash-full {
+      display: block;
+      width: 8ch;
+      font-family: var(--mob-signal-font-mono);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+      color: var(--mob-signal-foreground);
+      word-break: break-all;
+    }
+    .sub {
+      display: block;
+      margin-top: var(--mob-signal-space-1);
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+    }
+    .stacked { display: grid; gap: var(--mob-signal-space-1); justify-items: start; }
+    details.reveal { display: inline-grid; gap: var(--mob-signal-space-1); }
+    details.reveal summary { list-style: none; justify-content: flex-start; }
+    details.reveal summary::-webkit-details-marker { display: none; }
+
+    /* Do not write this */
+    .donts { display: grid; gap: var(--mob-signal-space-3); list-style: none; }
+    .donts li {
+      display: grid;
+      grid-template-columns: var(--mob-signal-space-2) minmax(0, 1fr);
+      gap: var(--mob-signal-space-3);
+      align-items: start;
+    }
+    .donts p {
+      color: var(--mob-signal-foreground);
+      font-size: var(--mob-signal-text-sm);
+      line-height: var(--mob-signal-line-sm);
+      max-width: 70ch;
+    }
+    .donts p .fix {
+      display: block;
+      margin-top: var(--mob-signal-space-1);
+      color: var(--mob-signal-text-secondary);
+      font-size: var(--mob-signal-text-xs);
+      line-height: var(--mob-signal-line-xs);
+    }
+    @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../logos/mob-logo/web-icons/favicon.ico">
+<link rel="apple-touch-icon" href="../../logos/mob-logo/web-icons/apple-touch-icon.png">
+<link rel="stylesheet" href="../../fonts/fonts.css">
+</head>
+<body>
+<main>
+  <p class="eyebrow">Voice and copy</p>
+  <h1>Content patterns</h1>
+  <p class="lead">What a writer copies: the five voice rules the archive states, the seven sentence formulas of 5.1 built from them, the status map of 5.2 as real badges, and the formatting rules of 5.3 rendered as live values.</p>
+  <p class="note">Every ratio on this card is measured, taken from BRAND.md 15 and <code>context/contrast-measured.md</code>, which recomputes WCAG 2.2 from the hex values. Nothing is quoted from the archive and nothing is estimated. No script runs on this page; the one interactive specimen is a native <code>details</code> reveal.</p>
+
+  <section class="section">
+    <h2>Five voice rules, with the pair each one decides</h2>
+    <p class="note">The five rules are the archive's own sentences, transcribed. The worked pair under each one is authored for this system — the formulas in 5.1 to 5.3 have no counterpart in the source.</p>
+    <ol class="rules">
+      <li class="card stack">
+        <p class="rule-index">Rule 1</p>
+        <h3>Sentence case on every label, header, nav item and button</h3>
+        <div class="pair pair--wants"><span class="marker marker--success" aria-hidden="true"></span><p class="pair-label">Wants</p><p>Create database</p></div>
+        <div class="pair pair--never"><span class="marker marker--error" aria-hidden="true"></span><p class="pair-label">Never</p><p>CREATE DATABASE — and not Create Database either. Title case breaks the same rule twice.</p></div>
+      </li>
+      <li class="card stack">
+        <p class="rule-index">Rule 2</p>
+        <h3>Button text starts with a verb</h3>
+        <div class="pair pair--wants"><span class="marker marker--success" aria-hidden="true"></span><p class="pair-label">Wants</p><p>View audit log</p></div>
+        <div class="pair pair--never"><span class="marker marker--error" aria-hidden="true"></span><p class="pair-label">Never</p><p>Audit log — a noun on a button names the object, not the action, so the reader cannot tell what pressing it does.</p></div>
+      </li>
+      <li class="card stack">
+        <p class="rule-index">Rule 3</p>
+        <h3>Statuses read Operational, Degraded, Failed, Pending</h3>
+        <div class="pair pair--wants"><span class="marker marker--success" aria-hidden="true"></span><p class="pair-label">Wants</p><p>Status: Degraded</p></div>
+        <div class="pair pair--never"><span class="marker marker--error" aria-hidden="true"></span><p class="pair-label">Never</p><p>Having a rough time — and never a word from the list that the last check does not support. A stale check makes the status unknown, not Operational.</p></div>
+      </li>
+      <li class="card stack">
+        <p class="rule-index">Rule 4</p>
+        <h3>State the number instead of praising it</h3>
+        <div class="pair pair--wants"><span class="marker marker--success" aria-hidden="true"></span><p class="pair-label">Wants</p><p>Deployed to 2 regions. Request latency 42ms.</p></div>
+        <div class="pair pair--never"><span class="marker marker--error" aria-hidden="true"></span><p class="pair-label">Never</p><p>Blazing-fast, seamless deploys. — no measurement in it, so nothing a reader can check.</p></div>
+      </li>
+      <li class="card stack">
+        <p class="rule-index">Rule 5</p>
+        <h3>Line length under 80 characters, high density, minimal chrome</h3>
+        <div class="pair pair--wants"><span class="marker marker--success" aria-hidden="true"></span><p class="pair-label">Wants</p><p>Rollback failed. The live commit is still 7f3ac2d.</p></div>
+        <div class="pair pair--never"><span class="marker marker--error" aria-hidden="true"></span><p class="pair-label">Never</p><p>We want to make sure that every deployment you create is completely seamless from start to finish, so please take a moment to review the details below. — one line well past 80 characters, carrying rule 4's offence with it.</p></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <h2>Sentence formulas as real fragments</h2>
+    <p class="note">Each fragment is built from the recipes in <code>components.css</code> — <code>.card</code>, <code>.btn</code>, <code>.field</code>, <code>.input-field</code>, <code>.field-error</code>, <code>.kbd</code> — so the sentence is read in the chrome it will ship in.</p>
+    <div class="grid-2">
+      <figure class="spec">
+        <div class="card stack">
+          <h3 class="fragment-title">No services deployed yet</h3>
+          <p class="fragment-text">Deploy your first service to see latency here.</p>
+          <div class="actions"><button class="btn btn-primary" type="button">Deploy new service</button></div>
+        </div>
+        <figcaption class="caption"><strong>Empty state</strong> — name the thing, then the one action that fills it. No joke, no mascot, no illustration.</figcaption>
+      </figure>
+
+      <figure class="spec">
+        <div class="card stack">
+          <div class="field">
+            <label class="field-label" for="region-field">Region <span class="field-note">Required</span></label>
+            <input class="input-field" id="region-field" name="region" type="text" value="us-east-9" aria-invalid="true" aria-describedby="region-field-error" />
+            <p class="field-hint">Pick the region closest to your users.</p>
+            <p class="field-error" id="region-field-error">Region must be one of the 8 available regions.</p>
+          </div>
+        </div>
+        <figcaption class="caption"><strong>Field error</strong> — what is wrong in the field's own terms, then the constraint. The <code>.field-error</code> recipe supplies the icon, so the invalid signal is border, icon and sentence at once; the border is never the only one.</figcaption>
+      </figure>
+
+      <figure class="spec">
+        <div class="card stack">
+          <div class="line line--center">
+            <span class="badge badge--failed"><span class="marker" aria-hidden="true"></span>Failed</span>
+            <code>1c9d4a7</code>
+          </div>
+          <p class="fragment-text">Rollback to <code>1c9d4a7</code> failed. The live commit is still <code>7f3ac2d</code>. Retry or open the audit log.</p>
+          <div class="actions">
+            <button class="btn btn-primary" type="button">Retry rollback</button>
+            <button class="btn btn-secondary" type="button">Open audit log</button>
+          </div>
+        </div>
+        <figcaption class="caption"><strong>Action failure</strong> — what failed, what the system did with the request, what the user can do next, in that order. Three clauses and two verbs.</figcaption>
+      </figure>
+
+      <figure class="spec">
+        <div class="stage">
+          <h3 class="fragment-title">Delete service <code>api-edge</code></h3>
+          <p class="fragment-text">All 3 deployments and their logs go immediately. Recovery window: 0 days.</p>
+          <div class="actions">
+            <button class="btn btn-secondary" type="button">Cancel</button>
+            <button class="btn btn-danger" type="button">Delete service</button>
+          </div>
+        </div>
+        <figcaption class="caption"><strong>Destructive confirm</strong> — verb plus object, the consequence, and the recovery window in numbers. Where a window exists, the number replaces the reassurance: "Recovery window: 7 days." The accent appears nowhere in this dialog: the confirm rides the error border and the error word on a transparent fill, and the action that would normally be primary is demoted to secondary. Error on the elevated fill measures 4.33:1, which is why the label stays 14px/600 and the consequence sentence stays foreground.</figcaption>
+      </figure>
+
+      <figure class="spec">
+        <div class="stage">
+          <div class="line">
+            <span class="marker marker--success" aria-hidden="true"></span>
+            <p class="fragment-text">Deployed commit <code>7f3ac2d</code> to 2 regions.</p>
+          </div>
+        </div>
+        <figcaption class="caption"><strong>Success</strong> — state the change, not a compliment. Past tense, one clause, the object and the count. No status word appears in the sentence, so the square is the notification's marker and not a badge.</figcaption>
+      </figure>
+
+      <figure class="spec">
+        <div class="stage">
+          <div class="line">
+            <span class="marker marker--outline marker--secondary" aria-hidden="true"></span>
+            <p class="fragment-text">Provisioning replica in <code>eu-central-1</code>. Usually 40 seconds.</p>
+          </div>
+        </div>
+        <figcaption class="caption"><strong>Long wait</strong> — what is happening and the measured expectation, or nothing at all. The outline square is Pending's marker: the state has not happened yet, so it never takes the accent.</figcaption>
+      </figure>
+
+      <figure class="spec">
+        <div class="card stack">
+          <p class="fragment-text">Last health check 12 minutes ago (14:22 UTC). Status unknown.</p>
+          <p class="field-hint">No marker and no hue: unknown is not in 5.2, and a stale check does not license a status word.</p>
+        </div>
+        <figcaption class="caption"><strong>Unknown state</strong> — say it is unknown, never guess a word. The relative time sits beside an absolute one, per 5.3, because a bare "12 minutes ago" cannot be checked.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Status map, rendered</h2>
+    <p class="note">A hue never carries status alone: colour, word and marker ship together, and the word is real markup, never a tooltip. The ratio beside each badge is the word on its own fill; markers and edges are held to the 3:1 non-text floor instead. Size decides the icon: a 12px badge keeps the measured 6px square and nothing else, because a 16px glyph would grow it off its <code>2px 8px</code> padding. The icon named under each badge is the pairing at 14px and above — a stat cell, a table row action, a toast, an empty state, a panel header. The accent is the one hue with a use limit: full-saturation green halates, so it never carries text below 14px, is never a large background wash and never gets a glow. A selected row keeps its word in #ededed on the tint and takes the accent as an edge; an Operational badge keeps its word in the accent at 12px on its own tint chip — the one exception the halation rule grants — and it has no claim to a button.</p>
+    <div class="grid-2">
+      <article class="card status-item">
+        <span class="badge badge--operational"><span class="marker" aria-hidden="true"></span>Operational</span>
+        <p class="status-meta"><code>success</code> · 6px solid square · icon <code>i-check</code> at 14px+ · badge, table cell, stat label</p>
+        <p class="status-ratio">7.53:1 AAA — Operational word on its own 10% tint over #121212. It is the same green as a CTA beside it (#00cc5c, 9.23:1 on the canvas), deliberately: what separates a state from an action is the 6px square, the icon and the word. A second green would have measured 1.24:1 from the first, which is not a distinction.</p>
+      </article>
+
+      <article class="card status-item">
+        <span class="badge badge--degraded"><span class="marker" aria-hidden="true"></span>Degraded</span>
+        <p class="status-meta"><code>warning</code> · 6px solid square · icon <code>i-alert</code> at 14px+ · badge, table cell, toast</p>
+        <p class="status-ratio">7.47:1 AAA — warning word on warning-subtle over #121212</p>
+      </article>
+
+      <article class="card status-item">
+        <span class="badge badge--failed"><span class="marker" aria-hidden="true"></span>Failed</span>
+        <p class="status-meta"><code>error</code> · 6px solid square · <code>i-close</code> · badge, table cell, field error, destructive action</p>
+        <p class="status-ratio">4.55:1 AA — error word on error-subtle over #121212. It clears 4.5:1 with nothing to spare, and on an elevated fill it does not: 4.33:1.</p>
+      </article>
+
+      <article class="card status-item">
+        <span class="badge badge--neutral"><span class="marker marker--outline marker--secondary" aria-hidden="true"></span>Pending</span>
+        <p class="status-meta"><code>text-secondary</code> · 6px outline square · <code>i-clock</code> · badge, table cell — never the accent, it has not happened yet</p>
+        <p class="status-ratio">6.87:1 AA — text-secondary word on surface-subtle #181818</p>
+      </article>
+
+      <article class="card status-item">
+        <span class="badge badge--neutral"><span class="marker marker--outline marker--muted" aria-hidden="true"></span>Paused</span>
+        <p class="status-meta">word in <code>text-secondary</code>, marker in <code>muted</code> · 6px outline square · <code>i-minus</code> · badge, table cell</p>
+        <p class="status-ratio">6.87:1 AA — text-secondary word on surface-subtle #181818. The muted marker measures 3.74:1 on the same fill: legal as a square, above the 3:1 non-text floor, and illegal as the 12px word.</p>
+      </article>
+
+      <article class="card status-item">
+        <div class="rowline">
+          <p class="fragment-text">api-edge · eu-central-1</p>
+          <p class="row-sub">Unselected</p>
+        </div>
+        <div class="rowline is-selected">
+          <p class="fragment-text">api-edge · eu-central-1</p>
+          <p class="row-sub">Selected — a 2px leading edge, not a dot</p>
+        </div>
+        <p class="status-meta"><code>accent</code> as a 2px edge · <code>i-check</code> in the row action · table row, menu item, segmented tab, chart series</p>
+        <p class="status-ratio">13.79:1 AAA — word on the selected tint over #121212 · the accent edge measures 8.73:1 against surface, above the 3:1 floor · the tint alone is 1.16:1, so it is decoration and the edge carries the state</p>
+        <p class="status-meta">Selection and Operational share the accent, and they mean different things. That is why selection is always an edge and health is always a square plus a word.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Formatting rules, rendered</h2>
+    <div class="table-container">
+      <table class="table">
+        <caption class="table-caption">The middle column is the rule; the last column is the value it produces. Every figure here is set with the <code>tnum</code> feature the body already inherits, so a number that changes value in place does not move the column.</caption>
+        <thead>
+          <tr><th scope="col">Data</th><th scope="col">Rule</th><th scope="col">Rendered</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Commit hash</th>
+            <td>7 characters, mono, never uppercased, monospace figures.</td>
+            <td><code>7f3ac2d</code></td>
+          </tr>
+          <tr>
+            <th scope="row">Full hash</th>
+            <td>Only in a detail panel, broken at 8 characters with <code>word-break</code>.</td>
+            <td><span class="hash-full">7f3ac2d49b1e0f8a6c7d8e9f0a1b2c3d4e5f6071</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Latency</th>
+            <td>Integer plus unit under 100ms, one significant decimal above it, <code>tabular-nums</code> either way.</td>
+            <td><code>42ms</code><span class="sub">above 100ms: <code>318.4ms</code></span></td>
+          </tr>
+          <tr>
+            <th scope="row">Uptime and quota</th>
+            <td>Percentage to one decimal, with the threshold stated beside it.</td>
+            <td><code>99.9% of 99.95%</code><span class="sub">quota: <code>62.4% of 80%</code></span></td>
+          </tr>
+          <tr>
+            <th scope="row">Count</th>
+            <td>Plain integer with <code>tabular-nums</code>; the thousands separator follows the locale.</td>
+            <td><code>1,204</code><span class="sub">column holds <code>1,204</code> and <code>9,031</code> — equal digit width, no jitter on refresh</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Timestamp</th>
+            <td>24-hour, no seconds in a table, seconds in an audit row, and the zone once per view.</td>
+            <td><code>14:22 UTC</code><span class="sub">audit row: <code>14:22:07 UTC</code></span></td>
+          </tr>
+          <tr>
+            <th scope="row">Relative time</th>
+            <td>Allowed only beside an absolute time, never alone.</td>
+            <td><code>3 min ago (14:22 UTC)</code></td>
+          </tr>
+          <tr>
+            <th scope="row">Size</th>
+            <td>One unit per column, chosen for the largest value in that column.</td>
+            <td><code>1.4 GB</code><span class="sub">same column: <code>0.3 GB</code> · <code>12.8 GB</code></span></td>
+          </tr>
+          <tr>
+            <th scope="row">Region</th>
+            <td>The region id in mono, not a marketing name.</td>
+            <td><code>eu-central-1</code><span class="sub">never "Europe Central"</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Plural</th>
+            <td>One and many both spelled out; no <code>service(s)</code>.</td>
+            <td><code>1 service</code> · <code>3 services</code></td>
+          </tr>
+          <tr>
+            <th scope="row">Truncation</th>
+            <td>Ellipsis plus the full value reachable in one action, never a silent cut. A live bubble is <code>overlays.css</code> <code>.tooltip</code>; a <code>details</code> element gives the same single action here without script.</td>
+            <td>
+              <div class="stacked">
+                <code>api-edge-…</code>
+                <details class="reveal">
+                  <summary class="btn btn-ghost">Show full name</summary>
+                  <code>api-edge-primary</code>
+                </details>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Do not write this</h2>
+    <ul class="card donts">
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>Deployed!<span class="fix">No exclamation marks. A finished action is not a celebration: "Deployed commit 7f3ac2d to 2 regions."</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>We're done!<span class="fix">No first-person-plural cheer. Say what changed and leave the voice out of it.</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>Sorry, something went wrong on our end.<span class="fix">Never apologise for the machine's behaviour. Report it and the next step: "Rollback failed. The live commit is still 7f3ac2d."</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>Degraded<span class="fix">A status word with no marker. Pair it with the 6px square, and with the icon wherever a slot exists.</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>Blazing-fast, seamless, cutting-edge<span class="fix">A superlative with no measurement. Give the number instead: "Request latency 42ms in eu-central-1."</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>CREATE DATABASE<span class="fix">An ALL CAPS label. Sentence case, everywhere, including the button.</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>Audit log<span class="fix">A noun-only button. Start with the verb: "View audit log".</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>3 service(s) selected<span class="fix">No parenthetical plural. "1 service selected" · "3 services selected".</span></p>
+      </li>
+      <li>
+        <span class="marker marker--error" aria-hidden="true"></span>
+        <p>Invalid input<span class="fix">Not an error message. Name the field's own terms and the constraint: "Region must be one of the 8 available regions."</span></p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Provenance</h2>
+    <p class="note">The five voice rules at the top of this card are measured — they are the archive's own sentences, transcribed from <code>historical design input (not bundled)</code>. The sentence formulas in 5.1, the status map in 5.2 and the formatting rules in 5.3 are <strong>authored</strong> from those rules and from the vocabulary the source does supply; no source page states them, so cite them as this system's spec and not as a source fact. Two of the four contrast claims the archive quotes are wrong, and both are corrected by measurement rather than restatement: black on the accent as the archive names it — the volt <code>#10e569</code> — measures <strong>12.43:1</strong>, not the claimed 14.2:1, and <strong>9.79:1</strong> on the live accent, and muted on the canvas measures <strong>4.18:1</strong>, not the claimed 4.6:1 — which is why muted appears on this card only as the Paused marker and never as a 12px word. Every other ratio printed above is read from <code>context/contrast-measured.md</code>, the output of <code>context/contrast.mjs</code>.</p>
+  </section>
+</main>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "format": "mob-signal-tokens-measured/1",
   "name": "M.O.B Signal",
-  "packageVersion": "1.7.0",
+  "packageVersion": "2.0.0",
   "sourceVersion": "4.0.0",
   "generated": "2026-11-08",
   "purpose": "Canonical design tokens. Run npm run build to update CSS, compatibility tokens and local previews.",

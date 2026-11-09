@@ -11,6 +11,20 @@ and currently reads 4.0.0. The archive digest is the tie between them: `design-s
 **Provenance tags.** `measured` = copied out of the archive. `authored` = written to close a gap the archive left open, reversible. `corrected` = the archive states something measurement disproved. Every ratio in
 this file is the value recorded in `context/contrast-measured.md`.
 
+## 2.0.0 - 2026-11-09
+
+### Breaking Changes
+- Refactored repository into modern 4-tier architecture: source CSS in `src/styles/`, distribution exports in `dist/`.
+- Root compiled CSS files removed; `package.json` `exports` now resolves `"."` to `./dist/colors_and_type.css`, `"./tailwind.css"` to `./dist/tailwind.css`, and `"./components.css"` to `./dist/components.css`.
+
+### Added
+- Official **shadcn/ui Custom Registry** integration: `components.json`, `src/lib/utils.ts` (`cn`), and accessible React components in `registry/default/ui/` (`button.tsx`, `input.tsx`, `table.tsx`, `badge.tsx`, `dialog.tsx`, `tabs.tsx`) with strict 0px radius and green signal accent.
+- Unified Showcase Portal at `showcase/index.html` consolidating all 17 foundation/component previews and the Service Console application.
+- Comprehensive `SKILL.md` rewrite following `skill-creator` principles with ready-to-use component copy-paste recipes and Tailwind v4 token mapping.
+
+### Removed
+- Removed heavy `playwright` devDependency and deprecated legacy browser mock tests.
+
 ## 1.7.0 - 2026-11-09
 
 ### Added
