@@ -17,7 +17,7 @@ Dark-only UI system. 0px border radius, 4px spacing grid. Green (`#00cc5c`) is r
 @import "mob-signal/dist/colors_and_type.css";
 ```
 
-### shadcn/ui Config (`components.json`)
+### shadcn/ui Configuration (`components.json`)
 ```json
 {
   "$schema": "https://ui.shadcn.com/schema.json",
@@ -43,7 +43,10 @@ Dark-only UI system. 0px border radius, 4px spacing grid. Green (`#00cc5c`) is r
 <link rel="stylesheet" href="node_modules/mob-signal/fonts/fonts.css" />
 <link rel="stylesheet" href="node_modules/mob-signal/dist/colors_and_type.css" />
 <link rel="stylesheet" href="node_modules/mob-signal/dist/components.css" />
+<link rel="stylesheet" href="node_modules/mob-signal/dist/overlays.css" />
 ```
+
+---
 
 ## 2. Tokens & Utilities
 
@@ -57,9 +60,9 @@ Dark-only UI system. 0px border radius, 4px spacing grid. Green (`#00cc5c`) is r
 | **Background** | `#0a0a0a` | `bg-background` | Root canvas |
 | **Surface** | `#121212` | `bg-surface` | Cards, panels |
 | **Surface Subtle**| `#181818` | `bg-surface-subtle` | Table headers, secondary buttons |
-| **Surface Elevated**| `#202020`| `bg-surface-elevated` | Modals, popovers |
+| **Surface Elevated**| `#202020`| `bg-surface-elevated` | Modals, popovers, sheets |
 | **Border** | `#262626` | `border-border` | Default structural border |
-| **Border Strong** | `#383838` | `border-border-strong` | Card bounds |
+| **Border Strong** | `#383838` | `border-border-strong` | Card bounds, focus bounds |
 | **Foreground** | `#ededed` | `text-foreground` | Body text, headings |
 | **Text Secondary**| `#a1a1a1`| `text-text-secondary` | Labels, table headers |
 | **Muted** | `#737373` | `text-muted` | Disabled elements, non-text hints |
@@ -74,134 +77,136 @@ Dark-only UI system. 0px border radius, 4px spacing grid. Green (`#00cc5c`) is r
 - JetBrains Mono (`font-mono`): console, code, status badges.
 
 ### Geometry
-- `rounded-none` (0px border-radius) on all elements.
+- `rounded-none` (0px border-radius) on all elements. Rounded classes are strictly forbidden.
 
-## 3. Component Patterns (React + TypeScript)
+---
 
-### Button
+## 3. UI Primitive Catalog (28 Components)
+
+| Component | Path | Category | Description |
+| :--- | :--- | :--- | :--- |
+| `Button` | `@/components/ui/button` | Actions | Triggers: primary, secondary, outline, ghost, danger, link |
+| `Input` | `@/components/ui/input` | Forms | Text input field with green focus ring |
+| `Textarea` | `@/components/ui/textarea` | Forms | Multiline input with optional error state |
+| `Label` | `@/components/ui/label` | Forms | Accessible label in uppercase monospace |
+| `Checkbox` | `@/components/ui/checkbox` | Forms | Square 16x16 checkbox with green fill |
+| `RadioGroup` | `@/components/ui/radio-group` | Forms | Square radio buttons with square indicator |
+| `Select` | `@/components/ui/select` | Forms | Dropdown select with options and scroll buttons |
+| `Switch` | `@/components/ui/switch` | Forms | Square sliding toggle with green active track |
+| `Slider` | `@/components/ui/slider` | Forms | Horizontal range track with square thumb |
+| `Card` | `@/components/ui/card` | Display | Panel container with Header, Title, Content, Footer |
+| `Table` | `@/components/ui/table` | Display | Dense operational data table with row selection |
+| `Badge` | `@/components/ui/badge` | Display | Status badges: operational, warning, error, info, neutral |
+| `Avatar` | `@/components/ui/avatar` | Display | Square profile container with fallback initials |
+| `Skeleton` | `@/components/ui/skeleton` | Display | Loading placeholder pulse on dark surface |
+| `Progress` | `@/components/ui/progress` | Display | Linear progress bar with green indicator |
+| `Separator` | `@/components/ui/separator` | Display | Horizontal or vertical 1px divider rule |
+| `AspectRatio` | `@/components/ui/aspect-ratio` | Display | Fixed aspect ratio container |
+| `Tabs` | `@/components/ui/tabs` | Navigation | Accessible tablist with 2px active underline |
+| `Accordion` | `@/components/ui/accordion` | Navigation | Collapsible disclosure sections |
+| `Collapsible` | `@/components/ui/collapsible` | Navigation | Simple expandable container |
+| `Breadcrumb` | `@/components/ui/breadcrumb` | Navigation | Navigation hierarchy path |
+| `Alert` | `@/components/ui/alert` | Feedback | Status callout banner with colored border-left |
+| `Tooltip` | `@/components/ui/tooltip` | Feedback | Instant contextual tooltip on elevated surface |
+| `Dialog` | `@/components/ui/dialog` | Overlays | Modal dialog with scrim backdrop and focus trap |
+| `AlertDialog` | `@/components/ui/alert-dialog` | Overlays | Confirmation dialog for destructive actions |
+| `Sheet` | `@/components/ui/sheet` | Overlays | Slide-out side drawer from 4 screen edges |
+| `Popover` | `@/components/ui/popover` | Overlays | Anchored floating container |
+| `DropdownMenu` | `@/components/ui/dropdown-menu` | Overlays | Contextual action menu with submenus |
+
+---
+
+## 4. Component Patterns (React + TypeScript)
+
+### Form Group (Label + Input + Hint)
 ```tsx
-import { Button } from "@/components/ui/button";
-
-<Button variant="primary">Deploy Service</Button>
-<Button variant="secondary">Cancel</Button>
-<Button variant="danger">Terminate Node</Button>
-<Button variant="outline">Export Logs</Button>
-<Button variant="ghost">Dismiss</Button>
-```
-
-### Form Input
-```tsx
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 <div className="flex flex-col gap-1.5">
-  <label htmlFor="service-name" className="text-xs font-mono uppercase tracking-wider text-text-secondary">
-    Service Identifier
-  </label>
-  <Input
-    id="service-name"
-    placeholder="auth-gateway-sg"
-    aria-describedby="service-hint"
-  />
-  <p id="service-hint" className="text-xs text-muted">
-    Stored locally in browser.
-  </p>
+  <Label htmlFor="cluster-id">Cluster Identifier</Label>
+  <Input id="cluster-id" placeholder="us-east-prod-01" />
+  <span className="text-xs text-muted font-sans">Must match service naming convention.</span>
 </div>
 ```
 
-### Status Badge
+### Controls (Checkbox + Switch)
 ```tsx
+import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+
+<div className="flex items-center gap-2">
+  <Checkbox id="auto-drain" />
+  <Label htmlFor="auto-drain">Enable automated node draining</Label>
+</div>
+
+<div className="flex items-center gap-2">
+  <Switch id="debug-logs" />
+  <Label htmlFor="debug-logs">Stream verbose debug logs</Label>
+</div>
+```
+
+### Metrics Card
+```tsx
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-<Badge variant="operational">HEALTHY</Badge>
-<Badge variant="warning">DEGRADED</Badge>
-<Badge variant="error">FAILED</Badge>
-<Badge variant="info">SYNCHRONIZING</Badge>
-<Badge variant="neutral">OFFLINE</Badge>
+<Card>
+  <CardHeader className="flex flex-row items-center justify-between pb-2">
+    <CardTitle className="text-sm font-medium font-mono text-text-secondary">P99 LATENCY</CardTitle>
+    <Badge variant="operational">HEALTHY</Badge>
+  </CardHeader>
+  <CardContent>
+    <div className="text-2xl font-bold font-mono tracking-tight text-foreground">14.2ms</div>
+    <p className="text-xs text-text-secondary mt-1">-1.8ms from previous interval</p>
+  </CardContent>
+</Card>
 ```
 
-### Data Table
+### Modal Drawer (Sheet)
 ```tsx
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "@/components/ui/table";
-
-<Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead>Cluster</TableHead>
-      <TableHead>Region</TableHead>
-      <TableHead className="text-right">Latency</TableHead>
-      <TableHead>Status</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    <TableRow selected>
-      <TableCell className="font-mono font-medium">prod-us-east-1</TableCell>
-      <TableCell className="text-text-secondary">Virginia</TableCell>
-      <TableCell className="text-right font-mono">14ms</TableCell>
-      <TableCell><Badge variant="operational">ACTIVE</Badge></TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell className="font-mono font-medium">prod-eu-west-1</TableCell>
-      <TableCell className="text-text-secondary">Frankfurt</TableCell>
-      <TableCell className="text-right font-mono">82ms</TableCell>
-      <TableCell><Badge variant="warning">DRAINING</Badge></TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-```
-
-### Dialog
-```tsx
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
-<Dialog>
-  <DialogTrigger asChild>
-    <Button variant="primary">New Deployment</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Deploy Service</DialogTitle>
-      <DialogDescription>Configure environment and image parameters.</DialogDescription>
-    </DialogHeader>
+<Sheet>
+  <SheetTrigger asChild>
+    <Button variant="secondary">Open Diagnostics</Button>
+  </SheetTrigger>
+  <SheetContent side="right">
+    <SheetHeader>
+      <SheetTitle>Node Telemetry</SheetTitle>
+      <SheetDescription>Real-time socket streams and error traces.</SheetDescription>
+    </SheetHeader>
     <div className="py-4">
-      {/* Form content */}
+      {/* Telemetry output */}
     </div>
-    <DialogFooter>
-      <Button variant="secondary">Cancel</Button>
-      <Button variant="primary">Confirm</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+  </SheetContent>
+</Sheet>
 ```
 
-## 4. Accessibility Rules
+---
 
-- Body text: `#ededed` on `#0a0a0a` (16.9:1).
-- Secondary text: `#a1a1a1` on `#202020` (6.3:1).
-- Text on primary: `#000000` on `#00cc5c` (9.8:1).
-- `#737373` (muted) is 4.18:1 against `#0a0a0a`. Do not use for functional text smaller than 24px regular or 18.667px bold.
-- Focus ring: `focus-visible:ring-2 focus-visible:ring-primary forced-colors:focus-visible:outline forced-colors:focus-visible:outline-2 forced-colors:focus-visible:outline-[Highlight]`.
-- Target size: minimum 24px for fine pointers, 44px for touch.
+## 5. Accessibility Invariants
 
-## 5. Constraints
+- Normal text: minimum 4.5:1 against background (`#ededed` on `#0a0a0a` is 16.9:1).
+- Accent text: `#000000` is the only permitted label color on `#00cc5c` fill (measures 9.8:1). White on accent is forbidden.
+- Focus ring: `focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none`.
+- Target size: minimum 24px for fine pointers, 44px for coarse pointers.
+- Non-color indicator: Operational states must pair hue with explicit text and geometric markers.
 
-- Geometry: 0px border-radius (`rounded-none`). No rounded corners.
+---
+
+## 6. Constraints
+
+- Geometry: 0px border-radius (`rounded-none`). No rounded corners allowed anywhere.
 - Transitions: scoped properties only (`transition-colors`). Never `transition: all`.
-- Theme: dark-only.
-- Accent: `#00cc5c` is reserved for action, selection, focus, and healthy status. Do not use for generic borders or decoration.
-- Status: pair color with visible text (`HEALTHY`, `FAILED`) and dot markers.
+- Theme: dark-only (`color-scheme: dark`).
+- Accent: `#00cc5c` is strictly reserved for action, selection, focus, and operational health.
