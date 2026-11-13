@@ -45,8 +45,12 @@ Install M.O.B Signal as a design-system skill:
 npx skills add dexter826/mob-design-system
 ```
 
-This makes the design tokens, component guidance, and usage rules available to supported AI
-coding tools when building interfaces.
+Or target the specific skill explicitly:
+```bash
+npx skills add dexter826/mob-design-system --skill mob-signal
+```
+
+This installs the isolated skill definition and self-contained reference payload (tokens and 28 zero-radius UI components) for supported AI coding tools without downloading repository build or test artifacts.
 
 ## Usage
 
@@ -133,6 +137,7 @@ new interface patterns.
 | Path | Purpose |
 | :--- | :--- |
 | [`BRAND.md`](BRAND.md) | Visual language, token roles, component behavior, accessibility, and asset usage |
+| [`skills/mob-signal/`](skills/mob-signal/SKILL.md) | Agent skill definition and standalone reference payload |
 | [`tokens.measured.json`](tokens.measured.json) | Token source values and measurements |
 | [`dist/colors_and_type.css`](dist/colors_and_type.css) | Foundation design-token custom properties |
 | [`dist/components.css`](dist/components.css) | Shared component styles |

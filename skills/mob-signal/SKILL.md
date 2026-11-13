@@ -1,6 +1,6 @@
 ---
 name: mob-signal
-description: Build dark-mode web interfaces, engineering consoles, dashboards, and data-dense UI using M.O.B Signal design tokens, Tailwind CSS v4 @theme, and square shadcn/ui components. Use whenever styling UI components, implementing forms, dense data tables, modal dialogs, status badges, or applying M.O.B Signal styling.
+description: Build dark-mode web interfaces, engineering consoles, dashboards, and data-dense UI using M.O.B Signal design tokens, Tailwind CSS v4 @theme, and square shadcn/ui components. Make sure to use this skill whenever the user mentions M.O.B, MOB Signal, engineering console, dark dashboard, telemetry, terminal-like web UI, dense data tables, square buttons or inputs, zero-radius UI, or green operational accent styling, even if they do not explicitly name the design system.
 user-invocable: true
 ---
 
@@ -10,7 +10,15 @@ Dark-only UI system. 0px border radius, 4px spacing grid. Green (`#00cc5c`) is r
 
 ## 1. Quickstart & Imports
 
-### Tailwind CSS v4
+### Standalone / Direct Usage (No npm package installed)
+When `mob-signal` is not installed as an npm dependency in the target project, use the bundled reference files in `references/`:
+- **Tailwind CSS v4 theme**: copy tokens and resets from `references/tailwind.css` into your CSS entrypoint (e.g., `globals.css`).
+- **Design Tokens**: copy CSS custom properties from `references/colors_and_type.css`.
+- **Utility Helper (`cn`)**: copy `references/utils.ts` to `@/lib/utils.ts` (requires `npm i clsx tailwind-merge`).
+- **UI Components**: copy needed components directly from `references/components/<name>.tsx` into `@/components/ui/<name>.tsx`.
+- **Dependencies**: consult `references/registry.json` for required Radix UI packages for each component.
+
+### Package Imports (When `mob-signal` is installed via npm)
 ```css
 @import "tailwindcss";
 @import "mob-signal/dist/tailwind.css";

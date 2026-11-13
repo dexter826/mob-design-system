@@ -59,6 +59,9 @@ for(const name of ['mob-lockup-dark','mob-lockup-light','mob-lockup-stacked','mo
 write('logos/exports/manifest.json',JSON.stringify(exports,null,2)+'\n');
 write('guide.md',fs.readFileSync('BRAND.md'));
 
+// Synchronize agent skill references
+execFileSync(process.execPath,['scripts/sync-skill.mjs'],{stdio:'inherit'});
+
 // 7. Cleanup obsolete artifacts (never delete src!)
 const obsolete=['source-archive','system/scripts/apply-design-tokens.mjs','%SystemDrive%'];
 for(const relative of obsolete){
