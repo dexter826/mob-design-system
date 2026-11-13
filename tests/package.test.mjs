@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import path from 'node:path';
 import {tokens,resolveToken,cssValues} from '../scripts/token-model.mjs';
 import {checkPackage} from '../scripts/token-check.mjs';
 import {contrast} from '../scripts/contrast.mjs';
@@ -67,5 +68,38 @@ test('shadcn/ui registry and components.json are valid', () => {
     for (const f of item.files) {
       assert.ok(fs.existsSync(f.path), `Missing registry file: ${f.path}`);
     }
+  }
+});
+
+test('skill layout is isolated, complete, and not exposed at root', () => {
+  assert.ok(!fs.existsSync('SKILL.md'), 'Root SKILL.md must not exist to prevent full repo copies by skills CLI');
+  assert.ok(fs.existsSync('skills/mob-signal/SKILL.md'), 'skills/mob-signal/SKILL.md must exist');
+  assert.ok(fs.existsSync('skills.sh.json'), 'skills.sh.json must exist');
+  assert.ok(fs.existsSync('skills/mob-signal/references/tailwind.css'));
+  assert.ok(fs.existsSync('skills/mob-signal/references/colors_and_type.css'));
+  assert.ok(fs.existsSync('skills/mob-signal/references/registry.json'));
+  assert.ok(fs.existsSync('skills/mob-signal/references/utils.ts'));
+  assert.ok(fs.existsSync('skills/mob-signal/references/README.md'));
+  assert.ok(fs.existsSync('skills/mob-signal/evals/evals.json'));
+
+  const evals = JSON.parse(fs.readFileSync('skills/mob-signal/evals/evals.json', 'utf8'));
+  assert.equal(evals.skill_name, 'mob-signal');
+  assert.ok(evals.evals.length >= 3);
+
+  assert.ok(
+    fs.readFileSync('skills/mob-signal/references/tailwind.css').equals(fs.readFileSync('dist/tailwind.css')),
+    'references/tailwind.css drifted from dist/tailwind.css'
+  );
+  assert.ok(
+    fs.readFileSync('skills/mob-signal/references/utils.ts').equals(fs.readFileSync('src/lib/utils.ts')),
+    'references/utils.ts drifted from src/lib/utils.ts'
+  );
+
+  const registry = JSON.parse(fs.readFileSync('skills/mob-signal/references/registry.json', 'utf8'));
+  assert.ok(registry.items.length >= 26);
+  assert.equal(fs.readdirSync('skills/mob-signal/references/components').length, registry.items.length);
+  for (const item of registry.items) {
+    const filename = path.basename(item.files[0].path);
+    assert.ok(fs.existsSync(`skills/mob-signal/references/components/${filename}`), `Missing bundled component: ${filename}`);
   }
 });

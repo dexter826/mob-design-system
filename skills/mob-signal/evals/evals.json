@@ -1,0 +1,42 @@
+{
+  "skill_name": "mob-signal",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a React dashboard card showing cluster telemetry: P99 latency metric, healthy operational status badge, and an action button to trigger node diagnostics using M.O.B Signal design system.",
+      "expected_output": "React card component with dark surface background, strictly 0px border radius, Space Grotesk metric, monospace badge, and green #00cc5c primary accent.",
+      "files": [],
+      "expectations": [
+        "Uses rounded-none or strictly 0px border radius across all elements (no rounded corners)",
+        "Applies #00cc5c green primary accent for healthy status or primary trigger",
+        "Uses dark canvas surface hierarchy (bg-surface or bg-background)",
+        "Applies font-mono for metric numbers and status badges",
+        "Text on primary accent uses black ink (#000000 / text-primary-foreground)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a dense operational data table displaying database queries: Query ID, Duration, Status, and an action dropdown menu, with row selection support using M.O.B Signal style.",
+      "expected_output": "Operational data table using square M.O.B Signal primitives, subtle green selected row fill, and dark muted headers.",
+      "files": [],
+      "expectations": [
+        "Uses Table component with zero radius (rounded-none)",
+        "Uses bg-primary-subtle (rgba(0, 204, 92, 0.1)) for selected row background",
+        "Headers use secondary text color (#a1a1a1 / text-text-secondary)",
+        "Dropdown menu and trigger maintain square geometry without rounded classes"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Implement a diagnostic configuration modal dialog containing a cluster ID text input, an automated draining checkbox, a verbose logging switch toggle, and submit/cancel buttons.",
+      "expected_output": "Modal dialog with elevated dark surface (#202020), square form controls, green focus rings, and black-on-green primary submit button.",
+      "files": [],
+      "expectations": [
+        "Dialog container uses elevated dark surface (bg-surface-elevated / #202020)",
+        "Primary action button uses text-primary-foreground (#000000) on bg-primary (#00cc5c)",
+        "Text input, checkbox, and switch toggle are strictly square with zero radius",
+        "Focus states use green focus ring (focus-visible:ring-primary)"
+      ]
+    }
+  ]
+}

@@ -35,3 +35,8 @@ desktop.ini
 !.vscode/extensions.json
 .idea/
 
+# Skills CLI local test artifacts
+skills-lock.json
+.claude/
+.agents/
+

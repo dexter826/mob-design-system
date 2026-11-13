@@ -21,11 +21,13 @@
     "sync:engine": "node scripts/build.mjs",
     "check:tokens": "node scripts/token-check.mjs",
     "check:registry": "node scripts/validate-registry.mjs",
+    "check:skill": "node scripts/validate-skill.mjs",
+    "sync:skill": "node scripts/sync-skill.mjs",
     "typecheck": "tsc --noEmit",
     "lint:design": "designmd lint DESIGN.md",
     "test:tokens": "node scripts/token-check.mjs",
     "test:build": "node --test tests/package.test.mjs",
-    "test": "npm run test:tokens && npm run check:registry && npm run typecheck && npm run test:build && npm run lint:design"
+    "test": "npm run test:tokens && npm run check:registry && npm run check:skill && npm run typecheck && npm run test:build && npm run lint:design"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.3.1",
