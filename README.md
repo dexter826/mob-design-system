@@ -4,10 +4,10 @@
 
 # M.O.B Signal
 
-[![Node.js](https://img.shields.io/badge/node-%3E%3D24.0.0-brightgreen.svg)](https://nodejs.org)
-[![React](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://react.dev)
-[![Version](https://img.shields.io/badge/version-2.1.0-black.svg)](package.json)
-[![License](https://img.shields.io/badge/license-Proprietary-red.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D24.0.0-00cc5c?style=flat-square&labelColor=121212)](https://nodejs.org)
+[![React](https://img.shields.io/badge/react-18.3.1-00cc5c?style=flat-square&labelColor=121212)](https://react.dev)
+[![Version](https://img.shields.io/badge/version-2.1.0-00cc5c?style=flat-square&labelColor=121212)](package.json)
+[![License](https://img.shields.io/badge/license-Proprietary-ef4444?style=flat-square&labelColor=121212)](LICENSE)
 
 <p>A dark, square design system for engineering consoles and data-dense interfaces.</p>
 
