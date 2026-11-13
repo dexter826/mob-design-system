@@ -11,6 +11,18 @@ and currently reads 4.0.0. The archive digest is the tie between them: `design-s
 **Provenance tags.** `measured` = copied out of the archive. `authored` = written to close a gap the archive left open, reversible. `corrected` = the archive states something measurement disproved. Every ratio in
 this file is the value recorded in `scripts/contrast-measured.md`.
 
+## 2.1.0 - 2026-11-13
+
+### Added
+- Restructure agent skill into standalone directory `skills/mob-signal/` complying with Vercel Skills CLI (`skills.sh`) and `skill-creator` standards.
+- Add `skills.sh.json` discovery manifest (`paths: ["./skills"]`) to isolate skill payload to ~85 KB on `npx skills add` and prevent cloning entire repository.
+- Provide self-contained reference payload in `skills/mob-signal/references/` containing Tailwind v4 theme, CSS variables, `utils.ts` (`cn` helper), and all 28 zero-radius UI primitives.
+- Add benchmark evals suite in `skills/mob-signal/evals/evals.json` with 3 test cases and assertions.
+- Add directory guide in `skills/mob-signal/references/README.md`.
+- Add automated synchronization script `scripts/sync-skill.mjs` and validation script `scripts/validate-skill.mjs`.
+- Add `npm run sync:skill` and `npm run check:skill` scripts, integrated into build and test pipelines.
+- Add regression test suite asserting isolated skill layout and reference buffer parity.
+
 ## 2.0.0 - 2026-11-09
 
 ### Breaking Changes
