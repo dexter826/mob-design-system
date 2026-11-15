@@ -17,7 +17,7 @@ M.O.B Signal is a framework-neutral web design system for products that need cle
 operational states, and dense information display. It provides design tokens, shared component
 styles, overlays, local fonts, brand assets, and optional browser utilities.
 
-https://github.com/user-attachments/assets/071ce64a-79e4-4441-a0ba-348bf7f6fd13
+https://github.com/user-attachments/assets/0d58e1c2-3ac9-42d0-b267-1bba84c32467
 
 ## Design Showcase
 
